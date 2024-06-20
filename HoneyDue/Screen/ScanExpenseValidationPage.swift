@@ -14,9 +14,14 @@ struct ScanExpenseValidationPage: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text("Scan Bill Results")
-                    .font(.title)
-                    .fontWeight(.bold)
+                HStack {
+                    Spacer()
+                    Text("Your Receipt")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                    Spacer()
+                }
+                .padding(.bottom, 5)
                 Text("This is the scanned result. Make sure to check that the items were scanned correctly.")
                     .fontWeight(.medium)
                     .opacity(0.3)
@@ -25,13 +30,14 @@ struct ScanExpenseValidationPage: View {
                     VStack(spacing: 16) {
                         ForEach(expenseResult.items.indices, id: \.self) { index in
                             ExpenseItemView(item: $expenseResult.items[index], isEditing: $isEditing)
+                            Rectangle()
+                                .frame(height: 1)
+                                .opacity(0.1)
                         }
                     }
                     .padding(.vertical)
                 }
-                .background(.white)
-                .cornerRadius(16)
-                .padding(.top)
+                .padding(.top, 2)
                 
 //                HStack {
 //                    Text("You scanned bill includes tax amount. We adjusted your item price to match after tax.")
@@ -57,7 +63,7 @@ struct ScanExpenseValidationPage: View {
                 }
                 .background(.white)
                 .cornerRadius(16)
-                .padding(.top)
+                .padding(.top, 2)
                 
                 HStack {
                     Spacer()
@@ -65,6 +71,7 @@ struct ScanExpenseValidationPage: View {
                         isEditing.toggle()
                     }) {
                         Text(isEditing ? "Finish Edit Bill" : "Edit Bill")
+                            .foregroundStyle(Color("ColorPrimary"))
                     }
                 }
                 
@@ -76,7 +83,7 @@ struct ScanExpenseValidationPage: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color("ColorPrimary"))
                         .cornerRadius(16)
                 }
                 .background(Color(UIColor.systemGray6))
@@ -87,33 +94,35 @@ struct ScanExpenseValidationPage: View {
             }
             .padding()
         }
-        .background(Color.black.opacity(0.05).edgesIgnoringSafeArea(.all))
+//        .background(Color.black.opacity(0.05).edgesIgnoringSafeArea(.all))
     }
 }
 struct ExpenseItemView: View {
     @Binding var item: ScanExpenseItem
     @Binding var isEditing: Bool
+    var showIcon: Bool = false
     
     var body: some View {
         HStack {
-            ZStack {
-                Rectangle()
-                    .foregroundStyle(.blue)
-                    .opacity(0.2)
-                    .frame(width: 48, height: 48)
-                    .cornerRadius(16)
-                Text(item.emoji)
-                    .scaleEffect(1.5)
+            if showIcon {
+                ZStack {
+                    Rectangle()
+                        .foregroundStyle(.blue)
+                        .opacity(0.2)
+                        .frame(width: 48, height: 48)
+                        .cornerRadius(16)
+                    Text(item.emoji)
+                        .scaleEffect(1.5)
+                }
+                .padding(.trailing, 5)
             }
-            .padding(.leading)
-            .padding(.trailing, 5)
             
             VStack(alignment: .leading) {
                 if isEditing {
                     TextField("Name", text: $item.name)
                         .fontWeight(.bold)
                         .opacity(0.9)
-                        .textFieldStyle(BlueUnderlineTextFieldStyle())
+                        .textFieldStyle(CustomTextFieldStyle())
                 } else {
                     Text(item.name)
                         .fontWeight(.bold)
@@ -124,7 +133,7 @@ struct ExpenseItemView: View {
                     if isEditing {
                         TextField("Price", value: $item.pricePerQtyIDR, format: .number)
                             .opacity(0.6)
-                            .textFieldStyle(BlueUnderlineTextFieldStyle())
+                            .textFieldStyle(CustomTextFieldStyle())
                     } else {
                         Text(item.getPricePerQtyIDR(includeTax: false).toIDRString())
                             .opacity(0.6)
@@ -133,7 +142,7 @@ struct ExpenseItemView: View {
                     if isEditing {
                         TextField("Quantity", value: $item.qty, format: .number)
                             .opacity(0.6)
-                            .textFieldStyle(BlueUnderlineTextFieldStyle())
+                            .textFieldStyle(CustomTextFieldStyle())
                             .frame(width: 50)
                     } else {
                         Text("x\(Int(item.qty))")
@@ -144,16 +153,18 @@ struct ExpenseItemView: View {
                         .fontWeight(.bold)
                 }
             }
-            .padding(.trailing)
         }
     }
 }
 
-struct BlueUnderlineTextFieldStyle: TextFieldStyle {
+struct CustomTextFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
-            .padding(.bottom, 2)
-            .overlay(Rectangle().frame(height: 1).foregroundColor(.blue), alignment: .bottom)
+            .padding(.horizontal, 4)
+            .overlay(
+                RoundedRectangle(cornerRadius: 3)
+                    .stroke(Color(.black).opacity(0.2), lineWidth: 1)
+            )
     }
 }
 
@@ -170,15 +181,15 @@ struct ReceiptView: View {
                 if isEditing {
                     TextField("Price", value: $priceText, format: .number)
                         .keyboardType(.decimalPad)
+                        .fontWeight(.bold)
                         .multilineTextAlignment(.trailing)
-                        .textFieldStyle(BlueUnderlineTextFieldStyle())
+                        .textFieldStyle(CustomTextFieldStyle())
                         .frame(width: 80)
                 } else {
                     Text(priceText, format: .number)
                         .fontWeight(.bold)
                 }
             }
-            .padding(.horizontal)
             .padding(.vertical, 4)
         }
     }

@@ -7,7 +7,14 @@ enum FakeAPIKey: String {
     case expenseScanner = "app-czUwKirJvIP44SsjT0wxRTfk"
 }
 
-class LLMService: ObservableObject {
+enum AIStatus: String {
+    case idle = ""
+    case compressingImage = "Compressing Image"
+    case processingImage = "Processing Image"
+    case gettingResponse = "Getting Response from AI"
+}
+
+class AIService: ObservableObject {
     var llmIdentifier: String
     var useStreaming: Bool
     var isConversation: Bool
@@ -18,13 +25,15 @@ class LLMService: ObservableObject {
         self.isConversation = isConversation
     }
     
-    @Published var response: String = ""
+    @Published var aiResponse: String = ""
+    @Published var aiStatus: String = ""
     
     private var cancellables = Set<AnyCancellable>()
     private var conversationId = ""
     
     func sendMessage(query: String, uiImage: UIImage?, completion: @escaping (Result<String, Error>) -> Void) {
-        response = ""
+        aiResponse = ""
+        aiStatus = AIStatus.idle.rawValue
         
         if let image = uiImage {
             uploadImage(image: image) { result in
@@ -68,6 +77,8 @@ class LLMService: ObservableObject {
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
         
+        aiStatus = AIStatus.gettingResponse.rawValue
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(error))
@@ -82,7 +93,7 @@ class LLMService: ObservableObject {
             do {
                 let blockingResponse = try JSONDecoder().decode(LLMBlockingResponse.self, from: data)
                 self.handleBlockingResponse(blockingResponse)
-                completion(.success(self.response))
+                completion(.success(self.aiResponse))
             } catch {
                 completion(.failure(error))
             }
@@ -121,6 +132,8 @@ class LLMService: ObservableObject {
         
         request.httpBody = body
         
+        aiStatus = AIStatus.processingImage.rawValue
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(error))
@@ -146,6 +159,8 @@ class LLMService: ObservableObject {
     }
     
     private func resizeImage(image: UIImage, maxSize: Int) -> UIImage? {
+        aiStatus = AIStatus.compressingImage.rawValue
+        
         var resizedImage = image
         let compression: CGFloat = 0.8
         guard var imageData = resizedImage.jpegData(compressionQuality: compression) else { return nil }
@@ -167,7 +182,7 @@ class LLMService: ObservableObject {
     
     private func handleBlockingResponse(_ blockingResponse: LLMBlockingResponse) {
         if blockingResponse.event == "message" {
-            response += blockingResponse.answer ?? ""
+            aiResponse += blockingResponse.answer ?? ""
         }
         if conversationId.isEmpty && isConversation {
             conversationId = blockingResponse.conversation_id ?? ""

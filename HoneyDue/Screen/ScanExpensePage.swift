@@ -18,7 +18,7 @@ struct ScanExpensePage: View {
     @State private var expenses: [ScanExpenseItem] = []
     @State private var navigateToBillResults = false
     
-    @ObservedObject var viewModel = LLMService(
+    @ObservedObject var viewModel = AIService(
         identifier: FakeAPIKey.expenseScanner.rawValue,
         useStreaming: false,
         isConversation: false
@@ -32,7 +32,7 @@ struct ScanExpensePage: View {
             VStack {
                 ZStack {
                     Circle()
-                        .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                        .foregroundColor(Color("ColorPrimary"))
                         .opacity(0.2)
                         .frame(width: 64, height: 64)
                     Text("🤑")
@@ -52,7 +52,7 @@ struct ScanExpensePage: View {
                         }) {
                             Text("Take Photo")
                                 .padding()
-                                .background(Color.blue)
+                                .background(Color("ColorPrimary"))
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
@@ -62,7 +62,7 @@ struct ScanExpensePage: View {
                         }) {
                             Text("Select Photo")
                                 .padding()
-                                .background(Color.blue)
+                                .background(Color("ColorPrimary"))
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
