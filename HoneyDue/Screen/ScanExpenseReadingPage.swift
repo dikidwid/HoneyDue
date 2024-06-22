@@ -19,10 +19,10 @@ struct ScanExpenseReadingPage: View {
                 .resizable()
                 .frame(width: 50, height: 50)
                 .foregroundColor(.gray)
-                .padding(.bottom, 10)
-                .offset(y: isBouncing ? -5 : 5)
+                .padding(.bottom, 4)
+                .offset(x: isBouncing ? -35 : 35)
                 .animation(
-                    Animation.easeInOut(duration: 0.5)
+                    Animation.easeInOut(duration: 1.5)
                         .repeatForever(autoreverses: true)
                 )
                 .onAppear {

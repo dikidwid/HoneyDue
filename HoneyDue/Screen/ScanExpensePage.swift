@@ -32,7 +32,7 @@ struct ScanExpensePage: View {
             VStack {
                 ZStack {
                     Circle()
-                        .foregroundColor(Color("ColorPrimary"))
+                        .foregroundColor(.colorPrimary)
                         .opacity(0.2)
                         .frame(width: 64, height: 64)
                     Text("🤑")
@@ -52,7 +52,7 @@ struct ScanExpensePage: View {
                         }) {
                             Text("Take Photo")
                                 .padding()
-                                .background(Color("ColorPrimary"))
+                                .background(.colorPrimary)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
@@ -62,7 +62,7 @@ struct ScanExpensePage: View {
                         }) {
                             Text("Select Photo")
                                 .padding()
-                                .background(Color("ColorPrimary"))
+                                .background(.colorPrimary)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }

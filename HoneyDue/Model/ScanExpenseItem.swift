@@ -16,6 +16,7 @@ struct ScanExpenseItem : Hashable, Codable, Identifiable {
     var notes: String
     var taxRate: Double
     var isSelected: Bool = true
+    var categoryString: String = ""
     
     func getPricePerQtyIDR(includeTax: Bool) -> Double {
         let price = includeTax ? pricePerQtyIDR * (1 + taxRate) : pricePerQtyIDR
@@ -25,6 +26,10 @@ struct ScanExpenseItem : Hashable, Codable, Identifiable {
     func getPriceTimesQtyIDR(includeTax: Bool) -> Double {
         let price = pricePerQtyIDR * qty
         return includeTax ? price * (1 + taxRate) : price
+    }
+    
+    func toExpenseItem() -> Void {
+        // TODO
     }
     
     static func fromJsonArray(jsonString: String) -> [ScanExpenseItem] {

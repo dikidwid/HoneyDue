@@ -8,7 +8,6 @@
 import Foundation
 
 struct ScanExpenseResult : Hashable, Codable, Identifiable {
-    
     let id: String
     var items: [ScanExpenseItem]
     var taxChargeIDR: Double

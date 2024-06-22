@@ -10,10 +10,10 @@ import Foundation
 extension ScanExpenseResult {
     static func getExample() -> ScanExpenseResult {
         let items = [
-            ScanExpenseItem(id: "1", name: "Iced Sweet Lychee Tea", pricePerQtyIDR: 25000, qty: 2, emoji: "🍹", notes: "", taxRate: 0.1),
-            ScanExpenseItem(id: "2", name: "Choco Motive", pricePerQtyIDR: 10000, qty: 2, emoji: "🍫", notes: "", taxRate: 0.1),
-            ScanExpenseItem(id: "3", name: "Red", pricePerQtyIDR: 15000, qty: 2, emoji: "🍷", notes: "", taxRate: 0.1),
-            ScanExpenseItem(id: "4", name: "Black", pricePerQtyIDR: 12000, qty: 1, emoji: "☕️", notes: "", taxRate: 0.1)
+            ScanExpenseItem(id: "1", name: "Iced Sweet Lychee Tea", pricePerQtyIDR: 25000, qty: 2, emoji: "🍹", notes: "", taxRate: 0.1, categoryString: "food_and_beverage"),
+            ScanExpenseItem(id: "2", name: "Choco Motive", pricePerQtyIDR: 10000, qty: 2, emoji: "🍫", notes: "", taxRate: 0.1, categoryString: "food_and_beverage"),
+            ScanExpenseItem(id: "3", name: "Red", pricePerQtyIDR: 15000, qty: 2, emoji: "🍷", notes: "", taxRate: 0.1, categoryString: "food_and_beverage"),
+            ScanExpenseItem(id: "4", name: "Black", pricePerQtyIDR: 12000, qty: 1, emoji: "☕️", notes: "", taxRate: 0.1, categoryString: "food_and_beverage")
         ]
         return ScanExpenseResult(
             id: "example1",

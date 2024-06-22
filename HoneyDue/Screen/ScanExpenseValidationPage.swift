@@ -71,7 +71,7 @@ struct ScanExpenseValidationPage: View {
                         isEditing.toggle()
                     }) {
                         Text(isEditing ? "Finish Edit Bill" : "Edit Bill")
-                            .foregroundStyle(Color("ColorPrimary"))
+                            .foregroundStyle(.colorPrimary)
                     }
                 }
                 
@@ -83,7 +83,7 @@ struct ScanExpenseValidationPage: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color("ColorPrimary"))
+                        .background(.colorPrimary)
                         .cornerRadius(16)
                 }
                 .background(Color(UIColor.systemGray6))
@@ -97,6 +97,8 @@ struct ScanExpenseValidationPage: View {
 //        .background(Color.black.opacity(0.05).edgesIgnoringSafeArea(.all))
     }
 }
+
+
 struct ExpenseItemView: View {
     @Binding var item: ScanExpenseItem
     @Binding var isEditing: Bool
@@ -119,10 +121,13 @@ struct ExpenseItemView: View {
             
             VStack(alignment: .leading) {
                 if isEditing {
-                    TextField("Name", text: $item.name)
-                        .fontWeight(.bold)
-                        .opacity(0.9)
-                        .textFieldStyle(CustomTextFieldStyle())
+                    HStack {
+                        TextField("Name", text: $item.name)
+                            .fontWeight(.bold)
+                            .opacity(0.9)
+                            .textFieldStyle(CustomTextFieldStyle())
+                        Spacer()
+                    }
                 } else {
                     Text(item.name)
                         .fontWeight(.bold)
