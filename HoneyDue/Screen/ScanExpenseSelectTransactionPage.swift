@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ScanExpenseSelectTransactionPage: View {
-    @ObservedObject var viewModel = ScanExpenseViewModel()
+    @ObservedObject var viewModel = ScanExpenseViewModel(
+        expenseResult: ScanExpenseResult.getExample()
+    )
     
     var body: some View {
         ScrollView {
@@ -29,6 +31,7 @@ struct ScanExpenseSelectTransactionPage: View {
                     VStack(spacing: 16) {
                         ForEach(viewModel.expenseResult.items.indices, id: \.self) { index in
                             ExpenseTransactionItemView(
+                                viewModel: viewModel,
                                 item: $viewModel.expenseResult.items[index],
                                 isChecked: $viewModel.expenseResult.items[index].isSelected
                             )
@@ -67,12 +70,17 @@ struct ScanExpenseSelectTransactionPage: View {
             }
             .padding()
         }
+        .onAppear {
+            viewModel.onIndividualCheckboxChange()
+        }
     }
 }
 
 struct ExpenseTransactionItemView: View {
+    @ObservedObject var viewModel: ScanExpenseViewModel
     @Binding var item: ScanExpenseItem
     @Binding var isChecked: Bool
+    
     let showIcon: Bool = true
     let isEditing: Bool = true
     
@@ -80,16 +88,16 @@ struct ExpenseTransactionItemView: View {
     @State private var showBottomSheet: Bool = false
     
     var body: some View {
-        let itemIcon = TransactionCategoryIcon.fromCategoryString(categoryString: item.categoryString)
+        let itemCategory = item.getCategory()
         
         HStack {
             if showIcon {
                 ZStack {
                     Circle()
-                        .foregroundStyle(itemIcon.bgColor)
+                        .foregroundStyle(itemCategory.getColor())
                         .opacity(1)
                         .frame(width: 48, height: 48)
-                    Image(systemName: itemIcon.sfSymbol)
+                    Image(systemName: itemCategory.icon)
                         .foregroundStyle(.white)
                         .scaleEffect(1.2)
                 }
@@ -101,12 +109,12 @@ struct ExpenseTransactionItemView: View {
                 // Add a bottom sheet that is presented when the icon is tapped
                 .sheet(isPresented: $showBottomSheet) {
                     VStack {
-                        Text("Hello")
-                        Spacer()
+                        CategoryGrid(item: $item, showBottomSheet: $showBottomSheet)
                     }
-                    .presentationDetents([.height(300), .medium, .large])
+                    .presentationDetents([.height(350), .medium, .large])
                     .presentationDragIndicator(.automatic)
                     .padding()
+                    .padding(.top)
                 }
             }
             
@@ -118,7 +126,7 @@ struct ExpenseTransactionItemView: View {
                 
                 
                 HStack {
-                    Text(item.getPricePerQtyIDR(includeTax: false).toIDRString())
+                    Text(item.getPricePerQtyIDR(includeTax: true).toIDRString())
                         .opacity(0.6)
                 
                     Spacer()
@@ -135,12 +143,10 @@ struct ExpenseTransactionItemView: View {
                                 .opacity(0.0)
                                 .textFieldStyle(CustomTextFieldStyle())
                                 .frame(width: 32)
-                            
                         }
-
                     }
                     Spacer()
-                    Text(item.getPriceTimesQtyIDR(includeTax: false).toIDRString())
+                    Text(item.getPriceTimesQtyIDR(includeTax: true).toIDRString())
                         .fontWeight(.bold)
                     Spacer()
                     Checkbox(isChecked: $isChecked)
@@ -163,6 +169,51 @@ struct Checkbox: View {
             }
         }
         .buttonStyle(PlainButtonStyle())
+    }
+}
+
+struct CategoryGrid: View {
+    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 4)
+    
+    @Binding var item: ScanExpenseItem
+    @Binding var showBottomSheet: Bool
+
+    var body: some View {
+        LazyVGrid(columns: columns, spacing: 15) {
+            ForEach(TransactionCategory.categories, id: \.name) { category in
+                CategoryItemView(category: category, item: $item, showBottomSheet: $showBottomSheet)
+            }
+        }
+        .padding()
+    }
+}
+
+struct CategoryItemView: View {
+    var category: TransactionCategory
+    @Binding var item: ScanExpenseItem
+    @Binding var showBottomSheet: Bool
+
+    var body: some View {
+        VStack {
+            ZStack {
+                Circle()
+                    .foregroundStyle(category.getColor())
+                    .opacity(1)
+                    .frame(width: 60, height: 60)
+                Image(systemName: category.icon)
+                    .foregroundStyle(.white)
+                    .scaleEffect(1.4)
+            }
+            .onTapGesture {
+                item.categoryString = category.name
+                print("Category changed to: \(item.categoryString)")
+                showBottomSheet = false
+            }
+            Text(category.name)
+                .font(.caption)
+                .foregroundColor(.primary)
+        }
+        .padding(.vertical, 5)
     }
 }
 

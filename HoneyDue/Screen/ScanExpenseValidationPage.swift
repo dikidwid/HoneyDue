@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct ScanExpenseValidationPage: View {
-    @State var expenseResult: ScanExpenseResult = ScanExpenseResult.getExample()
+    @State var expenseResult: ScanExpenseResult
     @State private var isEditing: Bool = false
+    @State private var shouldNextPage: Bool = false
     
     var body: some View {
         ScrollView {
+
+            NavigationLink(destination: ScanExpenseSelectTransactionPage(viewModel: ScanExpenseViewModel(expenseResult: expenseResult)), isActive: $shouldNextPage) {
+                EmptyView()
+            }
             VStack(alignment: .leading) {
                 HStack {
                     Spacer()
@@ -76,7 +81,8 @@ struct ScanExpenseValidationPage: View {
                 }
                 
                 Button(action: {
-                    // Action here
+                    expenseResult.adjustTax()
+                    shouldNextPage = true
                 }) {
                     Text("Confirm Bill")
                         .fontWeight(.medium)
@@ -201,5 +207,7 @@ struct ReceiptView: View {
 }
 
 #Preview {
-    ScanExpenseValidationPage()
+    NavigationStack {
+        ScanExpenseValidationPage(expenseResult: ScanExpenseResult.getExample())
+    }
 }

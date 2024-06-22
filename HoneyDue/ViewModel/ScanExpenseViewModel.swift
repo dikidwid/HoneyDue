@@ -8,8 +8,8 @@
 import Foundation
 
 class ScanExpenseViewModel: ObservableObject {
-    @Published var expenseResult: ScanExpenseResult = ScanExpenseResult.getExample()
-    @Published var isSelectAll: Bool = false {
+    @Published var expenseResult: ScanExpenseResult
+    @Published var isSelectAll: Bool = true {
         didSet {
             if isSelectAll {
                 for index in expenseResult.items.indices {
@@ -22,4 +22,13 @@ class ScanExpenseViewModel: ObservableObject {
             }
         }
     }
+    
+    func onIndividualCheckboxChange() {
+        isSelectAll = expenseResult.items.allSatisfy { $0.isSelected }
+    }
+    
+    init(expenseResult: ScanExpenseResult) {
+        self.expenseResult = expenseResult
+    }
+    
 }

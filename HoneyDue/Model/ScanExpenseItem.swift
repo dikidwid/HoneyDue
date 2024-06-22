@@ -8,15 +8,28 @@
 import Foundation
 
 struct ScanExpenseItem : Hashable, Codable, Identifiable {
-    var id: String
+    var id: String = UUID().uuidString
     var name: String
     var pricePerQtyIDR: Double
     var qty: Double
     var emoji: String
     var notes: String
-    var taxRate: Double
+    var taxRate: Double = 0.0
     var isSelected: Bool = true
     var categoryString: String = ""
+    
+    init(name: String, pricePerQtyIDR: Double, qty: Double, emoji: String, notes: String, categoryString: String) {
+        self.name = name
+        self.pricePerQtyIDR = pricePerQtyIDR
+        self.qty = qty
+        self.emoji = emoji
+        self.notes = notes
+        self.categoryString = categoryString
+    }
+    
+    mutating func setTaxRate(taxRate: Double) {
+        self.taxRate = taxRate
+    }
     
     func getPricePerQtyIDR(includeTax: Bool) -> Double {
         let price = includeTax ? pricePerQtyIDR * (1 + taxRate) : pricePerQtyIDR
@@ -29,7 +42,11 @@ struct ScanExpenseItem : Hashable, Codable, Identifiable {
     }
     
     func toExpenseItem() -> Void {
-        // TODO
+        // TODO: Convert to ExpenseItem includes taxRate.
+    }
+    
+    func getCategory() -> TransactionCategory {
+        return TransactionCategory.categories.first(where: { item in item.name == categoryString }) ?? TransactionCategory.categories[0]
     }
     
     static func fromJsonArray(jsonString: String) -> [ScanExpenseItem] {

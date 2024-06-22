@@ -10,6 +10,7 @@ import SwiftUI
 struct ScanExpenseReadingPage: View {
     @State private var progress: Double = 0.5
     @State private var isBouncing = false
+    var onCancelBtn: () -> Void = {}
     
     var body: some View {
         VStack {
@@ -65,9 +66,7 @@ struct ScanExpenseReadingPage: View {
                 .foregroundColor(.gray)
                 .padding(.bottom, 20)
             
-            Button(action: {
-                // Add your cancel action here
-            }) {
+            Button(action: onCancelBtn) {
                 Text("Cancel")
                     .font(.headline)
                     .frame(width: 100, height: 40)
