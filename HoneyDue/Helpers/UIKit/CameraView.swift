@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-
-import SwiftUI
 import AVFoundation
 
 struct CameraView: UIViewControllerRepresentable {
@@ -43,6 +41,7 @@ struct CameraView: UIViewControllerRepresentable {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
         picker.sourceType = .camera
+        picker.view.backgroundColor = .black // Set background color to black
         return picker
     }
     

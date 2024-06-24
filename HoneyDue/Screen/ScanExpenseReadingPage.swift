@@ -70,9 +70,14 @@ struct ScanExpenseReadingPage: View {
                 Text("Cancel")
                     .font(.headline)
                     .frame(width: 100, height: 40)
-                    .background(Color(UIColor.systemGray5))
+                    .background(Color.white)
                     .foregroundColor(.gray)
                     .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+                    .opacity(0.5)
             }
             
             Spacer()

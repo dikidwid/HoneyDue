@@ -8,27 +8,50 @@
 import SwiftUI
 
 struct ScanExpenseValidationPage: View {
+    @EnvironmentObject var nav: ScanExpenseNavigationViewModel
+
     @State var expenseResult: ScanExpenseResult
     @State private var isEditing: Bool = false
     @State private var shouldNextPage: Bool = false
     
+    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ScrollView {
-
-            NavigationLink(destination: ScanExpenseSelectTransactionPage(viewModel: ScanExpenseViewModel(expenseResult: expenseResult)), isActive: $shouldNextPage) {
+            NavigationLink(
+                destination: ScanExpenseSelectTransactionPage(
+                    viewModel: ScanExpenseSelectTransactionViewModel(expenseResult: expenseResult),
+                    rootDismiss: dismiss
+                ),
+                isActive: $shouldNextPage
+            ) {
                 EmptyView()
             }
             VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    Text("Your Receipt")
-                        .font(.title)
-                        .fontWeight(.semibold)
-                    Spacer()
+                ZStack {
+                    HStack {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "arrow.left")
+                                .foregroundColor(.primary)
+                        }
+                        Spacer()
+                    }
+                    HStack {
+                        Spacer()
+                        Text("Your Receipt")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                        Spacer()
+                    }
                 }
                 .padding(.bottom, 5)
+                
                 Text("This is the scanned result. Make sure to check that the items were scanned correctly.")
-                    .fontWeight(.medium)
+                    .font(.system(size: 12))
+                    .fontWeight(.bold)
                     .opacity(0.3)
                 
                 Group {
@@ -43,17 +66,6 @@ struct ScanExpenseValidationPage: View {
                     .padding(.vertical)
                 }
                 .padding(.top, 2)
-                
-//                HStack {
-//                    Text("You scanned bill includes tax amount. We adjusted your item price to match after tax.")
-//                        .font(.callout)
-//                        .foregroundStyle(.green)
-//                        .fontWeight(.semibold)
-//                        .padding()
-//                    Spacer()
-//                }
-//                .background(.green.opacity(0.2))
-//                .cornerRadius(16)
                 
                 Group {
                     VStack {
@@ -70,22 +82,29 @@ struct ScanExpenseValidationPage: View {
                 .cornerRadius(16)
                 .padding(.top, 2)
                 
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        isEditing.toggle()
-                    }) {
-                        Text(isEditing ? "Finish Edit Bill" : "Edit Bill")
-                            .foregroundStyle(.colorPrimary)
+                if !isEditing {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            isEditing.toggle()
+                        }) {
+                            Text("Edit Bill")
+                                .foregroundStyle(.colorPrimary)
+                        }
                     }
                 }
                 
                 Button(action: {
-                    expenseResult.adjustTax()
-                    shouldNextPage = true
+                    if isEditing {
+                        isEditing.toggle() // Turn off editing mode
+                    } else {
+                        expenseResult.adjustTax()
+                        shouldNextPage = true
+                    }
                 }) {
-                    Text("Confirm Bill")
-                        .fontWeight(.medium)
+                    Text(isEditing ? "Save" : "Confirm Bill")
+                        .font(.system(size: 20))
+                        .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -100,10 +119,17 @@ struct ScanExpenseValidationPage: View {
             }
             .padding()
         }
-//        .background(Color.black.opacity(0.05).edgesIgnoringSafeArea(.all))
+        .onAppear {
+            nav.presentationMode = presentationMode.wrappedValue
+            nav.dismiss = dismiss
+        }
+        .onChange(of: nav.shouldGoBack) { shouldGoBack in
+            if shouldGoBack {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
 }
-
 
 struct ExpenseItemView: View {
     @Binding var item: ScanExpenseItem
@@ -128,10 +154,14 @@ struct ExpenseItemView: View {
             VStack(alignment: .leading) {
                 if isEditing {
                     HStack {
-                        TextField("Name", text: $item.name)
-                            .fontWeight(.bold)
-                            .opacity(0.9)
-                            .textFieldStyle(CustomTextFieldStyle())
+                        GeometryReader { geometry in
+                            TextField("Name", text: $item.name)
+                                .fontWeight(.bold)
+                                .opacity(0.9)
+                                .textFieldStyle(CustomTextFieldStyle())
+                                .frame(width: min(max(30, textWidth(for: item.name, in: geometry)), geometry.size.width))
+                        }
+                        Text("i").opacity(0)
                         Spacer()
                     }
                 } else {
@@ -143,28 +173,48 @@ struct ExpenseItemView: View {
                 HStack {
                     if isEditing {
                         TextField("Price", value: $item.pricePerQtyIDR, format: .number)
-                            .opacity(0.6)
+                            .keyboardType(.decimalPad)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black.opacity(0.22))
                             .textFieldStyle(CustomTextFieldStyle())
+                            .frame(width: 128)
                     } else {
-                        Text(item.getPricePerQtyIDR(includeTax: false).toIDRString())
-                            .opacity(0.6)
+                        ZStack {
+                            Text(item.getPricePerQtyIDR(includeTax: false).toIDRString())
+                                .fontWeight(.bold)
+                                .foregroundStyle(.black.opacity(0.22))
+                                .padding(.vertical, 0.2)
+                        }
                     }
                     Spacer()
                     if isEditing {
                         TextField("Quantity", value: $item.qty, format: .number)
-                            .opacity(0.6)
+                            .keyboardType(.decimalPad)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black.opacity(0.22))
                             .textFieldStyle(CustomTextFieldStyle())
-                            .frame(width: 50)
+                            .frame(width: 56)
                     } else {
-                        Text("x\(Int(item.qty))")
-                            .opacity(0.6)
+                        let quantityText = item.qty.truncatingRemainder(dividingBy: 1) == 0 ? "\(Int(item.qty))" : String(format: "%.2f", item.qty)
+                        Text("x\(quantityText)")
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black.opacity(0.22))
                     }
                     Spacer()
                     Text(item.getPriceTimesQtyIDR(includeTax: false).toIDRString())
                         .fontWeight(.bold)
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 110, alignment: .trailing)
                 }
             }
         }
+    }
+    
+    private func textWidth(for text: String, in geometry: GeometryProxy) -> CGFloat {
+        let font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        let attributes = [NSAttributedString.Key.font: font]
+        let size = (text as NSString).size(withAttributes: attributes)
+        return size.width + 10 // Adding some padding
     }
 }
 
@@ -188,6 +238,7 @@ struct ReceiptView: View {
         VStack {
             HStack {
                 Text(nameText)
+                    .fontWeight(.semibold)
                 Spacer()
                 if isEditing {
                     TextField("Price", value: $priceText, format: .number)
@@ -195,14 +246,21 @@ struct ReceiptView: View {
                         .fontWeight(.bold)
                         .multilineTextAlignment(.trailing)
                         .textFieldStyle(CustomTextFieldStyle())
-                        .frame(width: 80)
+                        .frame(width: 90)
                 } else {
-                    Text(priceText, format: .number)
-                        .fontWeight(.bold)
+                    if nameText.contains("Total") {
+                        Text(priceText.toIDRString())
+                            .fontWeight(.black)
+                    } else {
+                        Text(priceText.toIDRString())
+                            .fontWeight(.bold)
+                    }
+                    
                 }
             }
             .padding(.vertical, 4)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -210,4 +268,6 @@ struct ReceiptView: View {
     NavigationStack {
         ScanExpenseValidationPage(expenseResult: ScanExpenseResult.getExample())
     }
+    .environmentObject(ScanExpenseNavigationViewModel())
+
 }

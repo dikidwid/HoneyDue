@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ScanExpenseViewModel: ObservableObject {
+class ScanExpenseSelectTransactionViewModel: ObservableObject {
     @Published var expenseResult: ScanExpenseResult
     @Published var isSelectAll: Bool = true {
         didSet {

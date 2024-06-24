@@ -9,6 +9,9 @@ import SwiftUI
 import Combine
 
 struct ScanExpensePage: View {
+    @Environment(\.presentationMode) var presentationMode
+    @StateObject private var scanExpenseNav = ScanExpenseNavigationViewModel()
+
     @State private var isShowingCamera = false
     @State private var isShowingPhotoLibrary = false
     @State private var image: Image? = nil
@@ -35,7 +38,7 @@ struct ScanExpensePage: View {
     )
     
     var body: some View {
-        Group {
+        NavigationStack(path: $scanExpenseNav.path) {
             NavigationLink(destination: ScanExpenseValidationPage(expenseResult: expenseResult), isActive: $shouldNavigateNext) {
                 EmptyView()
             }
@@ -80,21 +83,21 @@ struct ScanExpensePage: View {
                     
                 }
                 .padding()
-                .actionSheet(isPresented: $isShowingActionSheet) {
-                    ActionSheet(title: Text("Add expenses magically using AI by scanning your bills."), buttons: [
-                        .default(Text("Photo Library")) {
-                            isShowingPhotoLibrary = true
-                        },
-                        .default(Text("Camera")) {
-                            isShowingCamera = true
-                        },
-                        .cancel()
-                    ])
+                .sheet(isPresented: $isShowingActionSheet) {
+                    CustomBottomSheet(isShowing: $isShowingActionSheet, isShowingCamera: $isShowingCamera, isShowingPhotoLibrary: $isShowingPhotoLibrary)
+                        .presentationDetents([.height(220), .medium, .large])
+                        .presentationDragIndicator(.hidden)
+                        .padding()
+                        .padding(.top)
+                        .cornerRadius(24)
+                        .presentationCornerRadius(24)
                 }
-                .sheet(isPresented: $isShowingCamera) {
+                .fullScreenCover(isPresented: $isShowingCamera) {
                     CameraView(isShowingCamera: $isShowingCamera, image: $image, uiImage: $uiImage)
+                        .background(Color.black)
+                        .edgesIgnoringSafeArea(.all)
                 }
-                .sheet(isPresented: $isShowingPhotoLibrary) {
+                .fullScreenCover(isPresented: $isShowingPhotoLibrary) {
                     ImagePicker(image: $image, uiImage: $uiImage)
                 }
                 .onChange(of: uiImage) { _ in
@@ -105,9 +108,10 @@ struct ScanExpensePage: View {
     }
     
     func askVisionAI() {
-        //        expenseResult = ScanExpenseResult.getFromAIResponse()
-        //        cancelVisionAI()
-        //        return
+        self.expenseResult = ScanExpenseResult.getFromAIResponse()
+        cancelVisionAI()
+        return
+        
         guard let uiImage = uiImage else { return }
         isLoading = true
         
@@ -131,6 +135,7 @@ struct ScanExpensePage: View {
                 }
             }
         }
+
     }
     
     func cancelVisionAI() {
@@ -143,8 +148,70 @@ struct ScanExpensePage: View {
     }
 }
 
+struct CustomBottomSheet: View {
+    @Binding var isShowing: Bool
+    @Binding var isShowingCamera: Bool
+    @Binding var isShowingPhotoLibrary: Bool
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            
+            VStack(spacing: 20) {
+                Button(action: {
+                    isShowingPhotoLibrary = true
+                    isShowing = false
+                }) {
+                    HStack {
+                        Image(systemName: "photo.on.rectangle")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.colorCategoryShopping)
+                            .clipShape(Circle())
+                        Text("Photo Library")
+                            .foregroundColor(.black)
+                        Spacer()
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(24) // Changed corner radius to 24
+                    .shadow(color: Color.black.opacity(0.15), radius: 4)
+                }
+                
+                Button(action: {
+                    isShowingCamera = true
+                    isShowing = false
+                }) {
+                    HStack {
+                        Image(systemName: "camera.fill")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.colorCategoryPet)
+                            .clipShape(Circle())
+                        Text("Camera")
+                            .foregroundColor(.black)
+                        Spacer()
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(24) // Changed corner radius to 24
+                    .shadow(color: Color.black.opacity(0.15), radius: 4)
+                }
+            }
+            .padding(.vertical)
+            .padding(.horizontal, 6)
+            .background(Color(UIColor.systemBackground))
+            .cornerRadius(24) // Changed corner radius to 24
+            
+            Spacer()
+        }
+        .edgesIgnoringSafeArea(.bottom)
+    }
+}
+
 #Preview {
     NavigationStack {
         ScanExpensePage()
     }
+    .environmentObject(ScanExpenseNavigationViewModel())
 }

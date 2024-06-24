@@ -8,23 +8,45 @@
 import SwiftUI
 
 struct ScanExpenseSelectTransactionPage: View {
-    @ObservedObject var viewModel = ScanExpenseViewModel(
+    @EnvironmentObject var nav: ScanExpenseNavigationViewModel
+
+    @ObservedObject var viewModel = ScanExpenseSelectTransactionViewModel(
         expenseResult: ScanExpenseResult.getExample()
     )
+    @State private var shouldNextPage: Bool = false
+    
+    @Environment(\.presentationMode) var presentationMode
+    var rootDismiss: DismissAction? = nil
     
     var body: some View {
         ScrollView {
+            NavigationLink(destination: ScanExpenseSuccessPage(rootDismiss: rootDismiss), isActive: $shouldNextPage) {
+                EmptyView()
+            }
             VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    Text("Your Receipt")
-                        .font(.title)
-                        .fontWeight(.semibold)
-                    Spacer()
+                ZStack {
+                    HStack {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "arrow.left")
+                                .foregroundColor(.primary)
+                        }
+                        Spacer()
+                    }
+                    HStack {
+                        Spacer()
+                        Text("Your Receipt")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                        Spacer()
+                    }
                 }
                 .padding(.bottom, 5)
+
                 Text("Choose the item and the amount you want to add to your expense. You can also edit the category here.")
-                    .fontWeight(.medium)
+                    .font(.system(size: 12))
+                    .fontWeight(.bold)
                     .opacity(0.3)
                 
                 Group {
@@ -52,10 +74,11 @@ struct ScanExpenseSelectTransactionPage: View {
                 }
                 
                 Button(action: {
-                    // Action here
+                    shouldNextPage = true
                 }) {
                     Text("Save")
-                        .fontWeight(.medium)
+                        .fontWeight(.bold)
+                        .font(.system(size: 20))
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -73,11 +96,17 @@ struct ScanExpenseSelectTransactionPage: View {
         .onAppear {
             viewModel.onIndividualCheckboxChange()
         }
+//        .onChange(of: nav.shouldGoBack) { shouldGoBack in
+//            if shouldGoBack {
+//                presentationMode.wrappedValue.dismiss()
+//            }
+//        }
+        .navigationBarBackButtonHidden(true) // Add this line to hide the default back button
     }
 }
 
 struct ExpenseTransactionItemView: View {
-    @ObservedObject var viewModel: ScanExpenseViewModel
+    @ObservedObject var viewModel: ScanExpenseSelectTransactionViewModel
     @Binding var item: ScanExpenseItem
     @Binding var isChecked: Bool
     
@@ -96,7 +125,7 @@ struct ExpenseTransactionItemView: View {
                     Circle()
                         .foregroundStyle(itemCategory.getColor())
                         .opacity(1)
-                        .frame(width: 48, height: 48)
+                        .frame(width: 52, height: 52)
                     Image(systemName: itemCategory.icon)
                         .foregroundStyle(.white)
                         .scaleEffect(1.2)
@@ -112,7 +141,8 @@ struct ExpenseTransactionItemView: View {
                         CategoryGrid(item: $item, showBottomSheet: $showBottomSheet)
                     }
                     .presentationDetents([.height(350), .medium, .large])
-                    .presentationDragIndicator(.automatic)
+                    .presentationDragIndicator(.hidden)
+                    .presentationCornerRadius(24)
                     .padding()
                     .padding(.top)
                 }
@@ -120,36 +150,44 @@ struct ExpenseTransactionItemView: View {
             
             VStack(alignment: .leading) {
 
-                Text(item.name)
-                    .fontWeight(.bold)
-                    .opacity(0.9)
-                
+                HStack {
+                    Text(item.name)
+                        .fontWeight(.bold)
+                        .opacity(0.9)
+                    Spacer()
+                    Checkbox(isChecked: $isChecked)
+                        
+                }
                 
                 HStack {
                     Text(item.getPricePerQtyIDR(includeTax: true).toIDRString())
-                        .opacity(0.6)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color(red: 0.74, green: 0.74, blue: 0.74))
                 
                     Spacer()
                     if isEditing && item.qty != 1 {
                         TextField("Quantity", value: $item.qty, format: .number)
-                            .opacity(0.6)
+                            .keyboardType(.decimalPad)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(red: 0.74, green: 0.74, blue: 0.74))
                             .textFieldStyle(CustomTextFieldStyle())
-                            .frame(width: 32)
+                            .frame(width: 50)
                     } else {
                         ZStack {
                             Text("x\(Int(item.qty))")
-                                .opacity(0.6)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(red: 0.74, green: 0.74, blue: 0.74))
+                                .frame(width: 50, alignment: .leading)
                             TextField("Quantity", value: $item.qty, format: .number)
+                                .keyboardType(.decimalPad)
                                 .opacity(0.0)
                                 .textFieldStyle(CustomTextFieldStyle())
-                                .frame(width: 32)
+                                .frame(width: 50)
                         }
                     }
                     Spacer()
                     Text(item.getPriceTimesQtyIDR(includeTax: true).toIDRString())
                         .fontWeight(.bold)
-                    Spacer()
-                    Checkbox(isChecked: $isChecked)
                 }
             }
         }
@@ -169,6 +207,7 @@ struct Checkbox: View {
             }
         }
         .buttonStyle(PlainButtonStyle())
+        .scaleEffect(1.2)
     }
 }
 
@@ -218,5 +257,9 @@ struct CategoryItemView: View {
 }
 
 #Preview {
-    ScanExpenseSelectTransactionPage()
+    NavigationStack {
+        ScanExpenseSelectTransactionPage()
+    }
+    .environmentObject(ScanExpenseNavigationViewModel())
+
 }
