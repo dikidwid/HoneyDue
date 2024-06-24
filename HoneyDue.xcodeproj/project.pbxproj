@@ -7,17 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24CB5EAC2C297EDE0013D1E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24CB5E9C2C297EDD0013D1E2 /* Assets.xcassets */; };
+		24CB5EB72C297F990013D1E2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB5EB62C297F990013D1E2 /* HomeView.swift */; };
+		24CB5EB92C297FAF0013D1E2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB5EB82C297FAF0013D1E2 /* HomeViewModel.swift */; };
+		24CB5EBB2C297FE40013D1E2 /* IconViewNoShine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB5EBA2C297FE40013D1E2 /* IconViewNoShine.swift */; };
+		24CB5EBD2C2980080013D1E2 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB5EBC2C2980080013D1E2 /* IconView.swift */; };
+		24CB5EBF2C29801B0013D1E2 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB5EBE2C29801B0013D1E2 /* Icon.swift */; };
+		24CB5EC12C2980300013D1E2 /* Seeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB5EC02C2980300013D1E2 /* Seeder.swift */; };
 		3A71912C2C23E548006F2516 /* HoneyDueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A71912B2C23E548006F2516 /* HoneyDueApp.swift */; };
-		3A71912E2C23E548006F2516 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A71912D2C23E548006F2516 /* ContentView.swift */; };
-		3A7191302C23E549006F2516 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A71912F2C23E549006F2516 /* Assets.xcassets */; };
 		3A7191332C23E549006F2516 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A7191322C23E549006F2516 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24CB5E9C2C297EDD0013D1E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../Mini2Test/Mini2Test/Assets.xcassets; sourceTree = "<group>"; };
+		24CB5EB62C297F990013D1E2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		24CB5EB82C297FAF0013D1E2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		24CB5EBA2C297FE40013D1E2 /* IconViewNoShine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconViewNoShine.swift; sourceTree = "<group>"; };
+		24CB5EBC2C2980080013D1E2 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
+		24CB5EBE2C29801B0013D1E2 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		24CB5EC02C2980300013D1E2 /* Seeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seeder.swift; sourceTree = "<group>"; };
 		3A7191282C23E548006F2516 /* HoneyDue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoneyDue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A71912B2C23E548006F2516 /* HoneyDueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyDueApp.swift; sourceTree = "<group>"; };
-		3A71912D2C23E548006F2516 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		3A71912F2C23E549006F2516 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A7191322C23E549006F2516 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -32,6 +42,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24CB5E9D2C297EDD0013D1E2 /* IconStates */ = {
+			isa = PBXGroup;
+			children = (
+				24CB5EBA2C297FE40013D1E2 /* IconViewNoShine.swift */,
+				24CB5EBC2C2980080013D1E2 /* IconView.swift */,
+			);
+			path = IconStates;
+			sourceTree = "<group>";
+		};
+		24CB5EA02C297EDD0013D1E2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				24CB5EB62C297F990013D1E2 /* HomeView.swift */,
+				24CB5EB82C297FAF0013D1E2 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		24CB5EA62C297EDE0013D1E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				24CB5EBE2C29801B0013D1E2 /* Icon.swift */,
+				24CB5EC02C2980300013D1E2 /* Seeder.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3A71911F2C23E548006F2516 = {
 			isa = PBXGroup;
 			children = (
@@ -52,8 +89,10 @@
 			isa = PBXGroup;
 			children = (
 				3A71912B2C23E548006F2516 /* HoneyDueApp.swift */,
-				3A71912D2C23E548006F2516 /* ContentView.swift */,
-				3A71912F2C23E549006F2516 /* Assets.xcassets */,
+				24CB5E9C2C297EDD0013D1E2 /* Assets.xcassets */,
+				24CB5EA02C297EDD0013D1E2 /* Home */,
+				24CB5E9D2C297EDD0013D1E2 /* IconStates */,
+				24CB5EA62C297EDE0013D1E2 /* Model */,
 				3A7191312C23E549006F2516 /* Preview Content */,
 			);
 			path = HoneyDue;
@@ -126,7 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A7191332C23E549006F2516 /* Preview Assets.xcassets in Resources */,
-				3A7191302C23E549006F2516 /* Assets.xcassets in Resources */,
+				24CB5EAC2C297EDE0013D1E2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +176,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A71912E2C23E548006F2516 /* ContentView.swift in Sources */,
+				24CB5EBF2C29801B0013D1E2 /* Icon.swift in Sources */,
+				24CB5EBD2C2980080013D1E2 /* IconView.swift in Sources */,
+				24CB5EBB2C297FE40013D1E2 /* IconViewNoShine.swift in Sources */,
 				3A71912C2C23E548006F2516 /* HoneyDueApp.swift in Sources */,
+				24CB5EC12C2980300013D1E2 /* Seeder.swift in Sources */,
+				24CB5EB92C297FAF0013D1E2 /* HomeViewModel.swift in Sources */,
+				24CB5EB72C297F990013D1E2 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +324,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,6 +354,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
