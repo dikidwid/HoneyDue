@@ -18,6 +18,24 @@
 		E6138FB52C2A63D40057A8A7 /* SettingsNotificationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FB42C2A63CE0057A8A7 /* SettingsNotificationPage.swift */; };
 		E6138FB72C2A78160057A8A7 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FB62C2A78110057A8A7 /* SettingsService.swift */; };
 		E6138FB92C2A7B3F0057A8A7 /* NotificationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FB82C2A7B370057A8A7 /* NotificationItem.swift */; };
+		E62FE3022C2ABA4700815BBC /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3012C2ABA4200815BBC /* CGFloat+Extension.swift */; };
+		E62FE3042C2ABA5500815BBC /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3032C2ABA5300815BBC /* Color+Extension.swift */; };
+		E62FE3062C2ABA5D00815BBC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3052C2ABA5B00815BBC /* String+Extension.swift */; };
+		E62FE3092C2ABA7900815BBC /* ModelContainerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3082C2ABA7700815BBC /* ModelContainerPreview.swift */; };
+		E62FE30B2C2ABA8300815BBC /* Preview+ModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE30A2C2ABA8000815BBC /* Preview+ModelContainer.swift */; };
+		E62FE30D2C2ABA8E00815BBC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE30C2C2ABA8B00815BBC /* Category.swift */; };
+		E62FE30F2C2ABA9700815BBC /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE30E2C2ABA9500815BBC /* Expense.swift */; };
+		E62FE3112C2ABAA100815BBC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3102C2ABA9E00815BBC /* Notification.swift */; };
+		E62FE3132C2ABAC300815BBC /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3122C2ABAC100815BBC /* AddExpenseView.swift */; };
+		E62FE3162C2ABAD300815BBC /* ExpenseCategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3152C2ABAD100815BBC /* ExpenseCategoryListView.swift */; };
+		E62FE3182C2ABAE000815BBC /* ExpenseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3172C2ABADB00815BBC /* ExpenseDetailView.swift */; };
+		E62FE31A2C2ABAF500815BBC /* CurrencyFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3192C2ABAF300815BBC /* CurrencyFieldView.swift */; };
+		E62FE31C2C2ABAFE00815BBC /* CustomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE31B2C2ABAFC00815BBC /* CustomButtonView.swift */; };
+		E62FE31E2C2ABB0A00815BBC /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE31D2C2ABB0800815BBC /* CustomTextFieldView.swift */; };
+		E62FE3202C2ABB1500815BBC /* ExpenseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE31F2C2ABB1300815BBC /* ExpenseListView.swift */; };
+		E62FE3222C2ABB1F00815BBC /* ExpenseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3212C2ABB1C00815BBC /* ExpenseRowView.swift */; };
+		E62FE3242C2ABB3700815BBC /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3232C2ABB3500815BBC /* NotificationView.swift */; };
+		E632FA632C2ABB9000DABF55 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E632FA622C2ABB8C00DABF55 /* ProgressBarView.swift */; };
 		E67C2C722C2A943E0087D41A /* NavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C2C712C2A943D0087D41A /* NavStack.swift */; };
 		E6BC1A522C2520D40057172B /* ScanExpenseSelectTransactionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC1A512C2520D40057172B /* ScanExpenseSelectTransactionPage.swift */; };
 		E6BC1A542C2521920057172B /* TransactionCategoryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC1A532C2521920057172B /* TransactionCategoryIcon.swift */; };
@@ -48,6 +66,24 @@
 		E6138FB42C2A63CE0057A8A7 /* SettingsNotificationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNotificationPage.swift; sourceTree = "<group>"; };
 		E6138FB62C2A78110057A8A7 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		E6138FB82C2A7B370057A8A7 /* NotificationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationItem.swift; sourceTree = "<group>"; };
+		E62FE3012C2ABA4200815BBC /* CGFloat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
+		E62FE3032C2ABA5300815BBC /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		E62FE3052C2ABA5B00815BBC /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		E62FE3082C2ABA7700815BBC /* ModelContainerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContainerPreview.swift; sourceTree = "<group>"; };
+		E62FE30A2C2ABA8000815BBC /* Preview+ModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview+ModelContainer.swift"; sourceTree = "<group>"; };
+		E62FE30C2C2ABA8B00815BBC /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		E62FE30E2C2ABA9500815BBC /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
+		E62FE3102C2ABA9E00815BBC /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		E62FE3122C2ABAC100815BBC /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
+		E62FE3152C2ABAD100815BBC /* ExpenseCategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryListView.swift; sourceTree = "<group>"; };
+		E62FE3172C2ABADB00815BBC /* ExpenseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailView.swift; sourceTree = "<group>"; };
+		E62FE3192C2ABAF300815BBC /* CurrencyFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFieldView.swift; sourceTree = "<group>"; };
+		E62FE31B2C2ABAFC00815BBC /* CustomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonView.swift; sourceTree = "<group>"; };
+		E62FE31D2C2ABB0800815BBC /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
+		E62FE31F2C2ABB1300815BBC /* ExpenseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListView.swift; sourceTree = "<group>"; };
+		E62FE3212C2ABB1C00815BBC /* ExpenseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRowView.swift; sourceTree = "<group>"; };
+		E62FE3232C2ABB3500815BBC /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		E632FA622C2ABB8C00DABF55 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		E67C2C712C2A943D0087D41A /* NavStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavStack.swift; sourceTree = "<group>"; };
 		E6BC1A512C2520D40057172B /* ScanExpenseSelectTransactionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExpenseSelectTransactionPage.swift; sourceTree = "<group>"; };
 		E6BC1A532C2521920057172B /* TransactionCategoryIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategoryIcon.swift; sourceTree = "<group>"; };
@@ -101,7 +137,7 @@
 				E6C526392C23EB7300D3DCA0 /* Model */,
 				E6C526522C244F8400D3DCA0 /* ViewModel */,
 				E6C5264E2C23EC3400D3DCA0 /* Service */,
-				E6C526402C23EB9200D3DCA0 /* Screen */,
+				E6C526402C23EB9200D3DCA0 /* Screens */,
 				E6138FAF2C2A63820057A8A7 /* Views */,
 				3A71912B2C23E548006F2516 /* HoneyDueApp.swift */,
 				3A71912D2C23E548006F2516 /* ContentView.swift */,
@@ -122,14 +158,44 @@
 		E6138FAF2C2A63820057A8A7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E632FA622C2ABB8C00DABF55 /* ProgressBarView.swift */,
+				E62FE3232C2ABB3500815BBC /* NotificationView.swift */,
+				E62FE3212C2ABB1C00815BBC /* ExpenseRowView.swift */,
+				E62FE31F2C2ABB1300815BBC /* ExpenseListView.swift */,
+				E62FE31D2C2ABB0800815BBC /* CustomTextFieldView.swift */,
+				E62FE31B2C2ABAFC00815BBC /* CustomButtonView.swift */,
+				E62FE3192C2ABAF300815BBC /* CurrencyFieldView.swift */,
 				E6138FB02C2A638D0057A8A7 /* Settings.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E62FE3002C2ABA2A00815BBC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E62FE3052C2ABA5B00815BBC /* String+Extension.swift */,
+				E62FE3032C2ABA5300815BBC /* Color+Extension.swift */,
+				E62FE3012C2ABA4200815BBC /* CGFloat+Extension.swift */,
+				E6C526502C23EC9E00D3DCA0 /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E62FE3072C2ABA6900815BBC /* PreviewHelper */ = {
+			isa = PBXGroup;
+			children = (
+				E62FE30A2C2ABA8000815BBC /* Preview+ModelContainer.swift */,
+				E62FE3082C2ABA7700815BBC /* ModelContainerPreview.swift */,
+			);
+			path = PreviewHelper;
+			sourceTree = "<group>";
+		};
 		E6C526392C23EB7300D3DCA0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E62FE3102C2ABA9E00815BBC /* Notification.swift */,
+				E62FE30E2C2ABA9500815BBC /* Expense.swift */,
+				E62FE30C2C2ABA8B00815BBC /* Category.swift */,
 				E6138FB82C2A7B370057A8A7 /* NotificationItem.swift */,
 				E6C526372C23EB7300D3DCA0 /* ScanExpenseItem.swift */,
 				E6C526382C23EB7300D3DCA0 /* ScanExpenseResult.swift */,
@@ -139,9 +205,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		E6C526402C23EB9200D3DCA0 /* Screen */ = {
+		E6C526402C23EB9200D3DCA0 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E62FE3172C2ABADB00815BBC /* ExpenseDetailView.swift */,
+				E62FE3152C2ABAD100815BBC /* ExpenseCategoryListView.swift */,
+				E62FE3122C2ABAC100815BBC /* AddExpenseView.swift */,
 				E6138FB42C2A63CE0057A8A7 /* SettingsNotificationPage.swift */,
 				E6138FB22C2A63A30057A8A7 /* SettingsPage.swift */,
 				E6C5263E2C23EB9200D3DCA0 /* ScanExpensePage.swift */,
@@ -150,7 +219,7 @@
 				E6BC1A512C2520D40057172B /* ScanExpenseSelectTransactionPage.swift */,
 				E6138FA92C296FE10057A8A7 /* ScanExpenseSuccessPage.swift */,
 			);
-			path = Screen;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		E6C526472C23EBC300D3DCA0 /* UIKit */ = {
@@ -174,7 +243,8 @@
 		E6C5264F2C23EC7A00D3DCA0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				E6C526502C23EC9E00D3DCA0 /* Extensions.swift */,
+				E62FE3072C2ABA6900815BBC /* PreviewHelper */,
+				E62FE3002C2ABA2A00815BBC /* Extensions */,
 				E6C526472C23EBC300D3DCA0 /* UIKit */,
 			);
 			path = Helpers;
@@ -259,30 +329,48 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E62FE3132C2ABAC300815BBC /* AddExpenseView.swift in Sources */,
 				E6BC1A542C2521920057172B /* TransactionCategoryIcon.swift in Sources */,
+				E62FE31C2C2ABAFE00815BBC /* CustomButtonView.swift in Sources */,
 				E6C526432C23EB9200D3DCA0 /* ScanExpensePage.swift in Sources */,
 				E6BC1A522C2520D40057172B /* ScanExpenseSelectTransactionPage.swift in Sources */,
 				E6C526482C23EBC300D3DCA0 /* CameraView.swift in Sources */,
+				E62FE3022C2ABA4700815BBC /* CGFloat+Extension.swift in Sources */,
 				E6138FAC2C2979800057A8A7 /* ScanExpenseNavigationViewModel.swift in Sources */,
+				E62FE3242C2ABB3700815BBC /* NotificationView.swift in Sources */,
 				E6138FAA2C296FE10057A8A7 /* ScanExpenseSuccessPage.swift in Sources */,
 				3A71912E2C23E548006F2516 /* ContentView.swift in Sources */,
+				E62FE3202C2ABB1500815BBC /* ExpenseListView.swift in Sources */,
 				3A71912C2C23E548006F2516 /* HoneyDueApp.swift in Sources */,
+				E632FA632C2ABB9000DABF55 /* ProgressBarView.swift in Sources */,
+				E62FE31E2C2ABB0A00815BBC /* CustomTextFieldView.swift in Sources */,
 				E6C5263B2C23EB7300D3DCA0 /* ScanExpenseResult.swift in Sources */,
 				E6C5264B2C23EC2400D3DCA0 /* AIService.swift in Sources */,
+				E62FE30D2C2ABA8E00815BBC /* Category.swift in Sources */,
 				E6138FB52C2A63D40057A8A7 /* SettingsNotificationPage.swift in Sources */,
 				E6BC1A582C2538D80057172B /* TransactionCategory.swift in Sources */,
 				E6C526542C244FA700D3DCA0 /* ScanExpenseSelectTransactionViewModel.swift in Sources */,
 				E6138FB92C2A7B3F0057A8A7 /* NotificationItem.swift in Sources */,
 				E6C526492C23EBC300D3DCA0 /* ImagePicker.swift in Sources */,
+				E62FE3092C2ABA7900815BBC /* ModelContainerPreview.swift in Sources */,
 				E6C5263A2C23EB7300D3DCA0 /* ScanExpenseItem.swift in Sources */,
+				E62FE31A2C2ABAF500815BBC /* CurrencyFieldView.swift in Sources */,
 				E6C5264D2C23EC2A00D3DCA0 /* DummyData.swift in Sources */,
+				E62FE3162C2ABAD300815BBC /* ExpenseCategoryListView.swift in Sources */,
+				E62FE3222C2ABB1F00815BBC /* ExpenseRowView.swift in Sources */,
+				E62FE3182C2ABAE000815BBC /* ExpenseDetailView.swift in Sources */,
+				E62FE3112C2ABAA100815BBC /* Notification.swift in Sources */,
 				E6C526562C24584800D3DCA0 /* ScanExpenseReadingPage.swift in Sources */,
+				E62FE3062C2ABA5D00815BBC /* String+Extension.swift in Sources */,
 				E67C2C722C2A943E0087D41A /* NavStack.swift in Sources */,
+				E62FE30B2C2ABA8300815BBC /* Preview+ModelContainer.swift in Sources */,
 				E6C526512C23EC9E00D3DCA0 /* Extensions.swift in Sources */,
 				E6C526442C23EB9200D3DCA0 /* ScanExpenseValidationPage.swift in Sources */,
+				E62FE30F2C2ABA9700815BBC /* Expense.swift in Sources */,
 				E6138FB72C2A78160057A8A7 /* SettingsService.swift in Sources */,
 				E6138FB12C2A638F0057A8A7 /* Settings.swift in Sources */,
 				E6138FB32C2A63A90057A8A7 /* SettingsPage.swift in Sources */,
+				E62FE3042C2ABA5500815BBC /* Color+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
