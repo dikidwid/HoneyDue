@@ -35,7 +35,7 @@ struct ScanExpenseSuccessPage: View {
         .onAppear {
             isAnimate = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                nav.path.removeAll()
+                nav.path.removeLast(nav.path.count)
 //                if rootDismiss != nil {
 //                    print("Root Dismiss is available!")
 //                    rootDismiss?()

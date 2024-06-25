@@ -13,6 +13,11 @@
 		3A7191332C23E549006F2516 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A7191322C23E549006F2516 /* Preview Assets.xcassets */; };
 		E6138FAA2C296FE10057A8A7 /* ScanExpenseSuccessPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FA92C296FE10057A8A7 /* ScanExpenseSuccessPage.swift */; };
 		E6138FAC2C2979800057A8A7 /* ScanExpenseNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FAB2C2979780057A8A7 /* ScanExpenseNavigationViewModel.swift */; };
+		E6138FB12C2A638F0057A8A7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FB02C2A638D0057A8A7 /* Settings.swift */; };
+		E6138FB32C2A63A90057A8A7 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FB22C2A63A30057A8A7 /* SettingsPage.swift */; };
+		E6138FB52C2A63D40057A8A7 /* SettingsNotificationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FB42C2A63CE0057A8A7 /* SettingsNotificationPage.swift */; };
+		E6138FB72C2A78160057A8A7 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FB62C2A78110057A8A7 /* SettingsViewModel.swift */; };
+		E6138FB92C2A7B3F0057A8A7 /* NotificationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FB82C2A7B370057A8A7 /* NotificationItem.swift */; };
 		E6BC1A522C2520D40057172B /* ScanExpenseSelectTransactionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC1A512C2520D40057172B /* ScanExpenseSelectTransactionPage.swift */; };
 		E6BC1A542C2521920057172B /* TransactionCategoryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC1A532C2521920057172B /* TransactionCategoryIcon.swift */; };
 		E6BC1A582C2538D80057172B /* TransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC1A572C2538D80057172B /* TransactionCategory.swift */; };
@@ -37,6 +42,11 @@
 		3A7191322C23E549006F2516 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E6138FA92C296FE10057A8A7 /* ScanExpenseSuccessPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExpenseSuccessPage.swift; sourceTree = "<group>"; };
 		E6138FAB2C2979780057A8A7 /* ScanExpenseNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExpenseNavigationViewModel.swift; sourceTree = "<group>"; };
+		E6138FB02C2A638D0057A8A7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		E6138FB22C2A63A30057A8A7 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		E6138FB42C2A63CE0057A8A7 /* SettingsNotificationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNotificationPage.swift; sourceTree = "<group>"; };
+		E6138FB62C2A78110057A8A7 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		E6138FB82C2A7B370057A8A7 /* NotificationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationItem.swift; sourceTree = "<group>"; };
 		E6BC1A512C2520D40057172B /* ScanExpenseSelectTransactionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExpenseSelectTransactionPage.swift; sourceTree = "<group>"; };
 		E6BC1A532C2521920057172B /* TransactionCategoryIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategoryIcon.swift; sourceTree = "<group>"; };
 		E6BC1A572C2538D80057172B /* TransactionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategory.swift; sourceTree = "<group>"; };
@@ -90,6 +100,7 @@
 				E6C526522C244F8400D3DCA0 /* ViewModel */,
 				E6C5264E2C23EC3400D3DCA0 /* Service */,
 				E6C526402C23EB9200D3DCA0 /* Screen */,
+				E6138FAF2C2A63820057A8A7 /* Views */,
 				3A71912B2C23E548006F2516 /* HoneyDueApp.swift */,
 				3A71912D2C23E548006F2516 /* ContentView.swift */,
 			);
@@ -105,9 +116,18 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		E6138FAF2C2A63820057A8A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E6138FB02C2A638D0057A8A7 /* Settings.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E6C526392C23EB7300D3DCA0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E6138FB82C2A7B370057A8A7 /* NotificationItem.swift */,
 				E6C526372C23EB7300D3DCA0 /* ScanExpenseItem.swift */,
 				E6C526382C23EB7300D3DCA0 /* ScanExpenseResult.swift */,
 				E6BC1A532C2521920057172B /* TransactionCategoryIcon.swift */,
@@ -119,6 +139,8 @@
 		E6C526402C23EB9200D3DCA0 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				E6138FB42C2A63CE0057A8A7 /* SettingsNotificationPage.swift */,
+				E6138FB22C2A63A30057A8A7 /* SettingsPage.swift */,
 				E6C5263E2C23EB9200D3DCA0 /* ScanExpensePage.swift */,
 				E6C526552C24584800D3DCA0 /* ScanExpenseReadingPage.swift */,
 				E6C5263F2C23EB9200D3DCA0 /* ScanExpenseValidationPage.swift */,
@@ -157,6 +179,7 @@
 		E6C526522C244F8400D3DCA0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E6138FB62C2A78110057A8A7 /* SettingsViewModel.swift */,
 				E6C526532C244FA700D3DCA0 /* ScanExpenseSelectTransactionViewModel.swift */,
 				E6138FAB2C2979780057A8A7 /* ScanExpenseNavigationViewModel.swift */,
 			);
@@ -243,14 +266,19 @@
 				3A71912C2C23E548006F2516 /* HoneyDueApp.swift in Sources */,
 				E6C5263B2C23EB7300D3DCA0 /* ScanExpenseResult.swift in Sources */,
 				E6C5264B2C23EC2400D3DCA0 /* AIService.swift in Sources */,
+				E6138FB52C2A63D40057A8A7 /* SettingsNotificationPage.swift in Sources */,
 				E6BC1A582C2538D80057172B /* TransactionCategory.swift in Sources */,
 				E6C526542C244FA700D3DCA0 /* ScanExpenseSelectTransactionViewModel.swift in Sources */,
+				E6138FB92C2A7B3F0057A8A7 /* NotificationItem.swift in Sources */,
 				E6C526492C23EBC300D3DCA0 /* ImagePicker.swift in Sources */,
 				E6C5263A2C23EB7300D3DCA0 /* ScanExpenseItem.swift in Sources */,
 				E6C5264D2C23EC2A00D3DCA0 /* DummyData.swift in Sources */,
 				E6C526562C24584800D3DCA0 /* ScanExpenseReadingPage.swift in Sources */,
 				E6C526512C23EC9E00D3DCA0 /* Extensions.swift in Sources */,
 				E6C526442C23EB9200D3DCA0 /* ScanExpenseValidationPage.swift in Sources */,
+				E6138FB72C2A78160057A8A7 /* SettingsViewModel.swift in Sources */,
+				E6138FB12C2A638F0057A8A7 /* Settings.swift in Sources */,
+				E6138FB32C2A63A90057A8A7 /* SettingsPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

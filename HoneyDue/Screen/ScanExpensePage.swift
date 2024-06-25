@@ -8,10 +8,22 @@
 import SwiftUI
 import Combine
 
-struct ScanExpensePage: View {
-    @Environment(\.presentationMode) var presentationMode
-    @StateObject private var scanExpenseNav = ScanExpenseNavigationViewModel()
 
+struct ScanExpensePage: View {
+    @EnvironmentObject var scanExpenseNav: ScanExpenseNavigationViewModel
+    
+    var body: some View {
+        NavigationStack(path: $scanExpenseNav.path) {
+            ScanExpenseFragment()
+                .environmentObject(scanExpenseNav)
+        }
+    }
+}
+
+struct ScanExpenseFragment: View {
+    @EnvironmentObject var nav: ScanExpenseNavigationViewModel
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var isShowingCamera = false
     @State private var isShowingPhotoLibrary = false
     @State private var image: Image? = nil
@@ -38,71 +50,69 @@ struct ScanExpensePage: View {
     )
     
     var body: some View {
-        NavigationStack(path: $scanExpenseNav.path) {
-            NavigationLink(destination: ScanExpenseValidationPage(expenseResult: expenseResult), isActive: $shouldNavigateNext) {
-                EmptyView()
-            }
-            
-            if isLoading {
-                ScanExpenseReadingPage(onCancelBtn: { cancelVisionAI() })
-            }
-            else {
-                VStack {
-                    ZStack {
-                        Circle()
-                            .foregroundColor(.colorPrimary)
-                            .opacity(0.2)
-                            .frame(width: 64, height: 64)
-                        Text("🤑")
-                            .scaleEffect(1.6)
-                    }
-                    Text("**Bill Scanner AI**")
-                        .font(.title)
-                    
-                    Text("Feel the magic of AI to automate your expense tracking 🚀")
-                        .padding()
-                        .padding(.horizontal)
-                    
-                    if !isLoading {
-                        HStack {
-                            Button(action: {
-                                isShowingActionSheet = true
-                            }) {
-                                Text("Scan Bill")
-                                    .padding()
-                                    .background(.colorPrimary)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                            }
+        NavigationLink(destination: ScanExpenseValidationPage(expenseResult: expenseResult), isActive: $shouldNavigateNext) {
+            EmptyView()
+        }
+        
+        if isLoading {
+            ScanExpenseReadingPage(onCancelBtn: { cancelVisionAI() })
+        }
+        else {
+            VStack {
+                ZStack {
+                    Circle()
+                        .foregroundColor(.colorPrimary)
+                        .opacity(0.2)
+                        .frame(width: 64, height: 64)
+                    Text("🤑")
+                        .scaleEffect(1.6)
+                }
+                Text("**Bill Scanner AI**")
+                    .font(.title)
+                
+                Text("Feel the magic of AI to automate your expense tracking 🚀")
+                    .padding()
+                    .padding(.horizontal)
+                
+                if !isLoading {
+                    HStack {
+                        Button(action: {
+                            isShowingActionSheet = true
+                        }) {
+                            Text("Scan Bill")
+                                .padding()
+                                .background(.colorPrimary)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
                     }
-                    ScrollView {
-                        Text(responseText)
-                            .background(.gray.opacity(0.1))
-                    }
-                    
                 }
-                .padding()
-                .sheet(isPresented: $isShowingActionSheet) {
-                    CustomBottomSheet(isShowing: $isShowingActionSheet, isShowingCamera: $isShowingCamera, isShowingPhotoLibrary: $isShowingPhotoLibrary)
-                        .presentationDetents([.height(220), .medium, .large])
-                        .presentationDragIndicator(.hidden)
-                        .padding()
-                        .padding(.top)
-                        .cornerRadius(24)
-                        .presentationCornerRadius(24)
+                ScrollView {
+                    Text(responseText)
+                        .background(.gray.opacity(0.1))
                 }
-                .fullScreenCover(isPresented: $isShowingCamera) {
-                    CameraView(isShowingCamera: $isShowingCamera, image: $image, uiImage: $uiImage)
-                        .background(Color.black)
-                        .edgesIgnoringSafeArea(.all)
-                }
-                .fullScreenCover(isPresented: $isShowingPhotoLibrary) {
-                    ImagePicker(image: $image, uiImage: $uiImage)
-                }
-                .onChange(of: uiImage) { _ in
-                    askVisionAI()
-                }
+                
+            }
+            .padding()
+            .sheet(isPresented: $isShowingActionSheet) {
+                CustomBottomSheet(isShowing: $isShowingActionSheet, isShowingCamera: $isShowingCamera, isShowingPhotoLibrary: $isShowingPhotoLibrary)
+                    .presentationDetents([.height(220), .medium, .large])
+                    .presentationDragIndicator(.hidden)
+                    .padding()
+                    .padding(.top)
+                    .cornerRadius(24)
+                    .presentationCornerRadius(24)
+            }
+            .fullScreenCover(isPresented: $isShowingCamera) {
+                CameraView(isShowingCamera: $isShowingCamera, image: $image, uiImage: $uiImage)
+                    .background(Color.black)
+                    .edgesIgnoringSafeArea(.all)
+            }
+            .fullScreenCover(isPresented: $isShowingPhotoLibrary) {
+                ImagePicker(image: $image, uiImage: $uiImage)
+            }
+            .onChange(of: uiImage) { _ in
+                askVisionAI()
             }
         }
     }
@@ -135,7 +145,6 @@ struct ScanExpensePage: View {
                 }
             }
         }
-
     }
     
     func cancelVisionAI() {
@@ -210,8 +219,6 @@ struct CustomBottomSheet: View {
 }
 
 #Preview {
-    NavigationStack {
-        ScanExpensePage()
-    }
-    .environmentObject(ScanExpenseNavigationViewModel())
+    ScanExpensePage()
+        .environmentObject(ScanExpenseNavigationViewModel())
 }

@@ -88,7 +88,7 @@ struct ScanExpenseResult : Hashable, Codable, Identifiable {
                         othersChargeIDR: jsonDict["othersChargeIDR"] as? Double ?? 0.0,
                         discountsIDR: jsonDict["discountsIDR"] as? Double ?? 0.0
                     )
-                    print(result)
+//                    print(result)
                     return result
                 }
             } catch {

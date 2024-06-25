@@ -29,25 +29,7 @@ struct ScanExpenseValidationPage: View {
                 EmptyView()
             }
             VStack(alignment: .leading) {
-                ZStack {
-                    HStack {
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            Image(systemName: "arrow.left")
-                                .foregroundColor(.primary)
-                        }
-                        Spacer()
-                    }
-                    HStack {
-                        Spacer()
-                        Text("Your Receipt")
-                            .font(.system(size: 20))
-                            .fontWeight(.bold)
-                        Spacer()
-                    }
-                }
-                .padding(.bottom, 5)
+                TopBarBack(title: "Your Receipt")
                 
                 Text("This is the scanned result. Make sure to check that the items were scanned correctly.")
                     .font(.system(size: 12))

@@ -24,25 +24,7 @@ struct ScanExpenseSelectTransactionPage: View {
                 EmptyView()
             }
             VStack(alignment: .leading) {
-                ZStack {
-                    HStack {
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            Image(systemName: "arrow.left")
-                                .foregroundColor(.primary)
-                        }
-                        Spacer()
-                    }
-                    HStack {
-                        Spacer()
-                        Text("Your Receipt")
-                            .font(.system(size: 20))
-                            .fontWeight(.bold)
-                        Spacer()
-                    }
-                }
-                .padding(.bottom, 5)
+                TopBarBack(title: "Your Receipt")
 
                 Text("Choose the item and the amount you want to add to your expense. You can also edit the category here.")
                     .font(.system(size: 12))
@@ -101,7 +83,7 @@ struct ScanExpenseSelectTransactionPage: View {
 //                presentationMode.wrappedValue.dismiss()
 //            }
 //        }
-        .navigationBarBackButtonHidden(true) // Add this line to hide the default back button
+        .navigationBarBackButtonHidden(true)
     }
 }
 
