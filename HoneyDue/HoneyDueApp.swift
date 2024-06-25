@@ -32,8 +32,8 @@ struct HoneyDueApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ExpenseCategoryListView()
+            HomeView(viewModel: HomeViewModel(dataSource: CategoryDataSource.shared))
         }
-        .modelContainer(container)
+//        .modelContainer(container)
     }
 }
