@@ -17,14 +17,14 @@ struct ScanExpenseValidationPage: View {
     
     var body: some View {
         ScrollView {
-            NavigationLink(
-                destination: ScanExpenseSelectTransactionPage(
-                    viewModel: ScanExpenseSelectTransactionViewModel(expenseResult: expenseResult)
-                ),
-                isActive: $shouldNextPage
-            ) {
-                EmptyView()
-            }
+//            NavigationLink(
+//                destination: ScanExpenseSelectTransactionPage(
+//                    viewModel: ScanExpenseSelectTransactionViewModel(expenseResult: expenseResult)
+//                ),
+//                isActive: $shouldNextPage
+//            ) {
+//                EmptyView()
+//            }
             VStack(alignment: .leading) {
                 TopBarBack(title: "Your Receipt")
                 
@@ -79,7 +79,7 @@ struct ScanExpenseValidationPage: View {
                     } else {
                         expenseResult.adjustTax()
                         shouldNextPage = true
-//                        nav.path.append(ScanExpenseNavigationDestination.selectTransaction(expenseResult))
+                        nav.path.append(ScanExpenseNavigationDestination.selectTransaction(expenseResult))
                     }
                 }) {
                     Text(isEditing ? "Save" : "Confirm Bill")

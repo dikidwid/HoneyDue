@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ScanExpenseSelectTransactionPage: View {
     @EnvironmentObject var nav: ScanExpenseNavigationViewModel
+    @Environment(\.presentationMode) var presentationMode
 
     @ObservedObject var viewModel = ScanExpenseSelectTransactionViewModel(
         expenseResult: ScanExpenseResult.getExample()
     )
     @State private var shouldNextPage: Bool = false
     
-    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ScrollView {
@@ -55,6 +55,7 @@ struct ScanExpenseSelectTransactionPage: View {
                 }
                 
                 Button(action: {
+                    shouldNextPage = true
                     nav.path.append(ScanExpenseNavigationDestination.success)
                 }) {
                     Text("Save")

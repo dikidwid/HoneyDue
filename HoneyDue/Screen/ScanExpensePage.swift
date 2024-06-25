@@ -47,6 +47,7 @@ struct ScanExpenseFragment: View {
     @State private var uiImage: UIImage? = nil
     @State private var expenseResult: ScanExpenseResult = ScanExpenseResult.getExample() {
         didSet {
+            nav.path.append(ScanExpenseNavigationDestination.validation(expenseResult))
             DispatchQueue.main.async {
                 shouldNavigateNext = true
                 print("SHOULD NAVIGATE!! by didSet")
@@ -66,6 +67,9 @@ struct ScanExpenseFragment: View {
         }
         else {
             VStack {
+//                NavigationLink(destination: ScanExpenseValidationPage(expenseResult: expenseResult), isActive: $shouldNavigateNext) {
+//                    EmptyView()
+//                }
                 ZStack {
                     Circle()
                         .foregroundColor(.colorPrimary)
@@ -108,7 +112,6 @@ struct ScanExpenseFragment: View {
                     Text(responseText)
                         .background(.gray.opacity(0.1))
                 }
-                
             }
             .padding()
             .padding(.top, 200)
@@ -138,7 +141,6 @@ struct ScanExpenseFragment: View {
     func askVisionAI() {
         self.expenseResult = ScanExpenseResult.getFromAIResponse()
         cancelVisionAI()
-        nav.path.append(ScanExpenseNavigationDestination.validation(expenseResult))
         return
         
         guard let uiImage = uiImage else { return }

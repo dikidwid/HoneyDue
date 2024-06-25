@@ -3,7 +3,6 @@
 //  HoneyDue
 //
 //  Created by Arya Adyatma on 24/06/24.
-//
 
 import SwiftUI
 
@@ -11,7 +10,6 @@ struct ScanExpenseSuccessPage: View {
     @EnvironmentObject var nav: ScanExpenseNavigationViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var isAnimate = false
-    @State private var shouldGoBack = false
     
     var body: some View {
         VStack {
