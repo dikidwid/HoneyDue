@@ -35,41 +35,14 @@ struct ScanExpenseFragment: View {
     @EnvironmentObject var nav: ScanExpenseNavigationViewModel
     @Environment(\.presentationMode) var presentationMode
     
-    @State private var isShowingCamera = false
-    @State private var isShowingPhotoLibrary = false
-    @State private var image: Image? = nil
-    @State private var responseText: String = ""
-    @State private var isLoading = false
-    @State private var question: String = "Scan this bill. Categories: \(TransactionCategory.getCategoryNames()). Do not use categories other than this."
-    @State private var shouldNavigateNext = false
-    @State private var isShowingActionSheet = false
-    
-    @State private var uiImage: UIImage? = nil
-    @State private var expenseResult: ScanExpenseResult = ScanExpenseResult.getExample() {
-        didSet {
-            nav.path.append(ScanExpenseNavigationDestination.validation(expenseResult))
-            DispatchQueue.main.async {
-                shouldNavigateNext = true
-                print("SHOULD NAVIGATE!! by didSet")
-            }
-        }
-    }
-    
-    @ObservedObject var viewModel = AIService(
-        identifier: FakeAPIKey.expenseScanner.rawValue,
-        useStreaming: false,
-        isConversation: false
-    )
+    @StateObject private var viewModel = ScanExpenseViewModel()
     
     var body: some View {
-        if isLoading {
-            ScanExpenseReadingPage(onCancelBtn: { cancelVisionAI() })
+        if viewModel.isLoading {
+            ScanExpenseReadingPage(onCancelBtn: { viewModel.cancelVisionAI() })
         }
         else {
             VStack {
-//                NavigationLink(destination: ScanExpenseValidationPage(expenseResult: expenseResult), isActive: $shouldNavigateNext) {
-//                    EmptyView()
-//                }
                 ZStack {
                     Circle()
                         .foregroundColor(.colorPrimary)
@@ -86,10 +59,10 @@ struct ScanExpenseFragment: View {
                     .padding()
                     .padding(.horizontal)
                 
-                if !isLoading {
+                if !viewModel.isLoading {
                     HStack {
                         Button(action: {
-                            isShowingActionSheet = true
+                            viewModel.isShowingActionSheet = true
                         }) {
                             Text("Scan Bill")
                                 .padding()
@@ -109,14 +82,14 @@ struct ScanExpenseFragment: View {
                 .padding()
                 
                 ScrollView {
-                    Text(responseText)
+                    Text(viewModel.responseText)
                         .background(.gray.opacity(0.1))
                 }
             }
             .padding()
             .padding(.top, 200)
-            .sheet(isPresented: $isShowingActionSheet) {
-                CustomBottomSheet(isShowing: $isShowingActionSheet, isShowingCamera: $isShowingCamera, isShowingPhotoLibrary: $isShowingPhotoLibrary)
+            .sheet(isPresented: $viewModel.isShowingActionSheet) {
+                ScanBillBottomSheet(isShowing: $viewModel.isShowingActionSheet, isShowingCamera: $viewModel.isShowingCamera, isShowingPhotoLibrary: $viewModel.isShowingPhotoLibrary)
                     .presentationDetents([.height(220), .medium, .large])
                     .presentationDragIndicator(.hidden)
                     .padding()
@@ -124,61 +97,25 @@ struct ScanExpenseFragment: View {
                     .cornerRadius(24)
                     .presentationCornerRadius(24)
             }
-            .fullScreenCover(isPresented: $isShowingCamera) {
-                CameraView(isShowingCamera: $isShowingCamera, image: $image, uiImage: $uiImage)
+            .fullScreenCover(isPresented: $viewModel.isShowingCamera) {
+                CameraView(isShowingCamera: $viewModel.isShowingCamera, image: $viewModel.image, uiImage: $viewModel.uiImage)
                     .background(Color.black)
                     .edgesIgnoringSafeArea(.all)
             }
-            .fullScreenCover(isPresented: $isShowingPhotoLibrary) {
-                ImagePicker(image: $image, uiImage: $uiImage)
+            .fullScreenCover(isPresented: $viewModel.isShowingPhotoLibrary) {
+                ImagePicker(image: $viewModel.image, uiImage: $viewModel.uiImage)
             }
-            .onChange(of: uiImage) { _ in
-                askVisionAI()
+            .onChange(of: viewModel.uiImage) { _ in
+                viewModel.askVisionAI()
             }
-        }
-    }
-    
-    func askVisionAI() {
-        self.expenseResult = ScanExpenseResult.getFromAIResponse()
-        cancelVisionAI()
-        return
-        
-        guard let uiImage = uiImage else { return }
-        isLoading = true
-        
-        viewModel.sendMessage(query: question, uiImage: uiImage) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let response):
-                    if isLoading {
-                        self.responseText = response
-                        let result = ScanExpenseResult.fromJson(jsonString: response)
-                        if (result != nil) {
-                            self.expenseResult = result!
-                        }
-                    }
-                    print("SUCCESS!!!!")
-                    print(expenseResult)
-                    cancelVisionAI()
-                case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
-                    cancelVisionAI()
-                }
+            .onChange(of: viewModel.expenseResult) { _ in
+                nav.path.append(ScanExpenseNavigationDestination.validation(viewModel.expenseResult))
             }
-        }
-    }
-    
-    func cancelVisionAI() {
-        DispatchQueue.main.async {
-            isLoading = false
-            isShowingPhotoLibrary = false
-            isShowingCamera = false
-            isShowingActionSheet = false
         }
     }
 }
 
-struct CustomBottomSheet: View {
+struct ScanBillBottomSheet: View {
     @Binding var isShowing: Bool
     @Binding var isShowingCamera: Bool
     @Binding var isShowingPhotoLibrary: Bool

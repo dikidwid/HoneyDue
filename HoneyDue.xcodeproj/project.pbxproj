@@ -42,6 +42,7 @@
 		E62FE3242C2ABB3700815BBC /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3232C2ABB3500815BBC /* NotificationView.swift */; };
 		E632FA632C2ABB9000DABF55 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E632FA622C2ABB8C00DABF55 /* ProgressBarView.swift */; };
 		E67C2C722C2A943E0087D41A /* NavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C2C712C2A943D0087D41A /* NavStack.swift */; };
+		E6A2590D2C2B11A7009CAC2D /* ScanExpenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A2590C2C2B11A0009CAC2D /* ScanExpenseViewModel.swift */; };
 		E6BC1A522C2520D40057172B /* ScanExpenseSelectTransactionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC1A512C2520D40057172B /* ScanExpenseSelectTransactionPage.swift */; };
 		E6BC1A542C2521920057172B /* TransactionCategoryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC1A532C2521920057172B /* TransactionCategoryIcon.swift */; };
 		E6BC1A582C2538D80057172B /* TransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC1A572C2538D80057172B /* TransactionCategory.swift */; };
@@ -95,6 +96,7 @@
 		E62FE3232C2ABB3500815BBC /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		E632FA622C2ABB8C00DABF55 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		E67C2C712C2A943D0087D41A /* NavStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavStack.swift; sourceTree = "<group>"; };
+		E6A2590C2C2B11A0009CAC2D /* ScanExpenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExpenseViewModel.swift; sourceTree = "<group>"; };
 		E6BC1A512C2520D40057172B /* ScanExpenseSelectTransactionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExpenseSelectTransactionPage.swift; sourceTree = "<group>"; };
 		E6BC1A532C2521920057172B /* TransactionCategoryIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategoryIcon.swift; sourceTree = "<group>"; };
 		E6BC1A572C2538D80057172B /* TransactionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategory.swift; sourceTree = "<group>"; };
@@ -219,6 +221,18 @@
 			path = PreviewHelper;
 			sourceTree = "<group>";
 		};
+		E6A2590B2C2B1139009CAC2D /* ScanExpenseAI */ = {
+			isa = PBXGroup;
+			children = (
+				E6C5263E2C23EB9200D3DCA0 /* ScanExpensePage.swift */,
+				E6C526552C24584800D3DCA0 /* ScanExpenseReadingPage.swift */,
+				E6C5263F2C23EB9200D3DCA0 /* ScanExpenseValidationPage.swift */,
+				E6BC1A512C2520D40057172B /* ScanExpenseSelectTransactionPage.swift */,
+				E6138FA92C296FE10057A8A7 /* ScanExpenseSuccessPage.swift */,
+			);
+			path = ScanExpenseAI;
+			sourceTree = "<group>";
+		};
 		E6C526392C23EB7300D3DCA0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,17 +252,13 @@
 		E6C526402C23EB9200D3DCA0 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E6A2590B2C2B1139009CAC2D /* ScanExpenseAI */,
 				245253642C2AAA8F0042B135 /* HomeScreen */,
 				E62FE3172C2ABADB00815BBC /* ExpenseDetailView.swift */,
 				E62FE3152C2ABAD100815BBC /* ExpenseCategoryListView.swift */,
 				E62FE3122C2ABAC100815BBC /* AddExpenseView.swift */,
 				E6138FB42C2A63CE0057A8A7 /* SettingsNotificationPage.swift */,
 				E6138FB22C2A63A30057A8A7 /* SettingsPage.swift */,
-				E6C5263E2C23EB9200D3DCA0 /* ScanExpensePage.swift */,
-				E6C526552C24584800D3DCA0 /* ScanExpenseReadingPage.swift */,
-				E6C5263F2C23EB9200D3DCA0 /* ScanExpenseValidationPage.swift */,
-				E6BC1A512C2520D40057172B /* ScanExpenseSelectTransactionPage.swift */,
-				E6138FA92C296FE10057A8A7 /* ScanExpenseSuccessPage.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -284,6 +294,7 @@
 		E6C526522C244F8400D3DCA0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E6A2590C2C2B11A0009CAC2D /* ScanExpenseViewModel.swift */,
 				E6C526532C244FA700D3DCA0 /* ScanExpenseSelectTransactionViewModel.swift */,
 				E6138FAB2C2979780057A8A7 /* ScanExpenseNavigationViewModel.swift */,
 			);
@@ -390,6 +401,7 @@
 				E6C526492C23EBC300D3DCA0 /* ImagePicker.swift in Sources */,
 				E62FE3092C2ABA7900815BBC /* ModelContainerPreview.swift in Sources */,
 				E6C5263A2C23EB7300D3DCA0 /* ScanExpenseItem.swift in Sources */,
+				E6A2590D2C2B11A7009CAC2D /* ScanExpenseViewModel.swift in Sources */,
 				E62FE31A2C2ABAF500815BBC /* CurrencyFieldView.swift in Sources */,
 				E6C5264D2C23EC2A00D3DCA0 /* DummyData.swift in Sources */,
 				E62FE3162C2ABAD300815BBC /* ExpenseCategoryListView.swift in Sources */,
