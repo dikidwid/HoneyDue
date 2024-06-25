@@ -16,12 +16,14 @@ class Category {
     var budget: Int
     var icon: String
     var isEnable: Bool
+    var item: Item 
     
-    init(name: String, budget: Int, icon: String, isEnable: Bool) {
+    init(name: String, budget: Int, icon: String, isEnable: Bool, item: Item) {
         self.name = name
         self.budget = budget
         self.icon = icon
         self.isEnable = isEnable
+        self.item = item
     }
 }
 
@@ -55,61 +57,58 @@ extension Category {
         }
     }
     
-    static var foodCategory: Category =         Category(name: .food,
-                                                         budget: 1000000,
-                                                         icon: "fork.knife",
-                                                         isEnable: true)
-    
     static var categories: [Category] = [
         Category(name: .food,
                   budget: 1000000,
                   icon: "fork.knife",
-                  isEnable: true),
+                 isEnable: true, 
+                 item: .foodItem),
         
         Category(name: .transport,
                   budget: 200000,
                   icon: "car.fill",
-                  isEnable: true),
+                 isEnable: true, item: .transportItem),
         
         Category(name: .health,
                   budget: 100000,
                   icon: "stethoscope",
-                  isEnable: true),
+                 isEnable: true, item: .healthItem),
         
         Category(name: .shopping,
                   budget: 100000,
                   icon: "cart.fill",
-                  isEnable: true),
+                 isEnable: true, item: .clothesItem),
         
         Category(name: .travelling,
                   budget: 100000,
                   icon: "airplane.departure",
-                  isEnable: true),
+                 isEnable: true, item: .travelItem),
         
         Category(name: .education,
                   budget: 100000,
                   icon: "graduationcap.fill",
-                  isEnable: true),
+                 isEnable: true, item: .workItem),
         
         Category(name: .pet,
                   budget: 100000,
                   icon: "pawprint.fill",
-                  isEnable: true),
+                 isEnable: true,
+                 item: .petItem),
         
         Category(name: .utilities,
                   budget: 100000,
                   icon: "wrench.adjustable.fill",
-                  isEnable: true),
+                 isEnable: true, item: .utilitiesItem),
         
         Category(name: .hobby,
                   budget: 100000,
                   icon: "gamecontroller.fill",
-                  isEnable: true),
+                 isEnable: true, item: .entertainmentItem),
         
         Category(name: .others,
                   budget: 100000,
                   icon: "list.bullet",
-                  isEnable: true),
+                 isEnable: true, item: .othersItem),
     ]
     
     static func insertSampleData(modelContext: ModelContext) {

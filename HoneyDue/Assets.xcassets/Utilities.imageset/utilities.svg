@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164.02 118.79">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f15a24;
+        opacity: .35;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="utilities_copy" data-name="utilities copy">
+    <path class="cls-1" d="M88.12,116.58C42.9,123.88,3.44,112.53,0,91.21l.72-9.12,2.31-29.33C-.41,31.45,30.77,8.68,72.68,1.91c41.9-6.77,78.66,5.02,82.11,26.33l8.28,33.61.71,2.9c3.44,21.32-30.43,44.52-75.66,51.83Z"/>
+  </g>
+</svg>
