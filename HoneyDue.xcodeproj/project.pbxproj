@@ -134,7 +134,7 @@
 				3A71912F2C23E549006F2516 /* Assets.xcassets */,
 				3A7191312C23E549006F2516 /* Preview Content */,
 				E6C5264F2C23EC7A00D3DCA0 /* Helpers */,
-				E6C526392C23EB7300D3DCA0 /* Model */,
+				E6C526392C23EB7300D3DCA0 /* Models */,
 				E6C526522C244F8400D3DCA0 /* ViewModel */,
 				E6C5264E2C23EC3400D3DCA0 /* Service */,
 				E6C526402C23EB9200D3DCA0 /* Screens */,
@@ -190,7 +190,7 @@
 			path = PreviewHelper;
 			sourceTree = "<group>";
 		};
-		E6C526392C23EB7300D3DCA0 /* Model */ = {
+		E6C526392C23EB7300D3DCA0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				E62FE3102C2ABA9E00815BBC /* Notification.swift */,
@@ -202,7 +202,7 @@
 				E6BC1A532C2521920057172B /* TransactionCategoryIcon.swift */,
 				E6BC1A572C2538D80057172B /* TransactionCategory.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E6C526402C23EB9200D3DCA0 /* Screens */ = {
