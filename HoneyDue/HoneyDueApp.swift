@@ -13,5 +13,6 @@ struct HoneyDueApp: App {
         WindowGroup {
             ContentView()
         }
+        .environmentObject(ScanExpenseNavigationViewModel())
     }
 }

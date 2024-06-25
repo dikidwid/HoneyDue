@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct SettingsNotificationPage: View {
-    @ObservedObject var viewModel: SettingsViewModel
+    @ObservedObject var viewModel: SettingsService
     
     var body: some View {
         VStack {
@@ -42,5 +42,5 @@ struct SettingsNotificationPage: View {
 }
 
 #Preview {
-    SettingsNotificationPage(viewModel: SettingsViewModel())
+    SettingsNotificationPage(viewModel: SettingsService())
 }

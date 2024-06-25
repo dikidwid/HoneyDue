@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @StateObject private var viewModel = SettingsViewModel()
+    @StateObject private var viewModel = SettingsService()
     
     var body: some View {
         VStack {

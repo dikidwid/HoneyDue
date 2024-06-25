@@ -9,20 +9,17 @@ import SwiftUI
 
 struct ScanExpenseValidationPage: View {
     @EnvironmentObject var nav: ScanExpenseNavigationViewModel
+    @Environment(\.presentationMode) var presentationMode
 
     @State var expenseResult: ScanExpenseResult
     @State private var isEditing: Bool = false
     @State private var shouldNextPage: Bool = false
     
-    @Environment(\.presentationMode) var presentationMode
-    @Environment(\.dismiss) var dismiss
-    
     var body: some View {
         ScrollView {
             NavigationLink(
                 destination: ScanExpenseSelectTransactionPage(
-                    viewModel: ScanExpenseSelectTransactionViewModel(expenseResult: expenseResult),
-                    rootDismiss: dismiss
+                    viewModel: ScanExpenseSelectTransactionViewModel(expenseResult: expenseResult)
                 ),
                 isActive: $shouldNextPage
             ) {
@@ -100,15 +97,6 @@ struct ScanExpenseValidationPage: View {
                 Spacer()
             }
             .padding()
-        }
-        .onAppear {
-            nav.presentationMode = presentationMode.wrappedValue
-            nav.dismiss = dismiss
-        }
-        .onChange(of: nav.shouldGoBack) { shouldGoBack in
-            if shouldGoBack {
-                presentationMode.wrappedValue.dismiss()
-            }
         }
     }
 }

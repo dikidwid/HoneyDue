@@ -9,14 +9,13 @@ import SwiftUI
 
 struct ScanExpenseSuccessPage: View {
     @EnvironmentObject var nav: ScanExpenseNavigationViewModel
-
+    @Environment(\.presentationMode) var presentationMode
     @State private var isAnimate = false
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    var rootDismiss: DismissAction? = nil
+    @State private var shouldGoBack = false
     
     var body: some View {
         VStack {
+
             Image(systemName: "checkmark.circle.fill")
                 .resizable()
                 .frame(width: 90, height: 90)
@@ -34,18 +33,11 @@ struct ScanExpenseSuccessPage: View {
         }
         .onAppear {
             isAnimate = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                nav.path.removeLast(nav.path.count)
-//                if rootDismiss != nil {
-//                    print("Root Dismiss is available!")
-//                    rootDismiss?()
-//                }
-//                rootDismiss?()
-//                nav.shouldGoBack = true
-//                nav.presentationMode?.dismiss()
-//                nav.dismiss?()
-//                presentationMode.wrappedValue.dismiss()
-            }
+//            shouldGoBack = true
+//            nav.path.removeLast()
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                nav.path.removeLast(nav.path.count)
+//            }
         }
         .navigationBarBackButtonHidden(true)
     }

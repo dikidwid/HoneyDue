@@ -33,5 +33,4 @@ struct TransactionCategoryIcon {
             return TransactionCategoryIcon(bgColor: .gray, sfSymbol: "")
         }
     }
-    
 }

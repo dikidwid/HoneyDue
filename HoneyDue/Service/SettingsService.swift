@@ -8,10 +8,11 @@ import SwiftUI
 import Combine
 import UserNotifications
 
-class SettingsViewModel: ObservableObject {
+class SettingsService: ObservableObject {
     @Published var idleModeEnabled: Bool {
         didSet {
             UserDefaults.standard.set(idleModeEnabled, forKey: "idleModeEnabled")
+            scheduleOrCancelNotification()
         }
     }
     
@@ -25,13 +26,14 @@ class SettingsViewModel: ObservableObject {
     @Published var smartReminderEnabled: Bool {
         didSet {
             UserDefaults.standard.set(smartReminderEnabled, forKey: "smartReminderEnabled")
+            scheduleOrCancelNotification()
         }
     }
     
     @Published var reminderTime: Date {
         didSet {
             UserDefaults.standard.set(reminderTime, forKey: "reminderTime")
-            scheduleOrCancelNotification()
+            updateNotification()
         }
     }
     
@@ -50,17 +52,30 @@ class SettingsViewModel: ObservableObject {
     }
     
     private func scheduleOrCancelNotification() {
-        if inputTransactionReminderEnabled {
+        cancelAllNotifications()
+        if inputTransactionReminderEnabled && !idleModeEnabled {
+            if smartReminderEnabled {
+                scheduleSmartReminders()
+            } else {
+                scheduleNotification()
+            }
+        }
+    }
+    
+    private func updateNotification() {
+        cancelAllNotifications()
+        if inputTransactionReminderEnabled && !smartReminderEnabled {
             scheduleNotification()
-        } else {
-            cancelNotification()
         }
     }
     
     private func scheduleNotification() {
+       
+        let notifObject = NotificationItem.logExpenseNotifications.randomElement()
+        
         let content = UNMutableNotificationContent()
-        content.title = "Reminder"
-        content.body = "It's time to input your transactions."
+        content.title = notifObject!.title
+        content.body = notifObject!.body
         content.sound = .default
         
         var dateComponents = Calendar.current.dateComponents([.hour, .minute], from: reminderTime)
@@ -76,7 +91,35 @@ class SettingsViewModel: ObservableObject {
         }
     }
     
-    private func cancelNotification() {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["transactionReminder"])
+    private func scheduleSmartReminders() {
+        
+        let notifObject = NotificationItem.logExpenseNotifications.randomElement()
+        
+        let content = UNMutableNotificationContent()
+        content.title = notifObject!.title
+        content.body = notifObject!.body
+        content.sound = .default
+        
+        let times = [(9, 0), (13, 0), (19, 0)]
+        
+        for (hour, minute) in times {
+            var dateComponents = DateComponents()
+            dateComponents.hour = hour
+            dateComponents.minute = minute
+            dateComponents.second = 0
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+            let request = UNNotificationRequest(identifier: "transactionReminder-\(hour)-\(minute)", content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Error scheduling notification: \(error)")
+                }
+            }
+        }
+    }
+    
+    private func cancelAllNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 }

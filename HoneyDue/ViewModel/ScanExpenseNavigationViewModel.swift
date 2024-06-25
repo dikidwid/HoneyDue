@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 
 class ScanExpenseNavigationViewModel: ObservableObject {
-    @Published var shouldGoBack: Bool = false
-    @Published var path = NavigationPath()
-    var presentationMode: PresentationMode?
-    var dismiss: DismissAction?
+    @Published var path = NavigationPath() {
+        didSet {
+            print("Navigation path updated: \(path)")
+        }
+    }
 }

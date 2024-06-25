@@ -10,12 +10,12 @@ import Combine
 
 
 struct ScanExpensePage: View {
-    @EnvironmentObject var scanExpenseNav: ScanExpenseNavigationViewModel
+    @StateObject var nav: ScanExpenseNavigationViewModel = ScanExpenseNavigationViewModel()
     
     var body: some View {
-        NavigationStack(path: $scanExpenseNav.path) {
+        NavigationStack(path: $nav.path) {
             ScanExpenseFragment()
-                .environmentObject(scanExpenseNav)
+                .environmentObject(nav)
         }
     }
 }
@@ -87,6 +87,15 @@ struct ScanExpenseFragment: View {
                         }
                     }
                 }
+                
+                NavigationLink {
+                    SettingsPage()
+                } label: {
+                    Text("Settings")
+                        .foregroundStyle(.colorPrimary)
+                }
+                .padding()
+                
                 ScrollView {
                     Text(responseText)
                         .background(.gray.opacity(0.1))
@@ -220,5 +229,4 @@ struct CustomBottomSheet: View {
 
 #Preview {
     ScanExpensePage()
-        .environmentObject(ScanExpenseNavigationViewModel())
 }

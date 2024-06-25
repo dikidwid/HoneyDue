@@ -16,11 +16,10 @@ struct ScanExpenseSelectTransactionPage: View {
     @State private var shouldNextPage: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
-    var rootDismiss: DismissAction? = nil
     
     var body: some View {
         ScrollView {
-            NavigationLink(destination: ScanExpenseSuccessPage(rootDismiss: rootDismiss), isActive: $shouldNextPage) {
+            NavigationLink(destination: ScanExpenseSuccessPage(), isActive: $shouldNextPage) {
                 EmptyView()
             }
             VStack(alignment: .leading) {
@@ -78,11 +77,6 @@ struct ScanExpenseSelectTransactionPage: View {
         .onAppear {
             viewModel.onIndividualCheckboxChange()
         }
-//        .onChange(of: nav.shouldGoBack) { shouldGoBack in
-//            if shouldGoBack {
-//                presentationMode.wrappedValue.dismiss()
-//            }
-//        }
         .navigationBarBackButtonHidden(true)
     }
 }
