@@ -33,11 +33,9 @@ struct ScanExpenseSuccessPage: View {
         }
         .onAppear {
             isAnimate = true
-//            shouldGoBack = true
-//            nav.path.removeLast()
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                nav.path.removeLast(nav.path.count)
-//            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                nav.path.removeLast(nav.path.count)
+            }
         }
         .navigationBarBackButtonHidden(true)
     }

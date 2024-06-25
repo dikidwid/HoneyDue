@@ -3,20 +3,31 @@
 //  VisionAI
 //
 //  Created by Arya Adyatma on 12/06/24.
-//
+
 
 import SwiftUI
 import Combine
 
-
 struct ScanExpensePage: View {
-    @StateObject var nav: ScanExpenseNavigationViewModel = ScanExpenseNavigationViewModel()
+    @StateObject var nav = ScanExpenseNavigationViewModel()
     
     var body: some View {
         NavigationStack(path: $nav.path) {
             ScanExpenseFragment()
-                .environmentObject(nav)
+                .navigationDestination(for: ScanExpenseNavigationDestination.self) { destination in
+                    switch destination {
+                    case .validation(let result):
+                        ScanExpenseValidationPage(expenseResult: result)
+                    case .selectTransaction(let result):
+                        ScanExpenseSelectTransactionPage(
+                            viewModel: ScanExpenseSelectTransactionViewModel(expenseResult: result)
+                        )
+                    case .success:
+                        ScanExpenseSuccessPage()
+                    }
+                }
         }
+        .environmentObject(nav)
     }
 }
 
@@ -50,10 +61,6 @@ struct ScanExpenseFragment: View {
     )
     
     var body: some View {
-        NavigationLink(destination: ScanExpenseValidationPage(expenseResult: expenseResult), isActive: $shouldNavigateNext) {
-            EmptyView()
-        }
-        
         if isLoading {
             ScanExpenseReadingPage(onCancelBtn: { cancelVisionAI() })
         }
@@ -64,6 +71,7 @@ struct ScanExpenseFragment: View {
                         .foregroundColor(.colorPrimary)
                         .opacity(0.2)
                         .frame(width: 64, height: 64)
+                    
                     Text("🤑")
                         .scaleEffect(1.6)
                 }
@@ -103,6 +111,7 @@ struct ScanExpenseFragment: View {
                 
             }
             .padding()
+            .padding(.top, 200)
             .sheet(isPresented: $isShowingActionSheet) {
                 CustomBottomSheet(isShowing: $isShowingActionSheet, isShowingCamera: $isShowingCamera, isShowingPhotoLibrary: $isShowingPhotoLibrary)
                     .presentationDetents([.height(220), .medium, .large])
@@ -129,6 +138,7 @@ struct ScanExpenseFragment: View {
     func askVisionAI() {
         self.expenseResult = ScanExpenseResult.getFromAIResponse()
         cancelVisionAI()
+        nav.path.append(ScanExpenseNavigationDestination.validation(expenseResult))
         return
         
         guard let uiImage = uiImage else { return }

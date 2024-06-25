@@ -19,9 +19,9 @@ struct ScanExpenseSelectTransactionPage: View {
     
     var body: some View {
         ScrollView {
-            NavigationLink(destination: ScanExpenseSuccessPage(), isActive: $shouldNextPage) {
-                EmptyView()
-            }
+//            NavigationLink(destination: ScanExpenseSuccessPage(), isActive: $shouldNextPage) {
+//                EmptyView()
+//            }
             VStack(alignment: .leading) {
                 TopBarBack(title: "Your Receipt")
 
@@ -55,7 +55,7 @@ struct ScanExpenseSelectTransactionPage: View {
                 }
                 
                 Button(action: {
-                    shouldNextPage = true
+                    nav.path.append(ScanExpenseNavigationDestination.success)
                 }) {
                     Text("Save")
                         .fontWeight(.bold)

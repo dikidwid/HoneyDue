@@ -79,6 +79,7 @@ struct ScanExpenseValidationPage: View {
                     } else {
                         expenseResult.adjustTax()
                         shouldNextPage = true
+//                        nav.path.append(ScanExpenseNavigationDestination.selectTransaction(expenseResult))
                     }
                 }) {
                     Text(isEditing ? "Save" : "Confirm Bill")
