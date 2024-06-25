@@ -1,7 +1,12 @@
 //
 //  CGFloat+Extension.swift
-//  HoneyDue
+//  iTrack
 //
-//  Created by Arya Adyatma on 25/06/24.
+//  Created by Diki Dwi Diro on 25/06/24.
 //
 
+import Foundation
+
+extension CGFloat {
+    static let modalityCornerRadius: CGFloat? = 24
+}
