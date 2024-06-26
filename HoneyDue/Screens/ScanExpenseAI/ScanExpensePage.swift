@@ -39,7 +39,7 @@ struct ScanExpenseFragment: View {
     
     var body: some View {
         if viewModel.isLoading {
-            ScanExpenseReadingPage(onCancelBtn: { viewModel.cancelVisionAI() })
+            ScanExpenseReadingPage(onCancelBtn: { viewModel.closeOverlay() })
         }
         else {
             VStack {

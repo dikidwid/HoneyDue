@@ -71,7 +71,7 @@ class SettingsService: ObservableObject {
     
     private func scheduleNotification() {
        
-        let notifObject = NotificationItem.logExpenseNotifications.randomElement()
+        let notifObject = LocalNotificationItem.logExpenseNotifications.randomElement()
         
         let content = UNMutableNotificationContent()
         content.title = notifObject!.title
@@ -93,7 +93,7 @@ class SettingsService: ObservableObject {
     
     private func scheduleSmartReminders() {
         
-        let notifObject = NotificationItem.logExpenseNotifications.randomElement()
+        let notifObject = LocalNotificationItem.logExpenseNotifications.randomElement()
         
         let content = UNMutableNotificationContent()
         content.title = notifObject!.title

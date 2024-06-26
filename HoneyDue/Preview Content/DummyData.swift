@@ -10,10 +10,10 @@ import Foundation
 extension ScanExpenseResult {
     static func getExample() -> ScanExpenseResult {
         let items = [
-            ScanExpenseItem(name: "Iced Sweet Lychee Tea", pricePerQtyIDR: 25000, qty: 2, emoji: "🍹", notes: "", categoryString: "food_and_beverage"),
-            ScanExpenseItem(name: "Choco Motive", pricePerQtyIDR: 10000, qty: 2, emoji: "🍫", notes: "", categoryString: "food_and_beverage"),
-            ScanExpenseItem(name: "Red", pricePerQtyIDR: 15000, qty: 1.25, emoji: "🍷", notes: "", categoryString: "food_and_beverage"),
-            ScanExpenseItem(name: "Black", pricePerQtyIDR: 12000, qty: 1, emoji: "☕️", notes: "", categoryString: "food_and_beverage")
+            ScanExpenseItem(name: "Iced Sweet Lychee Tea", pricePerQtyIDR: 25000, qty: 2, emoji: "🍹", notes: "", categoryString: "Food"),
+            ScanExpenseItem(name: "Choco Motive", pricePerQtyIDR: 10000, qty: 2, emoji: "🍫", notes: "", categoryString: "Food"),
+            ScanExpenseItem(name: "Red", pricePerQtyIDR: 15000, qty: 1.25, emoji: "🍷", notes: "", categoryString: "Food"),
+            ScanExpenseItem(name: "Black", pricePerQtyIDR: 12000, qty: 1, emoji: "☕️", notes: "", categoryString: "Food")
         ]
         return ScanExpenseResult(
             items: items,

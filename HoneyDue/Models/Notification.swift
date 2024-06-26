@@ -73,4 +73,6 @@ extension Notification {
     static let networkError: Notification = Notification(title: "Network Error",
                                                          message: "Please check your connection and try again.",
                                                          status: .Fail)
+    
+    static let defaultNotification: Notification = Notification(title: "", message: "", status: .Fail)
 }

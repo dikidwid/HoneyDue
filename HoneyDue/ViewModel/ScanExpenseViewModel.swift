@@ -19,6 +19,9 @@ class ScanExpenseViewModel: ObservableObject {
     @Published var uiImage: UIImage? = nil
     @Published var expenseResult: ScanExpenseResult = ScanExpenseResult.getExample()
     
+    @Published var customNotification: Notification = .failScanBill
+    @Published var isShowCustomNotification: Bool = false
+    
     private var cancellables = Set<AnyCancellable>()
     
     let aiService: AIService
@@ -33,7 +36,6 @@ class ScanExpenseViewModel: ObservableObject {
         $expenseResult
             .sink { [weak self] result in
                 self?.shouldNavigateNext = true
-                print("SHOULD NAVIGATE!! by didSet")
             }
             .store(in: &cancellables)
     }
@@ -42,7 +44,7 @@ class ScanExpenseViewModel: ObservableObject {
         
         // For testing purposes. Comment or uncomment these three lines.
 //        self.expenseResult = ScanExpenseResult.getFromAIResponse()
-//        cancelVisionAI()
+//        self.closeOverlay()
 //        return
         
         guard let uiImage = uiImage else { return }
@@ -51,28 +53,45 @@ class ScanExpenseViewModel: ObservableObject {
         aiService.sendMessage(query: question, uiImage: uiImage) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
+
                 case .success(let response):
                     if self?.isLoading == true {
+
                         self?.responseText = response
+                        
                         if let result = ScanExpenseResult.fromJson(jsonString: response) {
+                            print("Scan Bill Return JSON and Success!")
                             self?.expenseResult = result
+                        } else {
+                            self?.onError()
                         }
                     }
-                    print("SUCCESS!!!!")
                     print(self?.expenseResult ?? "No result")
-                    self?.cancelVisionAI()
+                    self?.closeOverlay()
+                
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
-                    self?.cancelVisionAI()
+                    self?.closeOverlay()
+                    self?.onError()
                 }
             }
         }
     }
     
-    func cancelVisionAI() {
+    func closeOverlay() {
         isLoading = false
         isShowingPhotoLibrary = false
         isShowingCamera = false
         isShowingActionSheet = false
+    }
+    
+    func onError() {
+//        customNotification = .failScanBill
+        isShowCustomNotification = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            self.customNotification = .defaultNotification
+            self.isShowCustomNotification = false
+        }
     }
 }

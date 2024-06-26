@@ -27,6 +27,20 @@ struct ScanExpenseResult : Hashable, Codable, Identifiable {
         self.totalIDR = getTotalIDR()
     }
     
+    func getItemsAsExpense() -> [Expense] {
+        var expenses: [Expense] = []
+        for item in items {
+            let exp = Expense(
+                name: item.name,
+                amount: Int(item.getPriceTimesQtyIDR(includeTax: true)),
+                category: item.getCategory(),
+                date: Date()
+            )
+            expenses.append(exp)
+        }
+        return expenses
+    }
+    
     func getSubtotalIDR(includeTax: Bool) -> Double {
         var subtotal = 0.0
         for item in items {
