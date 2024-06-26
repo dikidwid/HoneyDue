@@ -40,6 +40,7 @@ extension Item {
     static let workItem = Item(image: "Work", position: CGPoint(x: 0.16, y: 0.4), width: 125)
     
     static let cameraItem = Item(image: "Camera", position: CGPoint(x: 0.83, y: 0.075), width: 43)
+    static let overviewItem = Item(image: "Overview", position: CGPoint(x: 0.22, y: 0.69), width: 85)
     
 }
 

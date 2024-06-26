@@ -15,6 +15,9 @@ struct HomeView: View {
     // Scan Expense
     @StateObject var scanExpenseViewModel = ScanExpenseViewModel()
     @StateObject var scanExpenseNav = ScanExpenseNavigationViewModel()
+    
+    @State private var isBlinkCameraItem: Bool = false
+//    @State private var isBlinkOverviewItem: Bool = false
 //    @State var showProfile: Bool = false
     //    @Environment(\.modelContext) var modelContext
     
@@ -54,15 +57,56 @@ struct HomeView: View {
                     Image(Item.cameraItem.image)
                         .resizable()
                         .scaledToFit()
-                        .border(.red)
                         .frame(width: Item.cameraItem.width)
                         .position(calculatedPosition)
+                        .overlay {
+                            Image(Item.cameraItem.image)
+                                .resizable()
+                                .renderingMode(.template)
+                                .scaledToFit()
+                                .foregroundStyle(.white)
+                                .frame(width: Item.cameraItem.width)
+                                .position(calculatedPosition)
+                                .opacity(isBlinkCameraItem ? 0.6 : 0)
+
+                        }
+                        .onAppear {
+                            withAnimation(.easeIn.repeatForever(autoreverses: true).speed(0.4)) {
+                                isBlinkCameraItem.toggle()
+                            }
+                        }
                         .onTapGesture {
                             if !viewModel.isEditMode {
                                 scanExpenseViewModel.isShowingActionSheet = true
                             }
                         }
+
                     
+                    let calculatedPositionOverview = CGPoint (
+                        x: Item.overviewItem.position.x * screenWidth,
+                        y: Item.overviewItem.position.y * screenHeight
+                    )
+                    Image(Item.overviewItem.image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: Item.overviewItem.width)
+                        .position(calculatedPositionOverview)
+                        .overlay {
+                            Image(Item.overviewItem.image)
+                                .resizable()
+                                .renderingMode(.template)
+                                .scaledToFit()
+                                .foregroundStyle(.white)
+                                .frame(width: Item.overviewItem.width)
+                                .position(calculatedPositionOverview)
+                                .opacity(isBlinkCameraItem ? 0.6 : 0)
+
+                        }
+                        .onTapGesture {
+                            if !viewModel.isEditMode {
+                                //\avatar.showProfile.toggle()
+                            }
+                        }
                     
                     editModeControls()
                 }
@@ -242,7 +286,7 @@ struct AvatarViewHome: View{
                     .resizable()
                     .scaledToFit()
                     .frame(width: 12, height: 12)
-                    .offset(x: -5, y: 12)
+                    .offset(x: -6.5, y: 5)
             }
         }
     }

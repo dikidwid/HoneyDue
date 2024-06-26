@@ -20,7 +20,6 @@ struct ItemView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: item.width)
-                .border(.red)
                 .position(calculatedPosition)
                 .shine(shine, duration: 0.5)
             

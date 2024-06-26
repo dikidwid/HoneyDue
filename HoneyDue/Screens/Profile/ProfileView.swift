@@ -225,8 +225,8 @@ struct ProfileOverlay: View{
                         .padding(.top)
                     
                     HStack {
-                        RecordCardView(title: "Highest Streak", value: "45", imageName: "Medicine")
-                        RecordCardView(title: "Current Streak", value: "99", imageName: "Medicine")
+                        RecordCardView(title: "Highest Streak", value: "45", imageName: "Streak")
+                        RecordCardView(title: "Current Streak", value: "99", imageName: "Streak")
                     }
                     
                     HStack {
@@ -289,7 +289,7 @@ struct AvatarView: View{
                     .resizable()
                     .scaledToFit()
                     .frame(width: 25, height: 25)
-                    .offset(x: -15, y: 20)
+                    .offset(x: -15, y: 10)
             }
         }
     }
