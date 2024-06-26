@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ExpenseRowView: View {
     let expense: Expense
@@ -22,12 +23,14 @@ struct ExpenseRowView: View {
                             .fill(expense.category.color)
                             .overlay {
                                 Image(systemName: expense.category.icon)
-                                    .font(.title2)
+                                    .font(.body)
                                     .foregroundStyle(.white)
+                                //                                    .padding()
                             }
-                            .padding([.vertical, .trailing], 5)
+                            .padding(.vertical, 12)
+                            .padding(.trailing, 5)
                     }
-                    VStack(alignment: .leading, spacing: 7.5) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text(expense.name)
                             .font(.system(.subheadline, weight: .medium))
                         
@@ -48,5 +51,7 @@ struct ExpenseRowView: View {
 }
 
 #Preview {
-    ExpenseRowView(expense: .dummyExpenses[0], isShowIcon: false)
+    ModelContainerPreview(ModelContainer.sample) {
+        ExpenseRowView(expense: .dummyExpenses[0], isShowIcon: false)
+    }
 }

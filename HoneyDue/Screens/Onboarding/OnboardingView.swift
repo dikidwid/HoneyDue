@@ -36,6 +36,7 @@ struct OnboardingView: View {
     @EnvironmentObject var nav: GlobalNavigationViewModel
     
     let pages = [
+        NewOnboardingPage(image: "BearPlaceholder", title: "Explore Your Dashboard", description: "Access your overview, scan expenses, and update your profile by tapping the globe, camera, and avatar icons on the canvas."),
         NewOnboardingPage(image: "BearPlaceholder", title: "Protect Your Streak with Idle Mode", description: "Going on holiday or not spending at all? Turn on Idle Mode to protect your streak. This way, you can take a break without losing your progress."),
         NewOnboardingPage(image: "BearPlaceholder", title: "Earn Rewards for Your Achievements", description: "Reach your financial goals and unlock rewards! Customize your avatar with exclusive decorations every time you achieve a new milestone."),
         NewOnboardingPage(image: "BearPlaceholder", title: "Personalize Your Profile", description: "Tap your avatar to visit your profile. Here, you can track your achievements, view your rewards, and personalize your experience."),

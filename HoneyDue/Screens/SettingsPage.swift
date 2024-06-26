@@ -4,30 +4,33 @@
 //
 //  Created by Arya Adyatma on 25/06/24.
 //
+
 import SwiftUI
 
 struct SettingsPage: View {
     @EnvironmentObject var userService: UserService
-    @StateObject private var viewModel = SettingsService()
+    @StateObject private var settingsService = ConfigService()
     
     var body: some View {
         VStack {
             TopBarBack(title: "Settings")
                 .padding(.horizontal)
             List {
-                NavigationLink(destination: SettingsNotificationPage(viewModel: viewModel)) {
+                NavigationLink(destination: SettingsNotificationPage(settingsService: settingsService)) {
                     SettingsRow(title: "Notifications")
                 }
                 
-                SettingsToggle(title: "Idle mode", isOn: $viewModel.idleModeEnabled)
+                SettingsToggle(title: "Idle mode", isOn: Binding(
+                    get: { settingsService.idleModeEnabled },
+                    set: { settingsService.updateIdleModeEnabled($0) }
+                ))
                 
-                NavigationLink(destination: Text("Logged out!")) {
+                Button(action: {
+                    userService.logout()
+                }) {
                     SettingsRow(title: "Log out")
                 }
                 .listSectionSeparator(.hidden, edges: .bottom)
-                .onTapGesture {
-                    userService.logout()
-                }
             }
             .listStyle(PlainListStyle())
         }
@@ -38,5 +41,6 @@ struct SettingsPage: View {
 #Preview {
     NavigationStack {
         SettingsPage()
+            .environmentObject(UserService())
     }
 }

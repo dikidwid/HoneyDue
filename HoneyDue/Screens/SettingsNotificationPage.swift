@@ -7,25 +7,37 @@
 import SwiftUI
 
 struct SettingsNotificationPage: View {
-    @ObservedObject var viewModel: SettingsService
+    @ObservedObject var settingsService: ConfigService
     
     var body: some View {
         VStack {
             TopBarBack(title: "Notifications")
                 .padding(.horizontal)
             List {
-                SettingsToggle(title: "Input transaction reminder", isOn: $viewModel.inputTransactionReminderEnabled)
+                SettingsToggle(
+                    title: "Input transaction reminder",
+                    isOn: Binding(
+                        get: { settingsService.inputTransactionReminderEnabled },
+                        set: { settingsService.updateInputTransactionReminderEnabled($0) }
+                    )
+                )
                 
                 SettingsToggle(
                     title: "Smart reminder",
-                    isOn: $viewModel.smartReminderEnabled,
-                    disabled: !viewModel.inputTransactionReminderEnabled
+                    isOn: Binding(
+                        get: { settingsService.smartReminderEnabled },
+                        set: { settingsService.updateSmartReminderEnabled($0) }
+                    ),
+                    disabled: !settingsService.inputTransactionReminderEnabled
                 )
                 
                 DatePickerRow(
                     title: "Reminder time",
-                    date: $viewModel.reminderTime,
-                    disabled: !viewModel.inputTransactionReminderEnabled || viewModel.smartReminderEnabled
+                    date: Binding(
+                        get: { settingsService.reminderTime },
+                        set: { settingsService.updateReminderTime($0) }
+                    ),
+                    disabled: !settingsService.inputTransactionReminderEnabled || settingsService.smartReminderEnabled
                 )
                 .listSectionSeparator(.hidden, edges: .bottom)
             }
@@ -33,14 +45,8 @@ struct SettingsNotificationPage: View {
         }
         .navigationBarBackButtonHidden(true)
     }
-    
-    private var timeFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        return formatter
-    }
 }
 
 #Preview {
-    SettingsNotificationPage(viewModel: SettingsService())
+    SettingsNotificationPage(settingsService: ConfigService())
 }

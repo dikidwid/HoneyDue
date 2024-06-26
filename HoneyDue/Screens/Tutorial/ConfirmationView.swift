@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ConfirmationView: View {
-    @EnvironmentObject var onboarding: UserService
+    @EnvironmentObject var userService: UserService
 
     @Environment(\.presentationMode) var presentationMode
-    
+    @Environment(\.modelContext) var modelContext
+
     @State var selectedCategories: [CategoryBudget]
+    @Query var categories: [Category]
     
     var body: some View {
         NavigationView {
@@ -82,7 +85,8 @@ struct ConfirmationView: View {
                         Button {
                             // Action for the confirm button
 //                            presentationMode.wrappedValue.dismiss()
-                            onboarding.setShouldShowOnboarding(false)
+                            setCategoryBudgeting()
+                            userService.setShouldShowOnboarding(false)
                             
                         } label: {
                             CustomButtonView(title: "Finish")
@@ -101,6 +105,12 @@ struct ConfirmationView: View {
         .navigationBarHidden(true)
     }
     
+    func setCategoryBudgeting() {
+        for userCategory in selectedCategories {
+            var categoryToModify = categories.first { $0.name == userCategory.label }
+            categoryToModify?.budget = Int(userCategory.budget) ?? 500000
+        }
+    }
 
 }
 
