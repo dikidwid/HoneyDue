@@ -114,6 +114,7 @@ struct HomeView: View {
                 .offset(y: scanExpenseViewModel.isShowCustomNotification ? 0 : -150)
                 .animation(.interpolatingSpring, value: scanExpenseViewModel.isShowCustomNotification)
         }
+        .statusBar(hidden: true)
         .environmentObject(scanExpenseNav)
     }
     

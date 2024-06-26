@@ -32,7 +32,7 @@ struct HoneyDueApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView(viewModel: HomeViewModel(dataSource: CategoryDataSource.shared))
+//            HomeView(viewModel: HomeViewModel(dataSource: CategoryDataSource.shared))
         }
 //        .modelContainer(container)
     }
