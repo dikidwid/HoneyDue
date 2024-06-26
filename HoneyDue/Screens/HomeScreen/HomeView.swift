@@ -12,38 +12,104 @@ struct HomeView: View {
     let shineTimer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
     
+    // Scan Expense
+    @StateObject var scanExpenseViewModel = ScanExpenseViewModel()
+    @StateObject var scanExpenseNav = ScanExpenseNavigationViewModel()
+    
 //    @Environment(\.modelContext) var modelContext
     
 //    @Query private var categories: [Category]
     
+
     var body: some View {
-        GeometryReader { geometry in
-            let screenWidth = geometry.size.width
-            let screenHeight = geometry.size.height
-            
-            ZStack {
-                backgroundView(screenWidth: screenWidth, screenHeight: screenHeight)
-                iconsView(screenWidth: screenWidth, screenHeight: screenHeight)
-                let calculatedPosition = CGPoint (
-                    x: Item.cameraItem.position.x * screenWidth,
-                    y: Item.cameraItem.position.y * screenHeight
-                )
-                Image(Item.cameraItem.image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Item.cameraItem.width)
-                    .position(calculatedPosition)
+        NavigationStack(path: $scanExpenseNav.path) {
+            GeometryReader { geometry in
+                let screenWidth = geometry.size.width
+                let screenHeight = geometry.size.height
                 
-                editModeControls()
+                ZStack {
+                    backgroundView(screenWidth: screenWidth, screenHeight: screenHeight)
+                    iconsView(screenWidth: screenWidth, screenHeight: screenHeight)
+                    let calculatedPosition = CGPoint (
+                        x: Item.cameraItem.position.x * screenWidth,
+                        y: Item.cameraItem.position.y * screenHeight
+                    )
+                    Image(Item.cameraItem.image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: Item.cameraItem.width)
+                        .position(calculatedPosition)
+                        .onTapGesture {
+                            scanExpenseViewModel.isShowingActionSheet = true
+                        }
+                    
+                    editModeControls()
+                }
+                .sheet(isPresented: $scanExpenseViewModel.isShowingActionSheet) {
+                    ScanBillBottomSheet(
+                        isShowing: $scanExpenseViewModel.isShowingActionSheet,
+                        isShowingCamera: $scanExpenseViewModel.isShowingCamera,
+                        isShowingPhotoLibrary: $scanExpenseViewModel.isShowingPhotoLibrary
+                    )
+                    .presentationDetents([.height(220), .medium, .large])
+                    .presentationDragIndicator(.hidden)
+                    .padding()
+                    .padding(.top)
+                    .cornerRadius(24)
+                    .presentationCornerRadius(24)
+                }
+                .fullScreenCover(isPresented: $scanExpenseViewModel.isShowingCamera) {
+                    CameraView(
+                        isShowingCamera: $scanExpenseViewModel.isShowingCamera,
+                        image: $scanExpenseViewModel.image,
+                        uiImage: $scanExpenseViewModel.uiImage
+                    )
+                    .background(Color.black)
+                    .edgesIgnoringSafeArea(.all)
+                }
+                .fullScreenCover(isPresented: $scanExpenseViewModel.isShowingPhotoLibrary) {
+                    ImagePicker(
+                        image: $scanExpenseViewModel.image,
+                        uiImage: $scanExpenseViewModel.uiImage
+                    )
+                }
+                .onChange(of: scanExpenseViewModel.uiImage) { _ in
+                    scanExpenseViewModel.askVisionAI()
+                }
+                .onChange(of: scanExpenseViewModel.expenseResult) { _ in
+                    scanExpenseNav.path.append(ScanExpenseNavigationDestination.validation(scanExpenseViewModel.expenseResult))
+                }
+                .onReceive(shineTimer) { _ in
+                    viewModel.shine.toggle()
+                }
+                .onLongPressGesture {
+                    viewModel.toggleEditMode()
+                }
             }
-            .onReceive(shineTimer) { _ in
-                viewModel.shine.toggle()
+            .navigationDestination(for: ScanExpenseNavigationDestination.self) { destination in
+                switch destination {
+                case .validation(let result):
+                    ScanExpenseValidationPage(expenseResult: result)
+                case .selectTransaction(let result):
+                    ScanExpenseSelectTransactionPage(
+                        viewModel: ScanExpenseSelectTransactionViewModel(expenseResult: result)
+                    )
+                case .success:
+                    ScanExpenseSuccessPage()
+                }
             }
-            .onLongPressGesture {
-                viewModel.toggleEditMode()
-            }
-//            .overlay()
         }
+        .overlay {
+            if scanExpenseViewModel.isLoading {
+                HStack {
+                    Spacer()
+                    ScanExpenseReadingPage(onCancelBtn: { scanExpenseViewModel.isLoading = false })
+                    Spacer()
+                }
+                .background(.white)
+            }
+        }
+        .environmentObject(scanExpenseNav)
     }
     
     private func backgroundView(screenWidth: CGFloat, screenHeight: CGFloat) -> some View {
