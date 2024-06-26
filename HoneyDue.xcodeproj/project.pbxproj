@@ -23,6 +23,11 @@
 		24CB5EBF2C29801B0013D1E2 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB5EBE2C29801B0013D1E2 /* Icon.swift */; };
 		24CB5EC12C2980300013D1E2 /* Seeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CB5EC02C2980300013D1E2 /* Seeder.swift */; };
 		24EC55522C2B2F3C009EE347 /* Accessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EC55512C2B2F3C009EE347 /* Accessory.swift */; };
+		2316BF922C2B2A1B005242A7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2316BF912C2B2A1B005242A7 /* OnboardingView.swift */; };
+		2316BF942C2B4526005242A7 /* SetCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2316BF932C2B4526005242A7 /* SetCategoryView.swift */; };
+		2316BF962C2BAF83005242A7 /* SetBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2316BF952C2BAF83005242A7 /* SetBudgetView.swift */; };
+		23DC0F832C2BBC9F0079003A /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DC0F822C2BBC9F0079003A /* KeyboardResponder.swift */; };
+		23DC0F852C2BC76B0079003A /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DC0F842C2BC76B0079003A /* ConfirmationView.swift */; };
 		3A71912C2C23E548006F2516 /* HoneyDueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A71912B2C23E548006F2516 /* HoneyDueApp.swift */; };
 		3A7191332C23E549006F2516 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A7191322C23E549006F2516 /* Preview Assets.xcassets */; };
 		E6138FAA2C296FE10057A8A7 /* ScanExpenseSuccessPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FA92C296FE10057A8A7 /* ScanExpenseSuccessPage.swift */; };
@@ -86,6 +91,11 @@
 		24CB5EBE2C29801B0013D1E2 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		24CB5EC02C2980300013D1E2 /* Seeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seeder.swift; sourceTree = "<group>"; };
 		24EC55512C2B2F3C009EE347 /* Accessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessory.swift; sourceTree = "<group>"; };
+		2316BF912C2B2A1B005242A7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		2316BF932C2B4526005242A7 /* SetCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCategoryView.swift; sourceTree = "<group>"; };
+		2316BF952C2BAF83005242A7 /* SetBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBudgetView.swift; sourceTree = "<group>"; };
+		23DC0F822C2BBC9F0079003A /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		23DC0F842C2BC76B0079003A /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
 		3A7191282C23E548006F2516 /* HoneyDue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoneyDue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A71912B2C23E548006F2516 /* HoneyDueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyDueApp.swift; sourceTree = "<group>"; };
 		3A71912F2C23E549006F2516 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,6 +204,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2316BF8F2C2AC88E005242A7 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				2316BF932C2B4526005242A7 /* SetCategoryView.swift */,
+				2316BF952C2BAF83005242A7 /* SetBudgetView.swift */,
+				23DC0F842C2BC76B0079003A /* ConfirmationView.swift */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
+		2316BF902C2AC89A005242A7 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				2316BF912C2B2A1B005242A7 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		3A71911F2C23E548006F2516 = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +278,11 @@
 				E62FE31B2C2ABAFC00815BBC /* CustomButtonView.swift */,
 				E62FE3192C2ABAF300815BBC /* CurrencyFieldView.swift */,
 				E6138FB02C2A638D0057A8A7 /* Settings.swift */,
+				3AF496F92C2A9371005051FF /* AddExpenseView.swift */,
+				3AF496FA2C2A9371005051FF /* ExpenseCategoryListView.swift */,
+				3AF496FB2C2A9371005051FF /* ExpenseDetailView.swift */,
+				2316BF902C2AC89A005242A7 /* Onboarding */,
+				2316BF8F2C2AC88E005242A7 /* Tutorial */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,6 +303,9 @@
 			children = (
 				E62FE30A2C2ABA8000815BBC /* Preview+ModelContainer.swift */,
 				E62FE3082C2ABA7700815BBC /* ModelContainerPreview.swift */,
+				3AF497012C2A9371005051FF /* ModelContainerPreview.swift */,
+				3AF497022C2A9371005051FF /* Preview+ModelContainer.swift */,
+				23DC0F822C2BBC9F0079003A /* KeyboardResponder.swift */,
 			);
 			path = PreviewHelper;
 			sourceTree = "<group>";
@@ -441,6 +477,28 @@
 				2452536D2C2AAB7F0042B135 /* ItemView.swift in Sources */,
 				2452536B2C2AAB600042B135 /* ItemViewTapArea.swift in Sources */,
 				E62FE3202C2ABB1500815BBC /* ExpenseListView.swift in Sources */,
+				3AF4971D2C2A9372005051FF /* CustomButtonView.swift in Sources */,
+				2316BF962C2BAF83005242A7 /* SetBudgetView.swift in Sources */,
+				3AF4971A2C2A9372005051FF /* Expense.swift in Sources */,
+				3AF497162C2A9372005051FF /* String+Extension.swift in Sources */,
+				3AF4971E2C2A9372005051FF /* CustomTextFieldView.swift in Sources */,
+				23DC0F832C2BBC9F0079003A /* KeyboardResponder.swift in Sources */,
+				3AF497202C2A9372005051FF /* ExpenseRowView.swift in Sources */,
+				3AF497112C2A9372005051FF /* AddExpenseView.swift in Sources */,
+				2316BF922C2B2A1B005242A7 /* OnboardingView.swift in Sources */,
+				2316BF942C2B4526005242A7 /* SetCategoryView.swift in Sources */,
+				23DC0F852C2BC76B0079003A /* ConfirmationView.swift in Sources */,
+				3AF497152C2A9372005051FF /* Color+Extension.swift in Sources */,
+				3AF497122C2A9372005051FF /* ExpenseCategoryListView.swift in Sources */,
+				3AF497142C2A9372005051FF /* CGFloat+Extension.swift in Sources */,
+				3AF497222C2A9372005051FF /* ProgressBarView.swift in Sources */,
+				3AF497132C2A9372005051FF /* ExpenseDetailView.swift in Sources */,
+				3AF4971B2C2A9372005051FF /* Notification.swift in Sources */,
+				3AF4971F2C2A9372005051FF /* ExpenseListView.swift in Sources */,
+				3AF497182C2A9372005051FF /* Preview+ModelContainer.swift in Sources */,
+				3A71912E2C23E548006F2516 /* ContentView.swift in Sources */,
+				3AF4971C2C2A9372005051FF /* CurrencyFieldView.swift in Sources */,
+				3AF497172C2A9372005051FF /* ModelContainerPreview.swift in Sources */,
 				3A71912C2C23E548006F2516 /* HoneyDueApp.swift in Sources */,
 				E632FA632C2ABB9000DABF55 /* ProgressBarView.swift in Sources */,
 				E62FE31E2C2ABB0A00815BBC /* CustomTextFieldView.swift in Sources */,
