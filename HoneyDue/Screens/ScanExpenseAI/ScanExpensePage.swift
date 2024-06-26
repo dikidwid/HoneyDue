@@ -38,7 +38,7 @@ struct ScanExpenseFragment: View {
     @StateObject private var viewModel = ScanExpenseViewModel()
     
     var body: some View {
-        if viewModel.isLoading {
+        if viewModel.isScanning {
             ScanExpenseReadingPage(onCancelBtn: { viewModel.closeOverlay() })
         }
         else {
@@ -59,7 +59,7 @@ struct ScanExpenseFragment: View {
                     .padding()
                     .padding(.horizontal)
                 
-                if !viewModel.isLoading {
+                if !viewModel.isScanning {
                     HStack {
                         Button(action: {
                             viewModel.isShowingActionSheet = true

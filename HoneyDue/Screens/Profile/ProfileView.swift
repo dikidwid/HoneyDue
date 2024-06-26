@@ -28,6 +28,7 @@ struct ProfileView: View {
                     
                     ProfileHeader(isEditing: $isEditing)
                     
+                    
                     VStack(spacing: 0){
                         ZStack{
                             Rectangle()
@@ -260,7 +261,6 @@ struct AvatarView: View{
                 .resizable()
                 .scaledToFit()
             
-            
             if let selectedHair = avatar.selectedHair {
                 selectedHair.image
                     .resizable()
@@ -274,6 +274,7 @@ struct AvatarView: View{
 struct ProfileHeader: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var isEditing: Bool
+    
     var body: some View {
         VStack{
             HStack{
@@ -289,20 +290,26 @@ struct ProfileHeader: View {
                     }
                 
                 Spacer()
-                Image(systemName: "gearshape")
-                    .foregroundColor(.white)
-                    .frame(width: 26, height: 22)
-                    .bold()
+                
+                NavigationLink(destination: SettingsPage()) {
+                    Image(systemName: "gearshape")
+                        .foregroundColor(.white)
+                        .frame(width: 26, height: 22)
+                        .bold()
+
+                }
                 
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 65)
+            
             Spacer()
         }
     }
 }
 
 #Preview {
-    ProfileView()
+    NavigationView {
+        ProfileView()
+    }
 }
-

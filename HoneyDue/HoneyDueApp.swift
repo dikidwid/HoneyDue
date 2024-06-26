@@ -32,8 +32,31 @@ struct HoneyDueApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SetCategoryView()
+            HoneyDueAppRoot()
         }
 //        .modelContainer(container)
     }
 }
+
+struct HoneyDueAppRoot: View {
+    @StateObject var onboardingService = UserService()
+    
+    var body: some View {
+        Group {
+            if onboardingService.shouldShowOnboarding {
+                OnboardingView()
+            } else {
+                HomeView()
+            }
+        }
+        .environmentObject(onboardingService)
+
+    }
+        
+}
+
+
+#Preview {
+    HoneyDueAppRoot()
+}
+

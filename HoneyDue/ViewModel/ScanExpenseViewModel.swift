@@ -12,7 +12,7 @@ class ScanExpenseViewModel: ObservableObject {
     @Published var isShowingPhotoLibrary = false
     @Published var image: Image? = nil
     @Published var responseText: String = ""
-    @Published var isLoading = false
+    @Published var isScanning = false
     @Published var question: String = "Scan this bill. Categories: \(TransactionCategory.getCategoryNames()). Do not use categories other than this."
     @Published var shouldNavigateNext = false
     @Published var isShowingActionSheet = false
@@ -48,14 +48,14 @@ class ScanExpenseViewModel: ObservableObject {
 //        return
         
         guard let uiImage = uiImage else { return }
-        isLoading = true
+        isScanning = true
         
         aiService.sendMessage(query: question, uiImage: uiImage) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
 
                 case .success(let response):
-                    if self?.isLoading == true {
+                    if self?.isScanning == true {
 
                         self?.responseText = response
                         
@@ -79,7 +79,7 @@ class ScanExpenseViewModel: ObservableObject {
     }
     
     func closeOverlay() {
-        isLoading = false
+        isScanning = false
         isShowingPhotoLibrary = false
         isShowingCamera = false
         isShowingActionSheet = false

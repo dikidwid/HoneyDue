@@ -68,7 +68,7 @@ final class CategoryDataSource {
         do {
             let itemFetchDescriptor = FetchDescriptor<Category>()
             
-            guard try modelContext.fetch(itemFetchDescriptor).count == 0 else { return try! modelContext.fetch(itemFetchDescriptor) }
+//            guard try modelContext.fetch(itemFetchDescriptor).count == 0 else { return try! modelContext.fetch(itemFetchDescriptor) }
             
             // This code will only run if the persistent store is empty.
             Category.insertSampleData(modelContext: modelContext)

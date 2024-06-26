@@ -34,78 +34,81 @@ struct SetCategoryView: View {
     @State private var showSetBudgetView = false
     
     var body: some View {
-        VStack {
-            Spacer()
-            
+        NavigationView {
             VStack {
-                Text("Select Your Categories!")
-                    .font(.system(size: 20, weight: .bold))
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.black)
-                    .padding(.top, 20)
+                NavigationLink(destination: SetBudgetView(selectedCategories: selectedCategories), isActive: $showSetBudgetView) {
+                    EmptyView()
+                }
+                //            Spacer()
                 
-                Text("Choose the categories that best represent your spending habits. We’ve included some common ones to get you started, but worry not, you can edit it later!")
-                    .font(.system(size: 12, weight: .medium))
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
-                    .frame(width: 327, alignment: .top)
-                    .padding(.top, 8)
-                    .padding(.bottom, 24)
-                
-                LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 24), count: 4), spacing: 24) {
-                    ForEach(categories.indices, id: \.self) { index in
-                        let category = categories[index]
-                        VStack(spacing: 8) {
-                            ZStack {
-                                Circle()
-                                    .fill(category.color)
-                                    .frame(width: 60, height: 60)
-                                // ini overlaynt ms belom sama kea di figma
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.black.opacity(0.2), lineWidth: category.isSelected ? 4 : 0)
-                                    )
-                                    .onTapGesture {
-                                        toggleSelection(index: index)
-                                    }
+                VStack {
+                    Text("Select Your Categories!")
+                        .font(.system(size: 20, weight: .bold))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.black)
+                        .padding(.top, 20)
+                    
+                    Text("Choose the categories that best represent your spending habits. We’ve included some common ones to get you started, but worry not, you can edit it later!")
+                        .font(.system(size: 12, weight: .medium))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                        .frame(width: 327, alignment: .top)
+                        .padding(.top, 8)
+                        .padding(.bottom, 24)
+                    
+                    LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 24), count: 4), spacing: 24) {
+                        ForEach(categories.indices, id: \.self) { index in
+                            let category = categories[index]
+                            VStack(spacing: 8) {
+                                ZStack {
+                                    Circle()
+                                        .fill(category.color)
+                                        .frame(width: 60, height: 60)
+                                    // ini overlaynt ms belom sama kea di figma
+                                        .overlay(
+                                            Circle()
+                                                .stroke(Color.black.opacity(0.2), lineWidth: category.isSelected ? 4 : 0)
+                                        )
+                                        .onTapGesture {
+                                            toggleSelection(index: index)
+                                        }
+                                    
+                                    Image(systemName: category.icon)
+                                        .font(.system(size: 24))
+                                        .foregroundColor(.white)
+                                }
                                 
-                                Image(systemName: category.icon)
-                                    .font(.system(size: 24))
-                                    .foregroundColor(.white)
+                                Text(category.label)
+                                    .font(.system(size: 12, weight: .medium))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Color(red: 0.38, green: 0.38, blue: 0.38))
                             }
-                            
-                            Text(category.label)
-                                .font(.system(size: 12, weight: .medium))
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(Color(red: 0.38, green: 0.38, blue: 0.38))
                         }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 24)
+                    
+                    Button {
+                        showSetBudgetView = true
+                    } label: {
+                        CustomButtonView(title: "Next")
+                    }
+                    .disabled(selectedCategories.isEmpty)
+                    .opacity(selectedCategories.isEmpty ? 0.6 : 1.0)
+                    .padding(.bottom, 20)
+//                    .sheet(isPresented: $showSetBudgetView) {
+//                        SetBudgetView(selectedCategories: selectedCategories)
+//                    }
+                    
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 24)
-                
-                Button {
-                    showSetBudgetView = true
-                } label: {
-                    CustomButtonView(title: "Next")
-                }
-                .disabled(selectedCategories.isEmpty)
-                .opacity(selectedCategories.isEmpty ? 0.6 : 1.0)
-                .padding(.bottom, 20)
-                .fullScreenCover(isPresented: $showSetBudgetView) {
-                    SetBudgetView(selectedCategories: selectedCategories)
-                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(24)
                 
             }
-            .padding()
-            .background(Color.white)
-            .cornerRadius(24)
-            
         }
-        .background(Color.gray)
-        .edgesIgnoringSafeArea(.bottom)
-        
-        
+//        .background(Color.gray)
+//        .edgesIgnoringSafeArea(.bottom)
     }
     
     private var selectedCategories: [CategoryBudget] {

@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct SettingsPage: View {
+    @EnvironmentObject var userService: UserService
     @StateObject private var viewModel = SettingsService()
     
     var body: some View {
@@ -20,10 +21,13 @@ struct SettingsPage: View {
                 
                 SettingsToggle(title: "Idle mode", isOn: $viewModel.idleModeEnabled)
                 
-                NavigationLink(destination: Text("Log out view")) {
+                NavigationLink(destination: Text("Logged out!")) {
                     SettingsRow(title: "Log out")
                 }
                 .listSectionSeparator(.hidden, edges: .bottom)
+                .onTapGesture {
+                    userService.logout()
+                }
             }
             .listStyle(PlainListStyle())
         }

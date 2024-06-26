@@ -1,10 +1,3 @@
-//
-//  SetBudgetView.swift
-//  HoneyDue
-//
-//  Created by Fristania Verenita on 26/06/24.
-//
-
 import SwiftUI
 
 struct CategoryBudget: Identifiable {
@@ -19,11 +12,9 @@ struct CategoryBudget: Identifiable {
 struct BudgetTextField: View {
     @Binding var budget: String
     
-    @State var budgett: Double = 0.0
-    
     var body: some View {
         VStack(spacing: 8) {
-            TextField("", value: $budgett, format: .number)
+            TextField("500.000", text: $budget)
                 .font(.system(size: 10, weight: .medium))
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
@@ -35,9 +26,9 @@ struct BudgetTextField: View {
                     RoundedRectangle(cornerRadius: 8)
                         .inset(by: 0.5)
                         .stroke(Color(red: 0.88, green: 0.88, blue: 0.88), lineWidth: 1))
-                .keyboardType(.numberPad)
+                .keyboardType(.decimalPad)
                 .onChange(of: budget) { newValue in
-                    let filtered = newValue.filter { "0123456789".contains($0) }
+                    let filtered = newValue.filter { "0123456789.".contains($0) }
                     if filtered != newValue {
                         budget = filtered
                     }
@@ -64,95 +55,77 @@ struct SetBudgetView: View {
     @State private var showConfirmationView = false
     
     var body: some View {
-        NavigationView {
-            GeometryReader { geometry in
+        GeometryReader { geometry in
+            VStack {
                 VStack {
-                    HStack {
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            BackButtonView()
-                        }
-                        Spacer()
-                    }
-                    .padding(.top, 8)
-                    .padding(.leading, 16)
+                    Text("Set Your Budget!")
+                        .font(.system(size: 20, weight: .bold))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.black)
+                        .padding(.top, 20)
                     
-                    Spacer()
+                    Text("Now, let’s set a budget for each category. This will help you stay on track and meet your financial goals.")
+                        .font(.system(size: 12, weight: .medium))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
+                        .frame(width: 327, alignment: .top)
+                        .padding(.top, 8)
+                        .padding(.bottom, 24)
                     
-                    VStack {
-                        Text("Set Your Budget!")
-                            .font(.system(size: 20, weight: .bold))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.black)
-                            .padding(.top, 20)
-                        
-                        Text("Now, let’s set a budget for each category. This will help you stay on track and meet your financial goals.")
-                            .font(.system(size: 12, weight: .medium))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(Color(red: 0.4, green: 0.4, blue: 0.4))
-                            .frame(width: 327, alignment: .top)
-                            .padding(.top, 8)
-                            .padding(.bottom, 24)
-                        
-                        LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 24), count: 4), spacing: 24) {
-                            ForEach(selectedCategories.indices, id: \.self) { index in
-                                let category = selectedCategories[index]
-                                VStack(spacing: 8) {
-                                    ZStack {
-                                        Circle()
-                                            .fill(category.color)
-                                            .frame(width: 60, height: 60)
-                                        
-                                        Image(systemName: category.icon)
-                                            .font(.system(size: 24))
-                                            .foregroundColor(.white)
-                                    }
+                    LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 24), count: 4), spacing: 24) {
+                        ForEach(selectedCategories.indices, id: \.self) { index in
+                            let category = selectedCategories[index]
+                            VStack(spacing: 8) {
+                                ZStack {
+                                    Circle()
+                                        .fill(category.color)
+                                        .frame(width: 60, height: 60)
                                     
-                                    Text(category.label)
-                                        .font(.system(size: 12, weight: .medium))
-                                        .multilineTextAlignment(.center)
-                                        .foregroundColor(Color(red: 0.38, green: 0.38, blue: 0.38))
-                                    
-                                    BudgetTextField(budget: $selectedCategories[index].budget)
-                                        .focused($isFocused)
+                                    Image(systemName: category.icon)
+                                        .font(.system(size: 24))
+                                        .foregroundColor(.white)
                                 }
+                                
+                                Text(category.label)
+                                    .font(.system(size: 12, weight: .medium))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Color(red: 0.38, green: 0.38, blue: 0.38))
+                                
+                                BudgetTextField(budget: $selectedCategories[index].budget)
+                                    .focused($isFocused)
                             }
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 24)
-                        
-                        Button {
-                            showConfirmationView = true
-                        } label: {
-                            CustomButtonView(title: "Next")
-                        }
-                        .disabled(!areAllBudgetsFilled)
-                        .opacity(areAllBudgetsFilled ? 1.0 : 0.6)
-                        .padding(.bottom, 20)
-                        
-                        
                     }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(24)
-                    .offset(y: calculateOffset())
-                    .navigationTitle("Set Budget")
-                    .navigationBarHidden(true)
-                    .background(
-                        NavigationLink(destination: ConfirmationView(selectedCategories: selectedCategories), isActive: $showConfirmationView) {
-                            EmptyView()
-                        }
-                    )
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 24)
+                    
+                    Button {
+                        showConfirmationView = true
+                    } label: {
+                        CustomButtonView(title: "Next")
+                    }
+                    .disabled(!areAllBudgetsFilled)
+                    .opacity(areAllBudgetsFilled ? 1.0 : 0.6)
+                    .padding(.bottom, 20)
                     
                 }
-                .background(Color.gray)
-                .edgesIgnoringSafeArea(.bottom)
-                .animation(.easeOut(duration: 0.3))
-                .onTapGesture {
-                    self.hideKeyboard()
-                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(24)
+                .offset(y: calculateOffset())
+                .navigationTitle("Set Budget")
+                .navigationBarHidden(true)
+                .background(
+                    NavigationLink(destination: ConfirmationView(selectedCategories: selectedCategories), isActive: $showConfirmationView) {
+                        EmptyView()
+                    }
+                )
                 
+            }
+            .edgesIgnoringSafeArea(.bottom)
+            .animation(.easeOut(duration: 0.3))
+            .onTapGesture {
+                self.hideKeyboard()
             }
         }
     }
@@ -174,8 +147,6 @@ struct SetBudgetView: View {
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
-    
-    
 }
 
 struct SetBudgetView_Previews: PreviewProvider {

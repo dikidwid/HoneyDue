@@ -9,6 +9,12 @@ import Combine
 import UserNotifications
 
 class SettingsService: ObservableObject {
+    @Published var shouldShowOnboarding: Bool {
+        didSet {
+            UserDefaults.standard.set(shouldShowOnboarding, forKey: "shouldShowOnboarding")
+        }
+    }
+    
     @Published var idleModeEnabled: Bool {
         didSet {
             UserDefaults.standard.set(idleModeEnabled, forKey: "idleModeEnabled")
@@ -38,6 +44,7 @@ class SettingsService: ObservableObject {
     }
     
     init() {
+        self.shouldShowOnboarding = UserDefaults.standard.object(forKey: "shouldShowOnboarding") as? Bool ?? true
         self.idleModeEnabled = UserDefaults.standard.bool(forKey: "idleModeEnabled")
         self.inputTransactionReminderEnabled = UserDefaults.standard.bool(forKey: "inputTransactionReminderEnabled")
         self.smartReminderEnabled = UserDefaults.standard.bool(forKey: "smartReminderEnabled")
@@ -70,7 +77,7 @@ class SettingsService: ObservableObject {
     }
     
     private func scheduleNotification() {
-       
+        
         let notifObject = LocalNotificationItem.logExpenseNotifications.randomElement()
         
         let content = UNMutableNotificationContent()

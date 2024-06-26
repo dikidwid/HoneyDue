@@ -12,9 +12,12 @@ struct HomeView: View {
     let shineTimer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
     @StateObject var avatar: Avatar = .maleAvatar()
+    
     // Scan Expense
     @StateObject var scanExpenseViewModel = ScanExpenseViewModel()
     @StateObject var scanExpenseNav = ScanExpenseNavigationViewModel()
+    
+    @State var showProfile = false
     
     //    @Environment(\.modelContext) var modelContext
     
@@ -34,7 +37,7 @@ struct HomeView: View {
                             .frame(width: 150)
                             .position(CGPoint(x: 170.0, y: 440.0))
                             .onTapGesture {
-                                
+                                showProfile = true
                             }
                     }
                     
@@ -108,11 +111,14 @@ struct HomeView: View {
                 }
             }
         }
+        .fullScreenCover(isPresented: $showProfile) {
+            ProfileView()
+        }
         .overlay {
-            if scanExpenseViewModel.isLoading {
+            if scanExpenseViewModel.isScanning {
                 HStack {
                     Spacer()
-                    ScanExpenseReadingPage(onCancelBtn: { scanExpenseViewModel.isLoading = false })
+                    ScanExpenseReadingPage(onCancelBtn: { scanExpenseViewModel.isScanning = false })
                     Spacer()
                 }
                 .background(.white)

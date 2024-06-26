@@ -1,10 +1,3 @@
-//
-//  OnboardingView.swift
-//  HoneyDue
-//
-//  Created by Fristania Verenita on 25/06/24.
-//
-
 import SwiftUI
 
 struct NewOnboardingPage: Identifiable {
@@ -37,10 +30,10 @@ struct PageIndicator: View {
     }
 }
 
-
 struct OnboardingView: View {
-    
     @State private var currentPage = 0
+    @State private var showSetCategoryView = false
+    @EnvironmentObject var nav: GlobalNavigationViewModel
     
     let pages = [
         NewOnboardingPage(image: "BearPlaceholder", title: "Protect Your Streak with Idle Mode", description: "Going on holiday or not spending at all? Turn on Idle Mode to protect your streak. This way, you can take a break without losing your progress."),
@@ -52,7 +45,6 @@ struct OnboardingView: View {
     ]
     
     var body: some View {
-        
         ZStack {
             TabView(selection: $currentPage) {
                 ForEach(pages.indices, id: \.self) { index in
@@ -129,7 +121,7 @@ struct OnboardingView: View {
                 if currentPage == pages.count - 1 {
                     HStack {
                         Button {
-                            // SetCategoryView()
+                            showSetCategoryView = true
                         } label: {
                             CustomButtonView(title: "Get Started")
                         }
@@ -139,12 +131,14 @@ struct OnboardingView: View {
             }
             
         }
+        .sheet(isPresented: $showSetCategoryView) {
+            SetCategoryView()
+        }
         .background(Image("OnboardingBg")
             .resizable()
             .scaledToFit()
             .scaleEffect(1.1))
-        .ignoresSafeArea()
-        
+            .ignoresSafeArea()
     }
 }
 

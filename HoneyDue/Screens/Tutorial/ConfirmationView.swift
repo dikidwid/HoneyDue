@@ -8,25 +8,28 @@
 import SwiftUI
 
 struct ConfirmationView: View {
+    @EnvironmentObject var onboarding: UserService
+
     @Environment(\.presentationMode) var presentationMode
+    
     @State var selectedCategories: [CategoryBudget]
     
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 VStack {
-                    HStack {
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            BackButtonView()
-                        }
-                        Spacer()
-                    }
-                    .padding(.top, 8)
-                    .padding(.leading, 16)
-                    
-                    Spacer()
+//                    HStack {
+//                        Button(action: {
+//                            presentationMode.wrappedValue.dismiss()
+//                        }) {
+//                            BackButtonView()
+//                        }
+//                        Spacer()
+//                    }
+//                    .padding(.top, 8)
+//                    .padding(.leading, 16)
+//                    
+//                    Spacer()
                     
                     VStack {
                         Text("Track and Save!")
@@ -78,6 +81,9 @@ struct ConfirmationView: View {
                         
                         Button {
                             // Action for the confirm button
+//                            presentationMode.wrappedValue.dismiss()
+                            onboarding.setShouldShowOnboarding(false)
+                            
                         } label: {
                             CustomButtonView(title: "Finish")
                         }
@@ -87,8 +93,8 @@ struct ConfirmationView: View {
                     .background(Color.white)
                     .cornerRadius(24)
                 }
-                .background(Color.gray)
-                .edgesIgnoringSafeArea(.bottom)
+//                .background(Color.gray)
+//                .edgesIgnoringSafeArea(.bottom)
             }
             
         }
