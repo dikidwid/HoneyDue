@@ -15,7 +15,7 @@ struct HomeView: View {
     // Scan Expense
     @StateObject var scanExpenseViewModel = ScanExpenseViewModel()
     @StateObject var scanExpenseNav = ScanExpenseNavigationViewModel()
-    
+//    @State var showProfile: Bool = false
     //    @Environment(\.modelContext) var modelContext
     
     //    @Query private var categories: [Category]
@@ -25,16 +25,23 @@ struct HomeView: View {
             GeometryReader { geometry in
                 let screenWidth = geometry.size.width
                 let screenHeight = geometry.size.height
-
+                
                 ZStack {
                     backgroundView(screenWidth: screenWidth, screenHeight: screenHeight)
                     
                     ZStack {
-                        AvatarView(avatar: avatar)
+                        AvatarViewHome(avatar: avatar)
                             .frame(width: 150)
-                            .position(CGPoint(x: 170.0, y: 440.0))
+                            .position(CGPoint(x: 190.0, y: 400.0))
+                    }
+                    .overlay {
+                        Rectangle()
+                            .frame(width: 75, height: 140)
+                            .foregroundColor(.white.opacity(0.00000001))
                             .onTapGesture {
-                                
+                                if !viewModel.isEditMode {
+                                    avatar.showProfile.toggle()
+                                }
                             }
                     }
                     
@@ -43,14 +50,19 @@ struct HomeView: View {
                         x: Item.cameraItem.position.x * screenWidth,
                         y: Item.cameraItem.position.y * screenHeight
                     )
+                    
                     Image(Item.cameraItem.image)
                         .resizable()
                         .scaledToFit()
+                        .border(.red)
                         .frame(width: Item.cameraItem.width)
                         .position(calculatedPosition)
                         .onTapGesture {
-                            scanExpenseViewModel.isShowingActionSheet = true
+                            if !viewModel.isEditMode {
+                                scanExpenseViewModel.isShowingActionSheet = true
+                            }
                         }
+                    
                     
                     editModeControls()
                 }
@@ -92,7 +104,9 @@ struct HomeView: View {
                     viewModel.shine.toggle()
                 }
                 .onLongPressGesture {
-                    viewModel.toggleEditMode()
+                    withAnimation {
+                        viewModel.toggleEditMode()
+                    }
                 }
             }
             .navigationDestination(for: ScanExpenseNavigationDestination.self) { destination in
@@ -107,6 +121,9 @@ struct HomeView: View {
                     ScanExpenseSuccessPage()
                 }
             }
+        }
+        .fullScreenCover(isPresented: $avatar.showProfile){
+            ProfileView()
         }
         .overlay {
             if scanExpenseViewModel.isLoading {
@@ -125,19 +142,26 @@ struct HomeView: View {
                 .animation(.interpolatingSpring, value: scanExpenseViewModel.isShowCustomNotification)
         }
         .statusBar(hidden: true)
+        .onAppear{
+            print(viewModel.categories )
+        }
         .environmentObject(scanExpenseNav)
+        .environmentObject(avatar)
+
     }
     
     private func backgroundView(screenWidth: CGFloat, screenHeight: CGFloat) -> some View {
-        Image("bg2")
+        Image("Background")
             .resizable()
             .aspectRatio(contentMode: .fill)
-            .edgesIgnoringSafeArea(.all)
             .frame(width: screenWidth, height: screenHeight)
+            .scaleEffect(1.025)
+            .offset(y: -15)
             .overlay(
                 Color.black.opacity(viewModel.isEditMode ? 0.6 : 0)
                     .edgesIgnoringSafeArea(.all)
             )
+        
     }
     
     private func iconsView(screenWidth: CGFloat, screenHeight: CGFloat) -> some View {
@@ -154,6 +178,7 @@ struct HomeView: View {
                                 isEditMode: $viewModel.isEditMode,
                                 calculatedPosition: calculatedPosition,
                                 isEnable: $viewModel.categories[index].isEnable)
+                
             }
         }
     }
@@ -195,6 +220,32 @@ struct HomeView: View {
             }
     }
     
+}
+
+struct AvatarViewHome: View{
+    @ObservedObject var avatar: Avatar
+    var body: some View{
+        ZStack{
+            avatar.gender.image
+                .resizable()
+                .scaledToFit()
+            
+            
+            if let selectedHair = avatar.selectedHair {
+                selectedHair.image
+                    .resizable()
+                    .scaledToFit()
+            }
+            
+            if let selectedBadge = avatar.selectedBadge {
+                selectedBadge.image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 12, height: 12)
+                    .offset(x: -5, y: 12)
+            }
+        }
+    }
 }
 
 #Preview {

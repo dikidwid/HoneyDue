@@ -70,18 +70,18 @@ class Accessory: Identifiable, Equatable {
     }
 
     enum BadgeAccessory: String, CaseIterable {
-        case a
-        case b
-        case c
+        case firstTracker
+        case receiptRecorder
+        case reportReady
         
         var imageName: String {
             switch self {
-            case .a:
-                return "Utilities"
-            case .b:
-                return "Mailbox"
-            case .c:
-                return "Transport"
+            case .firstTracker:
+                return "firstTracker"
+            case .receiptRecorder:
+                return "receiptRecorder"
+            case .reportReady:
+                return "reportReady"
             }
         }
     }

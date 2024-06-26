@@ -1,10 +1,3 @@
-//
-//  ItemViewTapArea.swift
-//  HoneyDue
-//
-//  Created by Singgih Tulus Makmud on 25/06/24.
-//
-
 import SwiftUI
 
 struct ItemViewTapArea: View {
@@ -17,21 +10,19 @@ struct ItemViewTapArea: View {
         ZStack {
             
             Image(item.image)
+                .renderingMode(isEditMode && !isEnable ? .template : .original)
                 .resizable()
                 .scaledToFit()
                 .frame(width: item.width)
                 .position(calculatedPosition)
-                .opacity(isEnable ? 0.01 : 1)
+                .opacity(isEditMode && !isEnable ? 0.5 : isEnable ? 0.01 : 1)
                 .onTapGesture {
                     if self.isEditMode {
                         isEnable.toggle()
-                        print(isEnable)
-                    }
-                    else if isEnable {
+                    } else if isEnable {
                         print(item.image)
                     }
                 }
-            
             
             if self.isEditMode {
                 Image(systemName: isEnable ? "minus.circle.fill" : "plus.circle.fill")
@@ -42,7 +33,6 @@ struct ItemViewTapArea: View {
                         isEnable.toggle()
                     }
             }
-            
             
         }
     }
