@@ -119,3 +119,31 @@ extension Category {
     }
     
 }
+
+
+// MARK: -- Category Extension for easy to calculate the category
+extension Category {
+    var totalExpense: Int {
+        return expenses.map { $0.amount }.reduce(0, +)
+    }
+    
+    var remainingBudget: Int {
+        return budget - totalExpense
+    }
+    
+    var remainingBudgetPercentage: Double {
+        return 1.0 - ( Double(totalExpense) / Double(budget))
+    }
+    
+    var status: String {
+        if remainingBudgetPercentage >= 0 && remainingBudgetPercentage <= 0.3 {
+            return "Warning!"
+        } else if remainingBudgetPercentage > 0.3 && remainingBudgetPercentage <= 0.6 {
+            return "Still Safe"
+        } else if remainingBudgetPercentage > 0.6 && remainingBudgetPercentage <= 1.0 {
+            return "On Track"
+        } else {
+            return "Exceed!!!"
+        }
+    }
+}

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProgressBarView: View {
     let progress: Double
+    var isShowPercentage: Bool = true
     var progressBarColor: Color {
         let percentage = progress * 100
         if percentage > 0 && percentage <= 30 {
@@ -33,10 +34,12 @@ struct ProgressBarView: View {
                     .frame(width: min(CGFloat(self.progress) * geometry.size.width, geometry.size.width), height: geometry.size.height)
                     .animation(.interpolatingSpring(duration: 2), value: progress)
                 
-                Text("\(Float(progress * 100), specifier: "%.0f")%")
-                    .font(.system(.headline))
-                    .foregroundStyle(.black)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                if isShowPercentage {
+                    Text("\(Float(progress * 100), specifier: "%.0f")%")
+                        .font(.system(.headline))
+                        .foregroundStyle(.black)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
             }
             .cornerRadius(20)
         }
@@ -44,5 +47,5 @@ struct ProgressBarView: View {
 }
 
 #Preview {
-    ProgressBarView(progress: 0.5)
+    ProgressBarView(progress: 0.7, isShowPercentage: true)
 }

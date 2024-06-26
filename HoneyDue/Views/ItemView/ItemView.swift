@@ -22,6 +22,8 @@ struct ItemView: View {
                 .frame(width: item.width)
                 .position(calculatedPosition)
                 .shine(shine, duration: 0.5)
+            
+            
 
             
             if self.isEditMode {

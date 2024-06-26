@@ -11,6 +11,18 @@ import SwiftData
 @main
 @MainActor
 struct HoneyDueApp: App {
+
+    
+    var body: some Scene {
+        WindowGroup {
+            HoneyDueAppRoot()
+        }
+    }
+}
+
+struct HoneyDueAppRoot: View {
+    @StateObject var onboardingService = UserService()
+    
     var container: ModelContainer {
         do {
             let container = try ModelContainer(for: Category.self)
@@ -30,10 +42,22 @@ struct HoneyDueApp: App {
         }
     }
     
-    var body: some Scene {
-        WindowGroup {
-            HomeView(viewModel: HomeViewModel(dataSource: CategoryDataSource.shared))
+    var body: some View {
+        Group {
+            if onboardingService.shouldShowOnboarding {
+                OnboardingView()
+            } else {
+                HomeView(viewModel: HomeViewModel(dataSource: CategoryDataSource.shared))
+            }
         }
-//        .modelContainer(container)
+        .environmentObject(onboardingService)
+
     }
+        
 }
+
+
+#Preview {
+    HoneyDueAppRoot()
+}
+

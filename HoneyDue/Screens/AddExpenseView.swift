@@ -13,7 +13,7 @@ struct AddExpenseView: View {
     @State var name: String = ""
     @State var amount: Int = 0
     @State var date: Date = .now
-    @State var selectedCategory: Category?
+    @State var selectedCategory: Category
     
     @FocusState var isAmountFieldFocused: Bool
     @FocusState var isExpenseNameFieldFocused: Bool
@@ -25,7 +25,7 @@ struct AddExpenseView: View {
     init(category: Category, dismiss: DismissAction) {
         self.category = category
         self.dismiss = dismiss
-//        self.selectedCategory = category
+        self.selectedCategory = category
     }
 
     var body: some View {
@@ -72,7 +72,7 @@ struct AddExpenseView: View {
                                 Image(systemName: category.icon)
                                 Text(category.name)
                             }
-                            .tag(category as Category?)
+                            .tag(category as Category)
                         }
                     }
                 }
@@ -107,11 +107,14 @@ struct AddExpenseView: View {
     func saveExpense() {
         let expense: Expense = Expense(name: name,
                                        amount: amount,
-                                       category: selectedCategory ?? category,
+                                       category: selectedCategory,
                                        date: date)
         
         modelContext.insert(expense)
         
         dismiss()
     }
+}
+
+#Preview {
 }

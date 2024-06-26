@@ -10,12 +10,16 @@ import SwiftData
 
 struct HomeView: View {
     let shineTimer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
-    @StateObject var viewModel: HomeViewModel = HomeViewModel()
+    @ObservedObject var viewModel: HomeViewModel
+    @StateObject var avatar: Avatar = .maleAvatar()
     
-    // Scan Expense
     @StateObject var scanExpenseViewModel = ScanExpenseViewModel()
     @StateObject var scanExpenseNav = ScanExpenseNavigationViewModel()
+    @StateObject var overviewViewModel = OverviewViewModel()
     
+    @State private var isBlinkCameraItem: Bool = false
+//    @State private var isBlinkOverviewItem: Bool = false
+//    @State var showProfile: Bool = false
     //    @Environment(\.modelContext) var modelContext
     
     //    @Query private var categories: [Category]
@@ -28,18 +32,82 @@ struct HomeView: View {
                 
                 ZStack {
                     backgroundView(screenWidth: screenWidth, screenHeight: screenHeight)
+                    
+                    ZStack {
+                        AvatarViewHome(avatar: avatar)
+                            .frame(width: 150)
+                            .position(CGPoint(x: 190.0, y: 400.0))
+                    }
+                    .overlay {
+                        Rectangle()
+                            .frame(width: 75, height: 140)
+                            .foregroundColor(.white.opacity(0.00000001))
+                            .onTapGesture {
+                                if !viewModel.isEditMode {
+                                    avatar.showProfile.toggle()
+                                }
+                            }
+                    }
+                    
                     iconsView(screenWidth: screenWidth, screenHeight: screenHeight)
                     let calculatedPosition = CGPoint (
                         x: Item.cameraItem.position.x * screenWidth,
                         y: Item.cameraItem.position.y * screenHeight
                     )
+
+                    
                     Image(Item.cameraItem.image)
                         .resizable()
                         .scaledToFit()
                         .frame(width: Item.cameraItem.width)
                         .position(calculatedPosition)
+                        .overlay {
+                            Image(Item.cameraItem.image)
+                                .resizable()
+                                .renderingMode(.template)
+                                .scaledToFit()
+                                .foregroundStyle(.white)
+                                .frame(width: Item.cameraItem.width)
+                                .position(calculatedPosition)
+                                .opacity(isBlinkCameraItem ? 0.6 : 0)
+
+                        }
+                        .onAppear {
+                            withAnimation(.easeIn.repeatForever(autoreverses: true).speed(0.4)) {
+                                isBlinkCameraItem.toggle()
+                            }
+                        }
                         .onTapGesture {
-                            scanExpenseViewModel.isShowingActionSheet = true
+                            if !viewModel.isEditMode {
+                                scanExpenseViewModel.isShowingActionSheet = true
+                            }
+                        }
+
+                    
+                    let calculatedPositionOverview = CGPoint (
+                        x: Item.overviewItem.position.x * screenWidth,
+                        y: Item.overviewItem.position.y * screenHeight
+                    )
+                    Image(Item.overviewItem.image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: Item.overviewItem.width)
+                        .position(calculatedPositionOverview)
+                        .overlay {
+                            Image(Item.overviewItem.image)
+                                .resizable()
+                                .renderingMode(.template)
+                                .scaledToFit()
+                                .foregroundStyle(.white)
+                                .frame(width: Item.overviewItem.width)
+                                .position(calculatedPositionOverview)
+                                .opacity(isBlinkCameraItem ? 0.6 : 0)
+
+                        }
+                        .onTapGesture {
+                            if !viewModel.isEditMode {
+                                overviewViewModel.isShowingOverview.toggle()
+                            }
                         }
                     
                     editModeControls()
@@ -72,6 +140,9 @@ struct HomeView: View {
                         uiImage: $scanExpenseViewModel.uiImage
                     )
                 }
+                .fullScreenCover(isPresented: $overviewViewModel.isShowingOverview) {
+                    OverviewPageView(homeViewModel: viewModel)
+                }
                 .onChange(of: scanExpenseViewModel.uiImage) { _ in
                     scanExpenseViewModel.askVisionAI()
                 }
@@ -82,7 +153,9 @@ struct HomeView: View {
                     viewModel.shine.toggle()
                 }
                 .onLongPressGesture {
-                    viewModel.toggleEditMode()
+                    withAnimation {
+                        viewModel.toggleEditMode()
+                    }
                 }
             }
             .navigationDestination(for: ScanExpenseNavigationDestination.self) { destination in
@@ -98,11 +171,14 @@ struct HomeView: View {
                 }
             }
         }
+        .fullScreenCover(isPresented: $avatar.showProfile){
+            ProfileView()
+        }
         .overlay {
-            if scanExpenseViewModel.isLoading {
+            if scanExpenseViewModel.isScanning {
                 HStack {
                     Spacer()
-                    ScanExpenseReadingPage(onCancelBtn: { scanExpenseViewModel.isLoading = false })
+                    ScanExpenseReadingPage(onCancelBtn: { scanExpenseViewModel.isScanning = false })
                     Spacer()
                 }
                 .background(.white)
@@ -114,19 +190,33 @@ struct HomeView: View {
                 .offset(y: scanExpenseViewModel.isShowCustomNotification ? 0 : -150)
                 .animation(.interpolatingSpring, value: scanExpenseViewModel.isShowCustomNotification)
         }
+        .sheet(isPresented: $viewModel.isShowDetailCategory) {
+            ExpenseDetailView(category: viewModel.selectedCategory, isShowAddExpense: $viewModel.isShowAddExpenseView)
+                .padding(.all, 5)
+                .presentationDragIndicator(.visible)
+                .presentationCornerRadius(.modalityCornerRadius)
+                .presentationDetents([.fraction(0.7)])
+        }
+        .statusBar(hidden: true)
         .environmentObject(scanExpenseNav)
+        .environmentObject(avatar)
+        .environmentObject(overviewViewModel)
+        .environmentObject(viewModel)
+        .modelContainer(CategoryDataSource.shared.modelContainer)
     }
     
     private func backgroundView(screenWidth: CGFloat, screenHeight: CGFloat) -> some View {
-        Image("bg2")
+        Image("Background")
             .resizable()
             .aspectRatio(contentMode: .fill)
-            .edgesIgnoringSafeArea(.all)
             .frame(width: screenWidth, height: screenHeight)
+            .scaleEffect(1.025)
+            .offset(y: -15)
             .overlay(
                 Color.black.opacity(viewModel.isEditMode ? 0.6 : 0)
                     .edgesIgnoringSafeArea(.all)
             )
+        
     }
     
     private func iconsView(screenWidth: CGFloat, screenHeight: CGFloat) -> some View {
@@ -139,10 +229,10 @@ struct HomeView: View {
             ZStack {
                 ItemView(item: $viewModel.categories[index].item, isEditMode: $viewModel.isEditMode, shine: $viewModel.shine, calculatedPosition: calculatedPosition, isEnable: $viewModel.categories[index].isEnable)
                 
-                ItemViewTapArea(item: $viewModel.categories[index].item,
+                ItemViewTapArea(category: $viewModel.categories[index],
+                                selectedCategory: $viewModel.categories[index],
                                 isEditMode: $viewModel.isEditMode,
-                                calculatedPosition: calculatedPosition,
-                                isEnable: $viewModel.categories[index].isEnable)
+                                calculatedPosition: calculatedPosition)
             }
         }
     }
@@ -184,6 +274,32 @@ struct HomeView: View {
             }
     }
     
+}
+
+struct AvatarViewHome: View{
+    @ObservedObject var avatar: Avatar
+    var body: some View{
+        ZStack{
+            avatar.gender.image
+                .resizable()
+                .scaledToFit()
+            
+            
+            if let selectedHair = avatar.selectedHair {
+                selectedHair.image
+                    .resizable()
+                    .scaledToFit()
+            }
+            
+            if let selectedBadge = avatar.selectedBadge {
+                selectedBadge.image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 12, height: 12)
+                    .offset(x: -6.5, y: 5)
+            }
+        }
+    }
 }
 
 #Preview {
