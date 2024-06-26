@@ -23,3 +23,21 @@ extension Icon {
     }
 }
 
+extension Achievement {
+    static func seedAchievements() -> [Achievement] {
+        return [
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum"),
+            Achievement(imageName: "Medicine", name: "Test", description: "lorem ipsum")
+        ]
+    }
+}
+
