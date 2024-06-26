@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     let shineTimer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
+    @StateObject var avatar: Avatar = .maleAvatar()
     
     var body: some View {
         GeometryReader { geometry in
@@ -18,6 +19,18 @@ struct HomeView: View {
             
             ZStack {
                 backgroundView(screenWidth: screenWidth, screenHeight: screenHeight)
+                ZStack{
+                    AvatarView(avatar: avatar)
+                        .frame(width: 150)
+                        .position(CGPoint(x: 170.0, y: 440.0))
+                        .onTapGesture {
+                            //here
+                        }
+            
+                }
+                
+                
+                    
                 iconsView(screenWidth: screenWidth, screenHeight: screenHeight)
                 editModeControls()
             }
