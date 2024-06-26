@@ -34,6 +34,7 @@
 		E60280222C2CA3B100D5FFC7 /* DonutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60280212C2CA3B100D5FFC7 /* DonutView.swift */; };
 		E60280242C2CA3BA00D5FFC7 /* CategoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60280232C2CA3BA00D5FFC7 /* CategoryRowView.swift */; };
 		E60280282C2CA3F100D5FFC7 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60280272C2CA3F100D5FFC7 /* CategoryListView.swift */; };
+		E602802A2C2CB33F00D5FFC7 /* OverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60280292C2CB33500D5FFC7 /* OverviewViewModel.swift */; };
 		E6138FAA2C296FE10057A8A7 /* ScanExpenseSuccessPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FA92C296FE10057A8A7 /* ScanExpenseSuccessPage.swift */; };
 		E6138FAC2C2979800057A8A7 /* ScanExpenseNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FAB2C2979780057A8A7 /* ScanExpenseNavigationViewModel.swift */; };
 		E6138FB12C2A638F0057A8A7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6138FB02C2A638D0057A8A7 /* Settings.swift */; };
@@ -111,6 +112,7 @@
 		E60280212C2CA3B100D5FFC7 /* DonutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutView.swift; sourceTree = "<group>"; };
 		E60280232C2CA3BA00D5FFC7 /* CategoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRowView.swift; sourceTree = "<group>"; };
 		E60280272C2CA3F100D5FFC7 /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
+		E60280292C2CB33500D5FFC7 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
 		E6138FA92C296FE10057A8A7 /* ScanExpenseSuccessPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExpenseSuccessPage.swift; sourceTree = "<group>"; };
 		E6138FAB2C2979780057A8A7 /* ScanExpenseNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExpenseNavigationViewModel.swift; sourceTree = "<group>"; };
 		E6138FB02C2A638D0057A8A7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 		E6C526522C244F8400D3DCA0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E60280292C2CB33500D5FFC7 /* OverviewViewModel.swift */,
 				E65CCFA32C2C651700A44AED /* GlobalNavigationViewModel.swift */,
 				E6A2590C2C2B11A0009CAC2D /* ScanExpenseViewModel.swift */,
 				E6C526532C244FA700D3DCA0 /* ScanExpenseSelectTransactionViewModel.swift */,
@@ -530,6 +533,7 @@
 				E67C2C722C2A943E0087D41A /* NavStack.swift in Sources */,
 				E62FE30B2C2ABA8300815BBC /* Preview+ModelContainer.swift in Sources */,
 				E6C526512C23EC9E00D3DCA0 /* Double+Extension.swift in Sources */,
+				E602802A2C2CB33F00D5FFC7 /* OverviewViewModel.swift in Sources */,
 				E6C526442C23EB9200D3DCA0 /* ScanExpenseValidationPage.swift in Sources */,
 				E62FE30F2C2ABA9700815BBC /* Expense.swift in Sources */,
 				E6138FB72C2A78160057A8A7 /* ConfigService.swift in Sources */,
@@ -681,7 +685,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HoneyDue/Preview Content\"";
-				DEVELOPMENT_TEAM = M6ZUY47J83;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "AI Bill Scanner";
@@ -713,7 +717,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HoneyDue/Preview Content\"";
-				DEVELOPMENT_TEAM = M6ZUY47J83;
+				DEVELOPMENT_TEAM = J4KR4C3C23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "AI Bill Scanner";

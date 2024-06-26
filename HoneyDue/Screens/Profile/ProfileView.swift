@@ -317,10 +317,13 @@ struct ProfileHeader: View {
                     }
                 
                 Spacer()
-                Image(systemName: "gearshape")
-                    .foregroundColor(.white)
-                    .frame(width: 26, height: 22)
-                    .bold()
+                NavigationLink(destination: SettingsPage()) {
+                    Image(systemName: "gearshape")
+                        .foregroundColor(.white)
+                        .frame(width: 26, height: 22)
+                        .bold()
+                    
+                }
                 
             }
             .padding(.horizontal, 16)

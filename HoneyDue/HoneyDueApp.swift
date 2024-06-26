@@ -50,7 +50,6 @@ struct HoneyDueAppRoot: View {
                 HomeView()
             }
         }
-        .modelContainer(container)
         .environmentObject(onboardingService)
 
     }

@@ -78,7 +78,5 @@ final class CategoryDataSource {
             fatalError(error.localizedDescription)
         }
     }
-
-    
 }
 

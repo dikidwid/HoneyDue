@@ -13,7 +13,10 @@ struct OverviewPageView: View {
     @State private var currentDate: Date = .now
     @State private var isShowCategoryListView: Bool = false
     @State private var isShowExpenseListView: Bool = false
+    
     @Environment(\.dismiss) var dismiss
+    
+    @EnvironmentObject var overviewViewModel: OverviewViewModel
     
     @ObservedObject var homeViewModel: HomeViewModel
         
@@ -45,11 +48,14 @@ struct OverviewPageView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
                         
-                        DonutView(categories: homeViewModel.categories.filter{ $0.totalExpense > 0 }.map { $0.name },
-                                  budgets: getTotalBudget(from: homeViewModel.categories),
-                                  expenses: getTotalSpending(from: homeViewModel.categories))
-                        .padding(.vertical, 10)
+                        let totalExpense = homeViewModel.categories.reduce(0) { $0 + $1.totalExpense }
                         
+                        if totalExpense > 0 {
+                            DonutView(categories: homeViewModel.categories.filter{ $0.totalExpense > 0 }.map { $0.name },
+                                      budgets: getTotalBudget(from: homeViewModel.categories),
+                                      expenses: getTotalSpending(from: homeViewModel.categories))
+                            .padding(.vertical, 10)
+                        }
                         
                         VStack(spacing: 12) {
                             Text("Top Spending Category")
@@ -412,28 +418,30 @@ struct TransactionListView: View {
                 }
             }
             
-            Button {
-                isShowExpenseListView.toggle()
-            } label: {
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(.white)
-                    .frame(height: 40)
-                    .overlay {
-                        HStack {
-                            Text("Show all expenses")
-                                .font(.system(.caption))
-                                .fontWeight(.medium)
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
+            if !expenses.isEmpty {
+                Button {
+                    isShowExpenseListView.toggle()
+                } label: {
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(.white)
+                        .frame(height: 40)
+                        .overlay {
+                            HStack {
+                                Text("Show all expenses")
+                                    .font(.system(.caption))
+                                    .fontWeight(.medium)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                            }
+                            .padding(.horizontal)
+                            .tint(.black)
                         }
-                        .padding(.horizontal)
-                        .tint(.black)
-                    }
-                    .shadow(color: .black.opacity(0.1), radius: 10)
+                        .shadow(color: .black.opacity(0.1), radius: 10)
+                }
+                .padding(.top, 12)
             }
-            .padding(.top, 12)
         }
         .padding()
         .background(Color.white)

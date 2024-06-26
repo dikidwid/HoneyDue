@@ -12,9 +12,10 @@ struct HomeView: View {
     let shineTimer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
     @StateObject var avatar: Avatar = .maleAvatar()
-    // Scan Expense
+    
     @StateObject var scanExpenseViewModel = ScanExpenseViewModel()
     @StateObject var scanExpenseNav = ScanExpenseNavigationViewModel()
+    @StateObject var overviewViewModel = OverviewViewModel()
     
     @State private var isBlinkCameraItem: Bool = false
 //    @State private var isBlinkOverviewItem: Bool = false
@@ -104,7 +105,7 @@ struct HomeView: View {
                         }
                         .onTapGesture {
                             if !viewModel.isEditMode {
-                                //\avatar.showProfile.toggle()
+                                overviewViewModel.isShowingOverview.toggle()
                             }
                         }
                     
@@ -138,6 +139,9 @@ struct HomeView: View {
                         uiImage: $scanExpenseViewModel.uiImage
                     )
                 }
+                .fullScreenCover(isPresented: $overviewViewModel.isShowingOverview) {
+                    OverviewPageView(homeViewModel: viewModel)
+                }
                 .onChange(of: scanExpenseViewModel.uiImage) { _ in
                     scanExpenseViewModel.askVisionAI()
                 }
@@ -170,10 +174,10 @@ struct HomeView: View {
             ProfileView()
         }
         .overlay {
-            if scanExpenseViewModel.isLoading {
+            if scanExpenseViewModel.isScanning {
                 HStack {
                     Spacer()
-                    ScanExpenseReadingPage(onCancelBtn: { scanExpenseViewModel.isLoading = false })
+                    ScanExpenseReadingPage(onCancelBtn: { scanExpenseViewModel.isScanning = false })
                     Spacer()
                 }
                 .background(.white)
@@ -191,6 +195,7 @@ struct HomeView: View {
         }
         .environmentObject(scanExpenseNav)
         .environmentObject(avatar)
+        .environmentObject(overviewViewModel)
 
     }
     

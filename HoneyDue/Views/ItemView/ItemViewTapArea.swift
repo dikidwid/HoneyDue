@@ -20,7 +20,7 @@ struct ItemViewTapArea: View {
                     if self.isEditMode {
                         isEnable.toggle()
                     } else if isEnable {
-                        print(item.image)
+//                        AddExpenseView()
                     }
                 }
             

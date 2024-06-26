@@ -134,6 +134,9 @@ struct OnboardingView: View {
         }
         .sheet(isPresented: $showSetCategoryView) {
             SetCategoryView()
+                .presentationDragIndicator(.visible)
+                .presentationCornerRadius(.modalityCornerRadius)
+                .presentationDetents([.fraction(0.7)])
         }
         .background(Image("OnboardingBg")
             .resizable()
