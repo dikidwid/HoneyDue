@@ -20,12 +20,8 @@ struct AchievementsTitleView: View {
             VStack{
                 Image(achievement.imageName)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 85, height: 85)
                     .padding()
-                    
-                Text(achievement.name)
-                    .font(.system(size: 12))
-                    .foregroundColor(Color(red: 0.62, green: 0.62, blue: 0.62))
 
             }
         }

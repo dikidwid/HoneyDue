@@ -12,8 +12,8 @@ struct ProfileView: View {
     @State var achievements: [Achievement] = Achievement.seedAchievements()
     @State private var showAllAchievements = false
     @State private var isEditing: Bool = false
-    @State private var selectedOption: String = "All"
-    @StateObject private var avatar: Avatar = .maleAvatar()
+    @State private var selectedOption: String = "Hair"
+    @EnvironmentObject var avatar: Avatar
     
     
     var body: some View {
@@ -21,20 +21,19 @@ struct ProfileView: View {
             NavigationView{
                 ZStack{
                     Rectangle()
-                        .fill(.blue)
+                        .fill(Color.appPrimary)
                     
                     AvatarView(avatar: avatar)
+                        .animation(.smooth) 
                         .offset(y: -180)
                     
                     ProfileHeader(isEditing: $isEditing)
-                    
                     
                     VStack(spacing: 0){
                         ZStack{
                             Rectangle()
                                 .frame(width: 230, height: 350)
-                                .opacity(0.01)
-                                .border(.red)
+                                .opacity(0.000001)
                                 .onTapGesture {
                                     isEditing.toggle()
                                 }
@@ -68,7 +67,7 @@ struct EditingOverlay: View {
     @Binding var selectedOption: String
     @ObservedObject var avatar: Avatar
     
-    let options = ["All", "Hair", "Badge"]
+    let options = ["Hair", "Badge"]
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible()),
                                GridItem(.flexible())]
@@ -104,13 +103,13 @@ struct EditingOverlay: View {
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(selectedOption == option ? .black : Color(red: 0.63, green: 0.63, blue: 0.63))
-                            .padding(.horizontal, 13)
+                            .padding(13)
                         
                     }
                 }
                 Spacer()
             }
-            .padding()
+           
             
             TabView(selection: $selectedOption) {
                 ForEach(options, id: \.self) { option in
@@ -118,7 +117,8 @@ struct EditingOverlay: View {
                         LazyVGrid(columns: columns, spacing: 20) {
                             
                             ForEach(option == "Hair" ? ownedHair : option == "Badge" ? ownedBadge : avatar.ownedAccessories) { accessory in
-                                AccessoryItemView(category: option, accessory: accessory, avatar: avatar)
+                                AccessoryItemView(category: option, accessory: accessory, option: option, avatar: avatar)
+                                    .padding(.all, 7)
                             }
                         }
                     }
@@ -134,27 +134,43 @@ struct EditingOverlay: View {
 struct AccessoryItemView: View {
     let category: String
     let accessory: Accessory
+    let option: String
     @ObservedObject var avatar: Avatar
     
     var body: some View {
         let isClicked = getIsClicked()
         
-        Rectangle()
-            .foregroundColor(isClicked ? .blue : .white)
+        RoundedRectangle(cornerRadius: 16)
+            .stroke(lineWidth: 4)
+//                    .cornerRadius(16)
+            .foregroundColor(isClicked ? Color.appPrimary : .white)
             .frame(width: 110, height: 110)
-            .cornerRadius(16)
             .shadow(color: .black.opacity(0.1), radius: 5, x: 2, y: 2)
             .overlay(
                 VStack {
-                    accessory.image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 110, height: 110)
-                    
+                    if option == "Hair" {
+                        VStack {
+                            accessory.image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 110, height: 110)
+                            
+                        }
+                            .offset(y: 25)
+                            .clipShape(Rectangle())
+                    } else if option == "Badge" {
+                        VStack {
+                            accessory.image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 85, height: 85)
+                            
+                        }
+                    } else {
+                        
+                    }
                 }
-                    .offset(y: 25)
-                    .clipShape(Rectangle())
-                    .border(.red)
+                
             )
             .onTapGesture {
                 if accessory.getAccessoryType() == "hair" {
@@ -209,8 +225,8 @@ struct ProfileOverlay: View{
                         .padding(.top)
                     
                     HStack {
-                        RecordCardView(title: "Highest Streak", value: "45", imageName: "Medicine")
-                        RecordCardView(title: "Current Streak", value: "99", imageName: "Medicine")
+                        RecordCardView(title: "Highest Streak", value: "45", imageName: "Streak")
+                        RecordCardView(title: "Current Streak", value: "99", imageName: "Streak")
                     }
                     
                     HStack {
@@ -261,18 +277,28 @@ struct AvatarView: View{
                 .resizable()
                 .scaledToFit()
             
+            
             if let selectedHair = avatar.selectedHair {
                 selectedHair.image
                     .resizable()
                     .scaledToFit()
             }
             
+            if let selectedBadge = avatar.selectedBadge {
+                selectedBadge.image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 25, height: 25)
+                    .offset(x: -15, y: 10)
+            }
         }
     }
 }
 
 struct ProfileHeader: View {
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var avatar: Avatar
+    
     @Binding var isEditing: Bool
     
     var body: some View {
@@ -283,6 +309,7 @@ struct ProfileHeader: View {
                     .foregroundColor(.black)
                     .fontWeight(.semibold)
                     .onTapGesture {
+                        avatar.showProfile = false
                         presentationMode.wrappedValue.dismiss()
                         if isEditing{
                             isEditing.toggle()
@@ -290,26 +317,21 @@ struct ProfileHeader: View {
                     }
                 
                 Spacer()
-                
-                NavigationLink(destination: SettingsPage()) {
-                    Image(systemName: "gearshape")
-                        .foregroundColor(.white)
-                        .frame(width: 26, height: 22)
-                        .bold()
-
-                }
+                Image(systemName: "gearshape")
+                    .foregroundColor(.white)
+                    .frame(width: 26, height: 22)
+                    .bold()
                 
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 65)
-            
             Spacer()
         }
     }
 }
 
 #Preview {
-    NavigationView {
-        ProfileView()
-    }
+    ProfileView()
+        .environmentObject(Avatar.maleAvatar())
 }
+

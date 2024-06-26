@@ -21,8 +21,8 @@ struct AllAchievementsView: View {
                         .padding(.top)
                     
                     HStack{
-                        RecordCardView(title: "Current Streak", value: "45", imageName: "Medicine")
-                        RecordCardView(title: "Highest Streak", value: "99", imageName: "Medicine")
+                        RecordCardView(title: "Current Streak", value: "45", imageName: "Streak")
+                        RecordCardView(title: "Highest Streak", value: "99", imageName: "Streak")
                     }
                     
                     Text("Your Achievements")
@@ -61,7 +61,7 @@ struct RecordCardView: View {
             HStack(spacing: 16) {
                 Image(imageName)
                     .resizable()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 55, height: 55)
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(value)
