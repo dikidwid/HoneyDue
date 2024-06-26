@@ -12,10 +12,10 @@ struct Icon: Identifiable {
     var position: CGPoint
     var height: Double
     var width: Double
-    var category: String
-    var isInteractible: Bool
-    var imageName: String
-    var shine: Bool = true
+    var category: String //gada
+    var isInteractible: Bool //isEnable
+    var imageName: String //
+   // var shine: Bool = true
 }
 
 
