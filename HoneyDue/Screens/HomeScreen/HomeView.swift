@@ -11,7 +11,7 @@ import SwiftData
 struct HomeView: View {
     let shineTimer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
-    
+    @StateObject var avatar: Avatar = .maleAvatar()
     // Scan Expense
     @StateObject var scanExpenseViewModel = ScanExpenseViewModel()
     @StateObject var scanExpenseNav = ScanExpenseNavigationViewModel()
@@ -25,9 +25,19 @@ struct HomeView: View {
             GeometryReader { geometry in
                 let screenWidth = geometry.size.width
                 let screenHeight = geometry.size.height
-                
+
                 ZStack {
                     backgroundView(screenWidth: screenWidth, screenHeight: screenHeight)
+                    
+                    ZStack {
+                        AvatarView(avatar: avatar)
+                            .frame(width: 150)
+                            .position(CGPoint(x: 170.0, y: 440.0))
+                            .onTapGesture {
+                                
+                            }
+                    }
+                    
                     iconsView(screenWidth: screenWidth, screenHeight: screenHeight)
                     let calculatedPosition = CGPoint (
                         x: Item.cameraItem.position.x * screenWidth,

@@ -45,38 +45,6 @@ struct AllAchievementsView: View {
     }
 }
 
-struct TopBarBack: View {
-    var title: String
-    @Environment(\.presentationMode) var presentationMode
-    var disabled: Bool = false
-    
-    var body: some View {
-        ZStack {
-            HStack {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(.primary)
-                        .fontWeight(.semibold)
-                }
-                .disabled(disabled)
-                Spacer()
-            }
-            HStack {
-                Spacer()
-                Text(title)
-                    .font(.system(size: 20))
-                    .fontWeight(.bold)
-                Spacer()
-            }
-        }
-        .padding(.bottom, 5)
-        .opacity(disabled ? 0.5 : 1.0)
-        .overlay(disabled ? Color.white.opacity(0.001) : Color.clear)
-    }
-}
-
 struct RecordCardView: View {
     var title: String
     var value: String
