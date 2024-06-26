@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ScanExpenseSelectTransactionPage: View {
     @EnvironmentObject var nav: ScanExpenseNavigationViewModel
+    
+    @Environment(\.modelContext) var modelContext
     @Environment(\.presentationMode) var presentationMode
 
     @ObservedObject var viewModel = ScanExpenseSelectTransactionViewModel(
@@ -16,6 +18,9 @@ struct ScanExpenseSelectTransactionPage: View {
     )
     @State private var shouldNextPage: Bool = false
     
+    @State var customNotification: Notification = .successAddExpense
+    @State var isShowCustomNotification: Bool = false
+    @State var isDisableButton: Bool = false
     
     var body: some View {
         ScrollView {
@@ -47,7 +52,6 @@ struct ScanExpenseSelectTransactionPage: View {
                 }
                 .padding(.top, 2)
                 
-                
                 HStack {
                     Checkbox(isChecked: $viewModel.isSelectAll)
                     Text("Select All")
@@ -55,8 +59,7 @@ struct ScanExpenseSelectTransactionPage: View {
                 }
                 
                 Button(action: {
-                    shouldNextPage = true
-                    nav.path.append(ScanExpenseNavigationDestination.success)
+                    saveExpense()
                 }) {
                     Text("Save")
                         .fontWeight(.bold)
@@ -70,6 +73,8 @@ struct ScanExpenseSelectTransactionPage: View {
                 .background(Color(UIColor.systemGray6))
                 .edgesIgnoringSafeArea(.all)
                 .padding(.top)
+                .disabled(isDisableButton)
+                .opacity(isDisableButton ? 0.5 : 1.0)
                 
                 Spacer()
             }
@@ -78,8 +83,37 @@ struct ScanExpenseSelectTransactionPage: View {
         .onAppear {
             viewModel.onIndividualCheckboxChange()
         }
+        .overlay {
+            NotificationView(notification: customNotification)
+                .shadow(color: .black.opacity(0.5), radius: 10)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .offset(y: isShowCustomNotification ? 0 : -150)
+                .animation(.interpolatingSpring, value: isShowCustomNotification)
+        }
         .navigationBarBackButtonHidden(true)
     }
+    
+    func saveExpense() {
+//        shouldNextPage = true
+//        nav.path.append(ScanExpenseNavigationDestination.success)
+        
+        let expenses = viewModel.expenseResult.getItemsAsExpense()
+        for e in expenses {
+            modelContext.insert(e)
+        }
+        
+        isShowCustomNotification = true
+        isDisableButton = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.isShowCustomNotification = false
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            nav.path.removeLast(nav.path.count)
+            isDisableButton = false
+        }
+    }
+    
 }
 
 struct ExpenseTransactionItemView: View {
@@ -100,7 +134,7 @@ struct ExpenseTransactionItemView: View {
             if showIcon {
                 ZStack {
                     Circle()
-                        .foregroundStyle(itemCategory.getColor())
+                        .foregroundStyle(itemCategory.color)
                         .opacity(1)
                         .frame(width: 52, height: 52)
                     Image(systemName: itemCategory.icon)

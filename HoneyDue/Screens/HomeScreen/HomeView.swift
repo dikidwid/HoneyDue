@@ -16,11 +16,10 @@ struct HomeView: View {
     @StateObject var scanExpenseViewModel = ScanExpenseViewModel()
     @StateObject var scanExpenseNav = ScanExpenseNavigationViewModel()
     
-//    @Environment(\.modelContext) var modelContext
+    //    @Environment(\.modelContext) var modelContext
     
-//    @Query private var categories: [Category]
+    //    @Query private var categories: [Category]
     
-
     var body: some View {
         NavigationStack(path: $scanExpenseNav.path) {
             GeometryReader { geometry in
@@ -108,6 +107,12 @@ struct HomeView: View {
                 }
                 .background(.white)
             }
+            
+            NotificationView(notification: scanExpenseViewModel.customNotification)
+                .shadow(color: .black.opacity(0.5), radius: 10)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .offset(y: scanExpenseViewModel.isShowCustomNotification ? 0 : -150)
+                .animation(.interpolatingSpring, value: scanExpenseViewModel.isShowCustomNotification)
         }
         .environmentObject(scanExpenseNav)
     }
@@ -182,7 +187,7 @@ struct HomeView: View {
 }
 
 #Preview {
-//    ModelContainerPreview(ModelContainer.sample) {
-        HomeView(viewModel: HomeViewModel(dataSource: CategoryDataSource.shared))
-//    }
+    //    ModelContainerPreview(ModelContainer.sample) {
+    HomeView(viewModel: HomeViewModel(dataSource: CategoryDataSource.shared))
+    //    }
 }

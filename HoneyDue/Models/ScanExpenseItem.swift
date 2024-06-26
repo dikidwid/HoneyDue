@@ -45,8 +45,9 @@ struct ScanExpenseItem : Hashable, Codable, Identifiable {
         // TODO: Convert to ExpenseItem includes taxRate.
     }
     
-    func getCategory() -> TransactionCategory {
-        return TransactionCategory.categories.first(where: { item in item.name == categoryString }) ?? TransactionCategory.categories[0]
+    func getCategory() -> Category {
+        return Category.categories.first(where: { item in item.name == categoryString }) ?? Category.categories.last!
+//        return TransactionCategory.categories.first(where: { item in item.name == categoryString }) ?? TransactionCategory.categories[0]
     }
     
     static func fromJsonArray(jsonString: String) -> [ScanExpenseItem] {
