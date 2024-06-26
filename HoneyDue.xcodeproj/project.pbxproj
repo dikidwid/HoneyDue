@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2316BF922C2B2A1B005242A7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2316BF912C2B2A1B005242A7 /* OnboardingView.swift */; };
+		2316BF942C2B4526005242A7 /* SetCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2316BF932C2B4526005242A7 /* SetCategoryView.swift */; };
+		2316BF962C2BAF83005242A7 /* SetBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2316BF952C2BAF83005242A7 /* SetBudgetView.swift */; };
+		23DC0F832C2BBC9F0079003A /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DC0F822C2BBC9F0079003A /* KeyboardResponder.swift */; };
+		23DC0F852C2BC76B0079003A /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DC0F842C2BC76B0079003A /* ConfirmationView.swift */; };
 		3A71912C2C23E548006F2516 /* HoneyDueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A71912B2C23E548006F2516 /* HoneyDueApp.swift */; };
 		3A71912E2C23E548006F2516 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A71912D2C23E548006F2516 /* ContentView.swift */; };
 		3A7191302C23E549006F2516 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A71912F2C23E549006F2516 /* Assets.xcassets */; };
@@ -32,6 +37,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2316BF912C2B2A1B005242A7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		2316BF932C2B4526005242A7 /* SetCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCategoryView.swift; sourceTree = "<group>"; };
+		2316BF952C2BAF83005242A7 /* SetBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBudgetView.swift; sourceTree = "<group>"; };
+		23DC0F822C2BBC9F0079003A /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		23DC0F842C2BC76B0079003A /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
 		3A7191282C23E548006F2516 /* HoneyDue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoneyDue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A71912B2C23E548006F2516 /* HoneyDueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyDueApp.swift; sourceTree = "<group>"; };
 		3A71912D2C23E548006F2516 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,6 +78,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2316BF8F2C2AC88E005242A7 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				2316BF932C2B4526005242A7 /* SetCategoryView.swift */,
+				2316BF952C2BAF83005242A7 /* SetBudgetView.swift */,
+				23DC0F842C2BC76B0079003A /* ConfirmationView.swift */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
+		2316BF902C2AC89A005242A7 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				2316BF912C2B2A1B005242A7 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		3A71911F2C23E548006F2516 = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +141,8 @@
 				3AF496F92C2A9371005051FF /* AddExpenseView.swift */,
 				3AF496FA2C2A9371005051FF /* ExpenseCategoryListView.swift */,
 				3AF496FB2C2A9371005051FF /* ExpenseDetailView.swift */,
+				2316BF902C2AC89A005242A7 /* Onboarding */,
+				2316BF8F2C2AC88E005242A7 /* Tutorial */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -132,6 +162,7 @@
 			children = (
 				3AF497012C2A9371005051FF /* ModelContainerPreview.swift */,
 				3AF497022C2A9371005051FF /* Preview+ModelContainer.swift */,
+				23DC0F822C2BBC9F0079003A /* KeyboardResponder.swift */,
 			);
 			path = PreviewHelper;
 			sourceTree = "<group>";
@@ -240,11 +271,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AF4971D2C2A9372005051FF /* CustomButtonView.swift in Sources */,
+				2316BF962C2BAF83005242A7 /* SetBudgetView.swift in Sources */,
 				3AF4971A2C2A9372005051FF /* Expense.swift in Sources */,
 				3AF497162C2A9372005051FF /* String+Extension.swift in Sources */,
 				3AF4971E2C2A9372005051FF /* CustomTextFieldView.swift in Sources */,
+				23DC0F832C2BBC9F0079003A /* KeyboardResponder.swift in Sources */,
 				3AF497202C2A9372005051FF /* ExpenseRowView.swift in Sources */,
 				3AF497112C2A9372005051FF /* AddExpenseView.swift in Sources */,
+				2316BF922C2B2A1B005242A7 /* OnboardingView.swift in Sources */,
+				2316BF942C2B4526005242A7 /* SetCategoryView.swift in Sources */,
+				23DC0F852C2BC76B0079003A /* ConfirmationView.swift in Sources */,
 				3AF497152C2A9372005051FF /* Color+Extension.swift in Sources */,
 				3AF497122C2A9372005051FF /* ExpenseCategoryListView.swift in Sources */,
 				3AF497142C2A9372005051FF /* CGFloat+Extension.swift in Sources */,
@@ -392,7 +428,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HoneyDue/Preview Content\"";
-				DEVELOPMENT_TEAM = QJ4D5LRK3T;
+				DEVELOPMENT_TEAM = 9RHVW943AV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -400,6 +436,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -421,7 +458,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HoneyDue/Preview Content\"";
-				DEVELOPMENT_TEAM = QJ4D5LRK3T;
+				DEVELOPMENT_TEAM = 9RHVW943AV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -429,6 +466,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

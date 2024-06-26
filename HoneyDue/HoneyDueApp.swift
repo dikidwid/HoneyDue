@@ -32,7 +32,7 @@ struct HoneyDueApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ExpenseCategoryListView()
+            SetCategoryView()
         }
         .modelContainer(container)
     }
