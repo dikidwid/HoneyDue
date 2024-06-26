@@ -10,7 +10,7 @@ import SwiftData
 
 struct HomeView: View {
     let shineTimer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
-    @StateObject var viewModel: HomeViewModel = HomeViewModel()
+    @ObservedObject var viewModel: HomeViewModel
     @StateObject var avatar: Avatar = .maleAvatar()
     
     @StateObject var scanExpenseViewModel = ScanExpenseViewModel()
@@ -54,6 +54,7 @@ struct HomeView: View {
                         x: Item.cameraItem.position.x * screenWidth,
                         y: Item.cameraItem.position.y * screenHeight
                     )
+
                     
                     Image(Item.cameraItem.image)
                         .resizable()
@@ -189,14 +190,19 @@ struct HomeView: View {
                 .offset(y: scanExpenseViewModel.isShowCustomNotification ? 0 : -150)
                 .animation(.interpolatingSpring, value: scanExpenseViewModel.isShowCustomNotification)
         }
-        .statusBar(hidden: true)
-        .onAppear{
-            print(viewModel.categories )
+        .sheet(isPresented: $viewModel.isShowDetailCategory) {
+            ExpenseDetailView(category: viewModel.selectedCategory, isShowAddExpense: $viewModel.isShowAddExpenseView)
+                .padding(.all, 5)
+                .presentationDragIndicator(.visible)
+                .presentationCornerRadius(.modalityCornerRadius)
+                .presentationDetents([.fraction(0.7)])
         }
+        .statusBar(hidden: true)
         .environmentObject(scanExpenseNav)
         .environmentObject(avatar)
         .environmentObject(overviewViewModel)
-
+        .environmentObject(viewModel)
+        .modelContainer(CategoryDataSource.shared.modelContainer)
     }
     
     private func backgroundView(screenWidth: CGFloat, screenHeight: CGFloat) -> some View {
@@ -223,11 +229,10 @@ struct HomeView: View {
             ZStack {
                 ItemView(item: $viewModel.categories[index].item, isEditMode: $viewModel.isEditMode, shine: $viewModel.shine, calculatedPosition: calculatedPosition, isEnable: $viewModel.categories[index].isEnable)
                 
-                ItemViewTapArea(item: $viewModel.categories[index].item,
+                ItemViewTapArea(category: $viewModel.categories[index],
+                                selectedCategory: $viewModel.categories[index],
                                 isEditMode: $viewModel.isEditMode,
-                                calculatedPosition: calculatedPosition,
-                                isEnable: $viewModel.categories[index].isEnable)
-                
+                                calculatedPosition: calculatedPosition)
             }
         }
     }

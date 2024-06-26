@@ -47,7 +47,7 @@ struct HoneyDueAppRoot: View {
             if onboardingService.shouldShowOnboarding {
                 OnboardingView()
             } else {
-                HomeView()
+                HomeView(viewModel: HomeViewModel(dataSource: CategoryDataSource.shared))
             }
         }
         .environmentObject(onboardingService)

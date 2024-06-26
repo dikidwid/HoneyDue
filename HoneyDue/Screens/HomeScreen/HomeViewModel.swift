@@ -10,13 +10,16 @@ import SwiftData
 
 final class HomeViewModel: ObservableObject {
     @Published var shine: Bool = false
-    @Published var selectedCategory: Category? = nil
+    @Published var selectedCategory: Category = .categories[0]
+    @Published var isShowDetailCategory: Bool = false
+    @Published var isShowAddExpenseView: Bool = false
     @Published var selectedCategoryEdit: Category? = nil
     @Published var showModal = false
     @Published var isEditMode = false
     @Published var showEditModal = false
     @Published var initialCategoriesState: [Category] = []
     @Published var categories: [Category] = []
+    
     
     private let dataSource: CategoryDataSource
     
@@ -52,8 +55,8 @@ final class HomeViewModel: ObservableObject {
 }
 
 final class CategoryDataSource {
-    private let modelContainer: ModelContainer
-    private let modelContext: ModelContext
+    let modelContainer: ModelContainer
+    let modelContext: ModelContext
     
     @MainActor
     static let shared = CategoryDataSource()
