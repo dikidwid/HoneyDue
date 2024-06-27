@@ -36,7 +36,7 @@ struct SetCategoryView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: SetBudgetView(selectedCategories: selectedCategories), isActive: $showSetBudgetView) {
+                NavigationLink(destination: SetBudgetView(selectedCategories: selectedCategories).presentationDetents([.fraction(0.5)]), isActive: $showSetBudgetView) {
                     EmptyView()
                 }
                 //            Spacer()

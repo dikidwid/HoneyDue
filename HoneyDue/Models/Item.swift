@@ -28,7 +28,7 @@ extension Item {
         return CGPoint(x: positionX, y: positionY)
     }
     
-    static let foodItem = Item(image: "Fridge", position: CGPoint(x: 0.16, y: 0.12075), width: 110)
+    static let foodItem = Item(image: "Fridge", position: CGPoint(x: 0.17, y: 0.12075), width: 110)
     static let transportItem = Item(image: "Transport", position: CGPoint(x: 0.73, y: 0.91), width: 213)
     static let utilitiesItem = Item(image: "Utilities", position: CGPoint(x: 0.19, y: 0.580), width: 50)
     static let clothesItem = Item(image: "Clothes", position: CGPoint(x: 0.685, y: 0.6), width: 48)

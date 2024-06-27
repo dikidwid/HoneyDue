@@ -136,7 +136,7 @@ struct OnboardingView: View {
             SetCategoryView()
                 .presentationDragIndicator(.visible)
                 .presentationCornerRadius(.modalityCornerRadius)
-                .presentationDetents([.fraction(0.7)])
+                .presentationDetents([.fraction(0.8)])
         }
         .background(Image("OnboardingBg")
             .resizable()

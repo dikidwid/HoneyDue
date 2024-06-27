@@ -57,6 +57,9 @@ struct SetBudgetView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
+                
+                Spacer()
+                
                 VStack {
                     Text("Set Your Budget!")
                         .font(.system(size: 20, weight: .bold))

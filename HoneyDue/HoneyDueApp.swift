@@ -11,8 +11,6 @@ import SwiftData
 @main
 @MainActor
 struct HoneyDueApp: App {
-
-    
     var body: some Scene {
         WindowGroup {
             HoneyDueAppRoot()
