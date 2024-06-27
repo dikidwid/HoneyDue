@@ -60,7 +60,6 @@
 		E62FE3222C2ABB1F00815BBC /* ExpenseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3212C2ABB1C00815BBC /* ExpenseRowView.swift */; };
 		E62FE3242C2ABB3700815BBC /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FE3232C2ABB3500815BBC /* NotificationView.swift */; };
 		E632FA632C2ABB9000DABF55 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E632FA622C2ABB8C00DABF55 /* ProgressBarView.swift */; };
-		E65CCFA22C2C605E00A44AED /* HoneyDueAppRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCFA12C2C605500A44AED /* HoneyDueAppRoot.swift */; };
 		E65CCFA42C2C651E00A44AED /* GlobalNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCFA32C2C651700A44AED /* GlobalNavigationViewModel.swift */; };
 		E67C2C722C2A943E0087D41A /* NavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C2C712C2A943D0087D41A /* NavStack.swift */; };
 		E68DB17C2C2C1985004BF2F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A71912F2C23E549006F2516 /* Assets.xcassets */; };
@@ -138,7 +137,6 @@
 		E62FE3212C2ABB1C00815BBC /* ExpenseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseRowView.swift; sourceTree = "<group>"; };
 		E62FE3232C2ABB3500815BBC /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		E632FA622C2ABB8C00DABF55 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
-		E65CCFA12C2C605500A44AED /* HoneyDueAppRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyDueAppRoot.swift; sourceTree = "<group>"; };
 		E65CCFA32C2C651700A44AED /* GlobalNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalNavigationViewModel.swift; sourceTree = "<group>"; };
 		E67C2C712C2A943D0087D41A /* NavStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavStack.swift; sourceTree = "<group>"; };
 		E6A2590C2C2B11A0009CAC2D /* ScanExpenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExpenseViewModel.swift; sourceTree = "<group>"; };
@@ -268,7 +266,6 @@
 				E6C526402C23EB9200D3DCA0 /* Screens */,
 				E6138FAF2C2A63820057A8A7 /* Views */,
 				3A71912B2C23E548006F2516 /* HoneyDueApp.swift */,
-				E65CCFA12C2C605500A44AED /* HoneyDueAppRoot.swift */,
 				E67C2C712C2A943D0087D41A /* NavStack.swift */,
 			);
 			path = HoneyDue;
@@ -526,7 +523,6 @@
 				E62FE3162C2ABAD300815BBC /* ExpenseCategoryListView.swift in Sources */,
 				E62FE3222C2ABB1F00815BBC /* ExpenseRowView.swift in Sources */,
 				E62FE3182C2ABAE000815BBC /* ExpenseDetailView.swift in Sources */,
-				E65CCFA22C2C605E00A44AED /* HoneyDueAppRoot.swift in Sources */,
 				E62FE3112C2ABAA100815BBC /* Notification.swift in Sources */,
 				E6C526562C24584800D3DCA0 /* ScanExpenseReadingPage.swift in Sources */,
 				E62FE3062C2ABA5D00815BBC /* String+Extension.swift in Sources */,
